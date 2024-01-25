@@ -1,0 +1,249 @@
+@charset "UTF-8";
+/**
+ * CSS 상수 항목(컬러, 폰트 사이즈, 화면 사이즈 등등)을 이 파일에 정의합니다.
+ * 이 파일은 all.css에서 import되어 사용됩니다.
+ *
+ * [Selector Naming Convention]
+ * id : 앞에 3~4자로 종류(ex. btn, form)를 표현하고, 바로 뒤에 고유한 이름을 붙임(한글 가능)
+ * class : snake case
+ **/
+
+:root {
+	/* 기본 폰트 정보 */
+	--base-font-family: "NotoSansKR", "맑은 고딕", Arial, Tahoma;
+	--base-font-size: 13px;
+	/* --base-letter-spacing: -0.025em; */
+
+	/* 기본 폰트 색상 */
+	--base-text-color: #111;
+	--sub-text-color: #888;
+
+	/* 자간 */
+	--base-letter-spacing: -0.5px;
+
+	/* 컬러칩 정보 */
+	--primary: #046FD9;
+	--strong: #FF4343;
+	--info: #888;
+	/* --error: #FD7A01; */
+
+	/* 사이트 최소 사이즈 */
+	--page-min-width: 1280px;
+	--page-width: 1280px;
+
+	/* 기본 배경색 */
+	--base-bg-color: #F1F4F8;
+
+	/* 타이틀 폰트 정보 */
+	--title-font-size: 18px;
+	--sub-font-size: 16px;
+	--title-color: #111;
+
+	/* POPUP 타이틀 폰트 정보 */
+	--popup-title-font-size: 20px;
+	--popup-sub-font-size: 16px;
+	
+	/* 테두리 색상 정보 */
+	--border-color: #888;
+
+	/* rounded */
+	--border-radius: 8px;
+
+	/* shadow */
+	--box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.08);
+
+	/* active color */
+	--active-color: #333;
+
+	/* 인풋색상 정보 */
+	--input-border-color: #ddd;
+	--input-border-color-focused: var(--primary);
+	--input-bg-color: #fff;
+	--input-bg-color-disabled: #eee;
+	--input-text-color: #333;
+	--input-text-color-disabled: #333;
+	--input-icon-color: var(--primary);	/* 입력창 안에 아이콘(검색, ...) 색상 */
+	--input-unit-color: #666;	/* 입력창 뒤에 단위(원, ...) 색상*/
+	--input-placeholder-color: #888;
+
+	--input-invalid-seccess: #4676FB;
+	--input-invalid-error: #FD7A01;
+	
+	--checkbox-size: 20px;
+	--checkbox-border-color: #bbb;
+	--checkbox-border-color-focused: var(--primary);
+	--checkbox-color-disabled: #ddd;
+	--checkbox-bg-color-disabled: #ddd;
+
+	/* 데이터그리드 색상 정보 */
+	--table-bg-color: #fff;
+	--table-thead-bg-color: #F3F8FC;
+	--table-tfoot-bg-color: #fff;
+	
+	--table-text-color: var(--base-text-color);
+
+	--table-row-bg-color-on: #f3f8fc;
+	--table-row-bg-color-hover: #f4f4f4;
+	--table-row-bg-rgba-hover: rgba(248, 248, 248, 1);
+
+	--table-border-top-color: #333;
+	--table-thead-border-color: #C9D8F2;
+	--table-tfoot-border-color: #ddd;
+	--table-border-color: #ddd;
+
+	--table-row-height: 28px;
+
+	/* 탭 색상 정보 */
+	--tab-text-color: #666;
+	--tab-text-color-active: var(--primary);
+	--tab-font-size: 14px;
+	--tab-bg-color-active: #fff;
+	--tab-border-color-active: var(--primary);
+
+	/* 검색 영역 1칸 넓이 */
+	--col-width: 8.333%;
+}
+
+
+/* 전체 스크롤바 custom */
+* {
+	scrollbar-width: thin;
+}
+::-webkit-scrollbar {
+	width: 7px;
+	height: 7px;
+}
+::-webkit-scrollbar-track {
+	background-color: #4242421a;
+	border-radius: 5px;
+}
+::-webkit-scrollbar-thumb {
+	background: #c6c6c6;
+	border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+	background: #848484; 
+}
+
+/* disabled 요소에 마우스 올렸을때 커서 모양*/
+/* :disabled {
+	cursor: not-allowed;
+	pointer-events: all !important;
+} */
+
+/* [웹접근성] 전체 사이트의 focus 가능한 요소에 outline을 주려면 아래 comment를 풀 것. */
+:focus {
+	outline: 0;
+	/* outline: solid 2px red !important; outline-offset: 0; */
+}
+
+/* placeholder */
+::placeholder {
+	color: #888;
+	font-size: 12px;
+}
+
+xmp {
+	white-space: pre-wrap;
+}
+
+/* 구분선 */
+hr {
+	margin: 0 0 12px 0;
+	padding: 0;
+	border: 0;
+	border-top: 1px solid #8EA4B7;
+}
+/* 세로구분선 */
+hr.vertical {
+	margin: 0 8px;
+	padding: 0;
+	height: 12px;
+	border: 0;
+	border-right: 1px solid #ddd;
+}
+/* 팝업 하단 버튼 위에 경계선 */
+hr.dashed {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	border-top: 1px dashed #ddd;
+}
+
+
+/************************************************
+	COLOR
+************************************************/
+.text-primary {
+	color: var(--primary) !important;
+}
+.text-strong {
+	color: var(--strong) !important;
+}
+.text-warning {
+	color: var(--warning) !important;
+}
+.text-info {
+	color: var(--info) !important;
+}
+
+.bg-primary {
+	background-color: var(--primary);
+}
+.bg-strong {
+	background-color: var(--strong);
+}
+.bg-warning {
+	background-color: var(--warning);
+}
+
+
+/************************************************
+	ALIGN
+************************************************/
+.text-left { text-align: left !important; }
+.text-center { text-align: center !important; }
+.text-right { text-align: right !important; }
+
+
+
+/************************************************
+	BORDER
+************************************************/
+.bt0 { border-top: 0 !important; }
+
+
+/************************************************
+	MARGIN
+************************************************/
+.mt0 { margin-top: 0 !important; }
+.mt4 { margin-top: 4px !important;}
+.mt8 { margin-top: 8px !important;}
+.mt24 { margin-top: 24px !important;}
+.mt30 { margin-top: 30px !important;}
+
+.ml0 { margin-left: 0px !important;}
+.ml8 { margin-left: 8px !important;}
+
+.mr8 { margin-right: 8px !important;}
+.mr15 { margin-right: 15px !important;}
+.mr25 { margin-right: 25px !important;}
+
+.mb8 { margin-bottom: 8px !important;}
+.mb20 { margin-bottom: 20px !important;}
+
+
+/************************************************
+	PADDING
+************************************************/
+.pl8 { padding-left: 8px !important;}
+.pr8 { padding-right: 8px !important;}
+
+.pd0 { padding: 0 !important; }
+.pb0 { padding-bottom: 0 !important; }
+
+
+/************************************************
+	WIDTH
+************************************************/
+.w100 { width: 100px; }

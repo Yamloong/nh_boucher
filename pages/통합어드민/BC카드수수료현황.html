@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>BC카드 수수료 현황</title>
+
+<!--v Packages -->
+<script src="../../assets/js/jquery.min.js"></script>
+
+<link href="../../assets/css/jquery-ui.min.css" rel="stylesheet" />
+<script src="../../assets/js/jquery-ui.min.js"></script>
+
+<link href="../../assets/css/select2.min.css" rel="stylesheet" />
+<script src="../../assets/js/select2.min.js"></script>
+
+<!-- SBGrid -->
+<script src="../../assets/js/SBGrid3/sbgrid3.js" type="text/javascript"></script>
+<link href="../../assets/js/SBGrid3/css/sbgrid3.css" rel="stylesheet" />
+<!--^ Packages -->
+
+<link href="../../assets/css/all.css" rel="stylesheet" />
+<script src="../../assets/js/util.js"></script>
+
+<script>
+let datagrid;
+SBGrid3.$(document).ready(function(){
+	createGrid();
+});
+
+const calcData = [
+    {
+        "field01": "아동급식",
+        "field02": "충청북도",
+        "field03": "202308",
+        "field04": "3010315879461",
+        "field05": "323456789000",
+        "field06": "충북 괴산군",
+        "field07": "0512",
+        "field08": 1205,
+        "field09": 321,
+        "field10": 2615125,
+		"field11-1": 259251,
+		"field11-2": 75485,
+		"field11-3": 57511,
+		"field11-4": 0,
+		"field11-5": 104770,
+		"field11-6": 74770,
+		"field11-7": 0,
+    },
+    {
+        "field01": "아동급식",
+        "field02": "충청북도",
+        "field03": "202308",
+        "field04": "3010185493341",
+        "field05": "323456789000",
+        "field06": "충북 단양군",
+        "field07": "0512",
+        "field08": 1205,
+        "field09": 321,
+        "field10": 26192525,
+		"field11-1": 259251,
+		"field11-2": 75485,
+		"field11-3": 57511,
+		"field11-4": 0,
+		"field11-5": 104770,
+		"field11-6": 74770,
+		"field11-7": 0,
+    },
+    {
+        "field01": "아동급식",
+        "field02": "대전광역시",
+        "field03": "202308",
+        "field04": "3010315879461",
+        "field05": "323456789000",
+        "field06": "대전 동구",
+        "field07": "0512",
+        "field08": 1205,
+        "field09": 321,
+        "field10": 61925081,
+		"field11-1": 259251,
+		"field11-2": 75485,
+		"field11-3": 57511,
+		"field11-4": 0,
+		"field11-5": 104770,
+		"field11-6": 74770,
+		"field11-7": 0,
+    },
+    {
+        "field01": "아동급식",
+        "field02": "대전광역시",
+        "field03": "202308",
+        "field04": "3010185493341",
+        "field05": "323456789000",
+        "field06": "대전 중구",
+        "field07": "0512",
+        "field08": 1205,
+        "field09": 321,
+        "field10": 21925025,
+		"field11-1": 259251,
+		"field11-2": 75485,
+		"field11-3": 57511,
+		"field11-4": 0,
+		"field11-5": 104770,
+		"field11-6": 74770,
+		"field11-7": 0,
+    },
+]
+
+var emptyData = [];
+var maxNumber = 0;
+
+function createGrid(){
+	let dsConfig = {
+		schema:{
+			fields:{
+				field04: {dataType: 'number'}
+			}
+		},
+		groups: [
+			{ field: 'field01', isOpen: true },
+			{ field: 'field02', isOpen: true },
+		],
+		data : calcData,
+	}
+
+	let gridConfig = {
+		dataSource: dsConfig,
+		defaultColumn: {
+			format: '#,###',
+			align: 'right'
+		},
+		container: '#SBGridArea',
+		width: '100%',
+		height: '572px',
+		fixedRows: true, //행높이 고정
+		captionHeight: 32, //헤더 행높이
+		rowHeight: 28, //행높이
+		hover: 'row',
+		showRowNo: false,
+    	mergeRow: true, //열병합
+		pageable: true, //페이징
+		pagerBar: {
+			center: ['pager']
+		},
+		selectable: {
+			selectMode: 'multi',
+			rowSelect: true,
+			columnSelect: true,
+			cellSelect: 'cell',
+		},
+		resizable: {
+			mode: "column",
+			minWidth: 60, 
+			autoFit: ["caption", "data"]
+		},
+		columns: [
+			{ field: 'field01', type:'text', caption:'바우처구분', width: 100, format: 'text', align: 'center', mergeRow: true,
+				groupTitle: { visible: false },
+				groups: [
+					{
+						footer: {template : '{{field01}} 합계', colSpan: 5}
+					}, 
+				],
+			},
+			{ field: 'field02', type:'text', caption:'지역', width: 160, format: 'text', align: 'center', mergeRow: true,
+				groupTitle: { visible: false },
+				groups: [
+					{
+						footer: {template : '[{{field02}}] {{field01}} 합계', colSpan: 4}
+					}, 
+				],
+			},
+			{ field: 'field03', type:'text', caption:'대상월', width: 70, format: 'text', align: 'center'},
+			{ field: 'field04', type:'text', caption:'출금계좌', width: 110, format: 'text', align: 'center'},
+			{ field: 'field05', type:'text', caption:'수수료계좌', width: 110, format: 'text', align: 'center'},
+			{ field: 'field06', type:'text', caption:'지자체명', width: 160, format: 'text', align: 'center'},
+			{ field: 'field07', type:'text', caption:'지자체코드', width: 80, format: 'text', align: 'center'},
+			{ field: 'field08', type:'number', caption:'전체 건수', width: 75,
+				groups: [
+					{
+						group: "field01",
+						aggregates: [{ func: "sum" }],
+						footer: { format: '#,###'}
+					},
+					{
+						group: "field02",
+						aggregates: [{ func: "sum" }],
+						footer: { format: '#,###'}
+					},
+				],
+			},
+			{ field: 'field09', type:'number', caption:'사용인원', width: 75,
+				groups: [
+					{
+						group: "field01",
+						aggregates: [{ func: "sum" }],
+						footer: { format: '#,###'}
+					},
+					{
+						group: "field02",
+						aggregates: [{ func: "sum" }],
+						footer: { format: '#,###'}
+					},
+				],
+			},
+			{ field: 'field10', type:'number', caption:'승인금액 총액', width: 110,
+				groups: [
+					{
+						group: "field01",
+						aggregates: [{ func: "sum" }],
+						footer: { format: '#,###'}
+					},
+					{
+						group: "field02",
+						aggregates: [{ func: "sum" }],
+						footer: { format: '#,###'}
+					},
+				],
+			},
+			{ caption:'합계', width: 90, columns: [
+				{ field: 'field11-1', type:'number', caption:'승인수수료', width: 90,
+					groups: [
+						{
+							group: "field01",
+							aggregates: [{ func: "sum" }],
+							footer: { format: '#,###'}
+						},
+						{
+							group: "field02",
+							aggregates: [{ func: "sum" }],
+							footer: { format: '#,###'}
+						},
+					],
+				},
+				{ field: 'field11-2', type:'number', caption:'BC정률 수수료', width: 90,
+					groups: [
+						{
+							group: "field01",
+							aggregates: [{ func: "sum" }],
+							footer: { format: '#,###'}
+						},
+						{
+							group: "field02",
+							aggregates: [{ func: "sum" }],
+							footer: { format: '#,###'}
+						},
+					],
+				},
+				{ field: 'field11-3', type:'number', caption:'BC건별 수수료', width: 90,
+					groups: [
+						{
+							group: "field01",
+							aggregates: [{ func: "sum" }],
+							footer: { format: '#,###'}
+						},
+						{
+							group: "field02",
+							aggregates: [{ func: "sum" }],
+							footer: { format: '#,###'}
+						},
+					],
+				},
+				{ field: 'field11-4', type:'number', caption:'BC합계 수수료', width: 90,
+					groups: [
+						{
+							group: "field01",
+							aggregates: [{ func: "sum" }],
+							footer: { format: '#,###'}
+						},
+						{
+							group: "field02",
+							aggregates: [{ func: "sum" }],
+							footer: { format: '#,###'}
+						},
+					],
+				},
+				{ field: 'field11-5', type:'number', caption:'웹케시 수수료', width: 90,
+					groups: [
+						{
+							group: "field01",
+							aggregates: [{ func: "sum" }],
+							footer: { format: '#,###'}
+						},
+						{
+							group: "field02",
+							aggregates: [{ func: "sum" }],
+							footer: { format: '#,###'}
+						},
+					],
+				},
+				{ field: 'field11-6', type:'number', caption:'농협부담/보존금', width: 90,
+					groups: [
+						{
+							group: "field01",
+							aggregates: [{ func: "sum" }],
+							footer: { format: '#,###'}
+						},
+						{
+							group: "field02",
+							aggregates: [{ func: "sum" }],
+							footer: { format: '#,###'}
+						},
+					],
+				},
+				{ field: 'field11-7', type:'number', caption:'추가수수료', width: 90,
+					groups: [
+						{
+							group: "field01",
+							aggregates: [{ func: "sum" }],
+							footer: { format: '#,###'}
+						},
+						{
+							group: "field02",
+							aggregates: [{ func: "sum" }],
+							footer: { format: '#,###'}
+						},
+					],
+				},
+			]},
+		],
+	};
+	datagrid = SBGrid3.createGrid(gridConfig);
+	datagrid.refresh();
+	}
+</script>
+</head>
+
+<body class="sub-page">
+	<div id="util">
+		<div class="inner">
+			<div class="info">
+				<div class="administrator">
+					<i class="icon-smile"></i>
+					<span>시스템 관리자</span>
+				</div>
+				<div class="address">경기도 용인시 OO동</div>
+				<div class="log">마지막 로그인 : 2023.05.04 14:05</div>
+				<button type="button" class="btn btn-sub-line">
+					<span>회원정보수정</span>
+				</button>
+				<a href="#" class="btn btn-txt">
+					<span>로그아웃</span>
+				</a>
+			</div>
+		</div>
+	</div>
+	<header>
+		<div class="inner">
+			<div id="gnb">
+				<ul class="gnb-list">
+					<li>
+						<a href="../통합어드민/시스템목록.html">시스템 로그인</a>
+						<div class="gnb-sub-menu">
+							<ul class="menu-list">
+								<li>
+									<span>바우처 로그인</span>
+									<ul class="sub-menu">
+										<li>
+											<a href="../통합어드민/시스템목록.html">
+												<span>시스템 목록</span>
+											</a>
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</div>
+					</li>
+					<li>
+						<a href="../통합어드민/고유가맹점번호관리.html">시스템 관리</a>
+						<div class="gnb-sub-menu">
+							<ul class="menu-list">
+								<li>
+									<span>공통 시스템관리</span>
+									<ul class="sub-menu">
+										<li>
+											<a href="../통합어드민/고유가맹점번호관리.html">
+												<span>고유가맹점번호 관리</span>
+											</a>
+										</li>
+										<li>
+											<a href="../통합어드민/메뉴관리.html">
+												<span>메뉴관리</span>
+											</a>
+										</li>
+										<li>
+											<a href="../통합어드민/공통코드관리.html">
+												<span>공통코드관리</span>
+											</a>
+										</li>
+										<li>
+											<a href="../통합어드민/가맹점분류코드.html">
+												<span>가맹점분류코드</span>
+											</a>
+										</li>
+										<li>
+											<a href="../통합어드민/공휴일관리.html">
+												<span>공휴일 관리</span>
+											</a>
+										</li>
+									</ul>
+								</li>
+								<li>
+									<span>바우처별 시스템관리</span>
+									<ul class="sub-menu">
+										<li>
+											<a href="../통합어드민/학교관리.html">
+												<span>학교관리</span>
+											</a>
+										</li>
+										<li>
+											<a href="../통합어드민/지자체관리.html">
+												<span>지자체관리</span>
+											</a>
+										</li>
+									</ul>
+								</li>
+							</ul><!-- .menu-list -->
+						</div>
+					</li>
+					<li>
+						<a href="../통합어드민/BC카드모니터링.html">모니터링/정산</a>
+						<div class="gnb-sub-menu">
+							<ul class="menu-list">
+								<li>
+									<span>모니터링</span>
+									<ul class="sub-menu">
+										<li>
+											<a href="../통합어드민/BC카드모니터링.html">
+												<span>BC카드모니터링</span>
+											</a>
+										</li>
+										<li>
+											<a href="../통합어드민/정산배치모니터링.html">
+												<span>정산배치모니터링</span>
+											</a>
+										</li>
+										<li>
+											<a href="../통합어드민/대사모니터링.html">
+												<span>대사모니터링</span>
+											</a>
+										</li>
+									</ul>
+								</li>
+								<li>
+									<span>정산</span>
+									<ul class="sub-menu">
+										<li>
+											<a href="../통합어드민/지자체미정산내역.html">
+												<span>지자체미정산내역</span>
+											</a>
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</div>
+					</li>
+					<li class="on">
+						<a href="../통합어드민/월별사용내역.html">통계/분석</a>
+						<div class="gnb-sub-menu">
+							<ul class="menu-list">
+								<li>
+									<span>거래내역</span>
+									<ul class="sub-menu">
+										<li>
+											<a href="../통합어드민/월별사용내역.html">
+												<span>월별사용내역</span>
+											</a>
+										</li>
+										<li>
+											<a href="../통합어드민/일별사용내역.html">
+												<span>일별사용내역</span>
+											</a>
+										</li>
+										<li>
+											<a href="../통합어드민/프랜차이즈상세조회.html">
+												<span>프랜차이즈 상세조회</span>
+											</a>
+										</li>
+									</ul>
+								</li>
+								<li>
+									<span>수수료내역</span>
+									<ul class="sub-menu">
+										<li>
+											<a href="../통합어드민/영업점별수수료현황.html">
+												<span>영업점별 수수료 현황</span>
+											</a>
+										</li>
+										<li>
+											<a href="../통합어드민/VAN사수수료월별.html">
+												<span>VAN사 수수료 월별 현황</span>
+											</a>
+										</li>
+										<li>
+											<a href="../통합어드민/VAN사수수료일별.html">
+												<span>VAN사 수수료 일별 현황</span>
+											</a>
+										</li>
+										<li>
+											<a href="../통합어드민/BC카드수수료현황.html">
+												<span>BC카드 수수료 현황</span>
+											</a>
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</div>
+					</li>
+					<li>
+						<a href="../통합어드민/알림톡월별현황.html">알림톡/문자</a>
+						<div class="gnb-sub-menu">
+							<ul class="menu-list">
+								<li>
+									<span>알림톡/문자</span>
+									<ul class="sub-menu">
+										<li>
+											<a href="../통합어드민/알림톡월별현황.html">
+												<span>알림톡/문자 월별 현황</span>
+											</a>
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</div>
+					</li>
+					<li>
+						<a href="../통합어드민/재료카드요청.html">재료카드</a>
+						<div class="gnb-sub-menu">
+							<ul class="menu-list">
+								<li>
+									<span>재료카드관리</span>
+									<ul class="sub-menu">
+										<li>
+											<a href="../통합어드민/재료카드요청.html">
+												<span>재료카드 요청</span>
+											</a>
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</div>
+					</li>
+				</ul>
+				<button type="button" class="btn btn-txt btn-allmenu">
+					<i class="icon-allmenu"></i>
+					<span>전체보기</span>
+				</button>
+			</div>
+		</div>
+	</header>
+
+	<div class="container">
+		<div id="lnb">
+			<div class="group-title menu_a04">
+				<span>통계/분석</span>
+			</div>
+			<div class="menu-wrap">
+				<ul class="menu-list">
+					<li>
+						<a href="#">
+							<span class="menu_a4-1">거래내역</span>
+							<i class="icon-arrow-down"></i>
+						</a>
+						<ul class="sub-menu">
+							<li>
+								<a href="#">
+									<span>월별사용내역</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span>일별사용내역</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span>프랜차이즈 상세조회</span>
+								</a>
+							</li>
+						</ul>
+					</li>
+					<li class="on">
+						<a href="#">
+							<span class="menu_a4-2">수수료내역</span>
+							<i class="icon-arrow-down"></i>
+						</a>
+						<ul class="sub-menu">
+							<li>
+								<a href="#">
+									<span>영업점별 수수료 현황</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span>VAN사 수수료 월별 현황</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span>VAN사 수수료 일별 현황</span>
+								</a>
+							</li>
+							<li class="on">
+								<a href="#">
+									<span>BC카드 수수료 현황</span>
+								</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				<div class="inquiry">
+					<div>시스템 문의</div>
+					<a href="mailto:wecard@bizplay.co.kr" class="btn btn-txt">
+						<span>wecard@bizplay.co.kr</span>
+					</a>
+				</div>
+			</div>
+		</div>
+		<!-- #lnb -->
+		<div class="content-wrap">
+			<div class="content-body">
+				
+				<div class="search-form-wrap">
+					<div class="content-header">
+						<div class="title-wrap">
+							<div class="title">수수료내역</div>
+							<div class="title">BC카드 수수료 현황</div>
+						</div>
+					</div>
+					<form>
+						<div class="search-form-inner">
+							<div class="search-form">
+
+								<div class="row">
+									<div class="col-3">
+										<label class="form-label" for="바우처구분"><span>바우처 구분</span></label>
+										<div class="form-container">
+											<select class="form-select select2" id="바우처구분" name="바우처구분" data-placeholder="바우처구분">
+												<option value=""></option>
+												<option value="all" selected>전체</option>
+												<option value="옵션2">옵션2</option>
+												<option value="옵션3">옵션3</option>
+												<option value="옵션4">옵션4</option>
+											</select>
+										</div><!-- .form-container -->
+									</div><!-- .col -->
+									<div class="col-3">
+										<label class="form-label" for="지역구분"><span>지역 구분</span></label>
+										<div class="form-container">
+											<select class="form-select select2" id="지역구분" name="지역구분" data-placeholder="지역구분">
+												<option value=""></option>
+												<option value="all" selected>전체</option>
+												<option value="옵션2">옵션2</option>
+												<option value="옵션3">옵션3</option>
+												<option value="옵션4">옵션4</option>
+											</select>
+										</div><!-- .form-container -->
+									</div><!-- .col -->
+								</div><!-- .row -->
+							</div><!-- .search-form -->
+
+							<div class="button-wrap">
+								<button type="button" class="btn btn-primary">
+									<span>검색</span>
+								</button>
+							</div>
+						</div><!-- .search-form-inner -->
+					</form>
+				</div><!-- .search_form_wrap -->
+
+				<div class="section-body">
+
+					<div class="section-header">
+						<div class="title-wrap">
+							<div class="title">검색결과<span class="small text-primary">(00건)</span></div>
+						</div>
+						<div class="button-wrap">
+							<button type="button" class="btn btn-line-primary">
+								<i class="icon-download"></i>
+								<span>엑셀</span>
+							</button>
+						</div>
+					</div>
+
+					<!--s 그리드가 삽입될 DIV -->
+					<div id="SBGridArea"></div>
+					<!--e 그리드가 삽입될 DIV -->
+
+				</div><!-- .section-body -->
+			</div>
+		</div><!-- .content-wrap -->
+	</div><!-- .container -->
+</body>
+</html>

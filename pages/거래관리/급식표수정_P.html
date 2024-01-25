@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>급식표수정</title>
+
+<!--v Packages -->
+<script src="../../assets/js/jquery.min.js"></script>
+
+<link href="../../assets/css/jquery-ui.min.css" rel="stylesheet" />
+<script src="../../assets/js/jquery-ui.min.js"></script>
+
+<link href="../../assets/css/select2.min.css" rel="stylesheet" />
+<script src="../../assets/js/select2.min.js"></script>
+
+<!-- rMateGridH5 CSS -->
+<link rel="stylesheet" type="text/css" href="../../assets/js/rMateGrid/rMateGridH5/Assets/rMateH5.css"/>
+<!-- rMateGridH5 라이센스 -->
+<script type="text/javascript" src="../../assets/js/rMateGrid/LicenseKey/rMateGridH5License.js"></script>
+<!-- rMateGridH5 라이브러리 -->
+<script type="text/javascript" src="../../assets/js/rMateGrid/rMateGridH5/JS/rMateGridH5.js"></script>
+<!--^ Packages -->
+
+<link href="../../assets/css/all.css" rel="stylesheet" />
+<script src="../../assets/js/util.js"></script>
+</head>
+
+<body class="sub-page">
+	<div id="util">
+		<div class="inner">
+			<div class="info">
+				<div class="administrator">
+					<i class="icon-smile"></i>
+					<span>시스템 관리자</span>
+				</div>
+				<div class="address">경기도 용인시 OO동</div>
+				<div class="log">마지막 로그인 : 2023.05.04 14:05</div>
+				<button type="button" class="btn btn-sub-line">
+					<span>회원정보수정</span>
+				</button>
+				<a href="#" class="btn btn-txt">
+					<span>로그아웃</span>
+				</a>
+			</div>
+		</div>
+	</div>
+	<header>
+		<div class="inner">
+			<h1 class="logo">
+				<a href="#">
+					<img src="../../assets/img/logo.svg" />
+				</a>
+			</h1>
+			<div id="gnb">
+				<ul class="gnb-list">
+					<li>
+						<a href="#">회원/카드관리</a>
+					</li>
+					<li class="on">
+						<a href="#">거래관리</a>
+					</li>
+					<li>
+						<a href="#">정산현황</a>
+					</li>
+					<li>
+						<a href="#">통계/분석</a>
+					</li>
+					<li>
+						<a href="#">지원정책</a>
+					</li>
+					<li>
+						<a href="#">환경설정</a>
+					</li>
+				</ul>
+				<button type="button" class="btn btn-txt btn-allmenu">
+					<i class="icon-allmenu"></i>
+					<span>전체보기</span>
+				</button>
+			</div>
+		</div>
+	</header>
+	<div class="container">
+		<div id="lnb">
+			<div class="group-title menu02">
+				<span>거래관리</span>
+			</div>
+			<div class="menu-wrap">
+				<ul class="menu-list">
+					<li class="on">
+						<a href="#">
+							<span class="menu2-1">거래내역</span>
+							<i class="icon-arrow-down"></i>
+						</a>
+						<ul class="sub-menu">
+							<li class="on">
+								<a href="#">
+									<span>대상자 종합관리</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span>거래요약조회</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span>거래상세조회</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span>충전/소멸/사용 현황</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span>실시간 거래내역조회</span>
+								</a>
+							</li>
+						</ul>
+					</li>
+					<li>
+						<a href="#">
+							<span class="menu2-2">가맹점관리</span>
+							<i class="icon-arrow-down"></i>
+						</a>
+						<ul class="sub-menu">
+							<li>
+								<a href="#">
+									<span>가맹점관리</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span>가맹점별 거래조회</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span>가맹점별 거래현황</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span>가맹점 직접결제</span>
+								</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				<div class="inquiry">
+					<div>시스템 문의</div>
+					<a href="mailto:wecard@bizplay.co.kr" class="btn btn-txt">
+						<span>wecard@bizplay.co.kr</span>
+					</a>
+				</div>
+			</div>
+		</div>
+		<!-- #lnb -->
+		<div class="content-wrap">
+			<div class="content-body"></div>
+		</div><!-- .content-wrap -->
+	</div><!-- .container -->
+
+	<!-- 팝업 위치는 항상 여기에 넣어주세요. -->
+	<div id="mealTable" class="layerPopup" style="display: block;"><!-- 실제 작업하실 때는 style 선언은 지워주세요. 팝업 활성화 방법은 components/modal.html 파일을 참고해주세요. -->
+		<div class="layer-wrap" style="width: 1052px;">
+			<div class="layer-header">
+				<h4 class="layer-title">급식표수정</h4>
+				<div class="button-wrap">
+					<button type="button" class="btn btn_close" title="창닫기">
+						<i class="icon-close"></i>
+					</button>
+				</div>
+			</div><!-- .layer-header -->
+	
+			<div class="layer-body">
+
+				<div class="section-body">
+					<table class="tbl-form">
+						<colgroup>
+							<col style="width: 110px;">
+							<col style="width: 45%;">
+							<col style="width: 110px;">
+							<col style="width: 45%;">
+						</colgroup>
+						<tbody>
+							<tr>
+								<th>
+									<label class="form-label">카드번호(성명)</label>
+								</th>
+								<td>
+									<label class="form-label">9491-1112-1234-0000 (홍길동)</label>
+								</td>
+								<th>
+									<label class="form-label">비고</label>
+								</th>
+								<td>
+									<label class="form-label">월(석) 방-월(중)</label>
+								</td>
+							</tr>
+							<tr>
+								<th>
+									<label class="form-label" for="월지원금액"><span>월지원금액</span></label>
+								</th>
+								<td colspan="3">
+									<div class="form-container">
+										<div class="input-wrap">
+											<input type="text" id="월지원금액" name="월지원금액" value="160000" placeholder="" readonly style="background-color: #fff; font-weight: 600;" />
+										</div><!-- .input-wrap -->
+										<div class="unit">= 지원단가(</div>
+										<div class="input-wrap">
+											<input type="text" id="지원단가" name="지원단가" value="8000" placeholder="" readonly style="background-color: #fff; font-weight: 600;" />
+										</div><!-- .input-wrap -->
+										<div class="unit">) x 급식수(</div>
+										<div class="input-wrap">
+											<input type="text" id="급식수" name="급식수" value="20" placeholder="" readonly style="background-color: #fff; font-weight: 600;" />
+										</div><!-- .input-wrap -->
+										<div class="unit">)</div>
+									</div><!-- .form-container -->
+								</td>
+							</tr>
+							<tr>
+								<th>
+									<label class="form-label" for="급식지원템플릿"><span>급식지원템플릿</span></label>
+								</th>
+								<td>
+									<div class="form-container">
+										<select class="form-select select2" id="급식지원템플릿" name="급식지원템플릿" data-placeholder="급식지원템플릿">
+											<option value=""></option>
+											<option value="옵션1">옵션</option>
+											<option value="옵션2">옵션</option>
+											<option value="옵션3">옵션</option>
+										</select>
+									</div><!-- .form-container -->
+								</td>
+								<th>
+									<label class="form-label" for="방학기간"><span>방학기간</span></label>
+								</th>
+								<td>
+									<div class="form-container">
+										<div class="input-wrap input_datepicker_wrap">
+											<input class="from" type="text" id="기간S" name="기간S" value="" maxlength="10" placeholder="YYYY.MM.DD" oninput="checkInputPattern(this, '0-9.\-');" />
+										</div>
+										<div class="unit">~</div>
+										<div class="input-wrap input_datepicker_wrap">
+											<input class="to" type="text" id="기간E" name="기간E" value="" maxlength="10" placeholder="YYYY.MM.DD" oninput="checkInputPattern(this, '0-9.\-');" />
+										</div>
+									</div><!-- .form-container -->
+								</td>
+							</tr>
+							<tr>
+								<th>
+									<label class="form-label" for="지원구분"><span>2023년 10월<br>지원구분<br>일괄부여</span></label>
+									
+								</th>
+								<td colspan="3">
+									<div class="table-wrap">
+										<table class="tbl-data all-center">
+											<tbody>
+												<tr>
+													<th colspan="3">평일</th>
+													<th colspan="3" class="text-primary">토요일</th>
+													<th colspan="3" class="text-strong">공휴일</th>
+													<th colspan="3">방학 평일</th>
+													<th colspan="3" class="text-primary">방학 토요일</th>
+													<th colspan="3" class="text-strong">방학 공휴일</th>
+												</tr>
+												<tr>
+													<td>
+														<label class="form-check-label" for="체크박스1">조</label>
+													</td>
+													<td>
+														<label class="form-check-label" for="체크박스2">중</label>
+													</td>
+													<td>
+														<label class="form-check-label" for="체크박스3">석</label>
+													</td>
+													<td>
+														<label class="form-check-label" for="체크박스4">조</label>
+													</td>
+													<td>
+														<label class="form-check-label" for="체크박스5">중</label>
+													</td>
+													<td>
+														<label class="form-check-label" for="체크박스6">석</label>
+													</td>
+													<td>
+														<label class="form-check-label" for="체크박스7">조</label>
+													</td>
+													<td>
+														<label class="form-check-label" for="체크박스8">중</label>
+													</td>
+													<td>
+														<label class="form-check-label" for="체크박스9">석</label>
+													</td>
+													<td>
+														<label class="form-check-label" for="체크박스10">조</label>
+													</td>
+													<td>
+														<label class="form-check-label" for="체크박스11">중</label>
+													</td>
+													<td>
+														<label class="form-check-label" for="체크박스12">석</label>
+													</td>
+													<td>
+														<label class="form-check-label" for="체크박스13">조</label>
+													</td>
+													<td>
+														<label class="form-check-label" for="체크박스14">중</label>
+													</td>
+													<td>
+														<label class="form-check-label" for="체크박스15">석</label>
+													</td>
+													<td>
+														<label class="form-check-label" for="체크박스16">조</label>
+													</td>
+													<td>
+														<label class="form-check-label" for="체크박스17">중</label>
+													</td>
+													<td>
+														<label class="form-check-label" for="체크박스18">석</label>
+													</td>
+												</tr>
+												<tr>
+													<td>
+														<input class="form-check-input" type="checkbox" id="체크박스1" name="체크박스1" value="체크박스1" checked="" />
+													</td>
+													<td>
+														<input class="form-check-input" type="checkbox" id="체크박스2" name="체크박스2" value="체크박스2" />
+													</td>
+													<td>
+														<input class="form-check-input" type="checkbox" id="체크박스3" name="체크박스3" value="체크박스3" />
+													</td>
+													<td>
+														<input class="form-check-input" type="checkbox" id="체크박스4" name="체크박스4" value="체크박스4" checked="" />
+													</td>
+													<td>
+														<input class="form-check-input" type="checkbox" id="체크박스5" name="체크박스5" value="체크박스5" />
+													</td>
+													<td>
+														<input class="form-check-input" type="checkbox" id="체크박스6" name="체크박스6" value="체크박스6" />
+													</td>
+													<td>
+														<input class="form-check-input" type="checkbox" id="체크박스7" name="체크박스7" value="체크박스7" checked="" />
+													</td>
+													<td>
+														<input class="form-check-input" type="checkbox" id="체크박스8" name="체크박스8" value="체크박스8" />
+													</td>
+													<td>
+														<input class="form-check-input" type="checkbox" id="체크박스9" name="체크박스9" value="체크박스9" />
+													</td>
+													<td>
+														<input class="form-check-input" type="checkbox" id="체크박스10" name="체크박스10" value="체크박스10" checked="" />
+													</td>
+													<td>
+														<input class="form-check-input" type="checkbox" id="체크박스11" name="체크박스11" value="체크박스11" />
+													</td>
+													<td>
+														<input class="form-check-input" type="checkbox" id="체크박스12" name="체크박스12" value="체크박스12" />
+													</td>
+													<td>
+														<input class="form-check-input" type="checkbox" id="체크박스13" name="체크박스13" value="체크박스13" checked="" />
+													</td>
+													<td>
+														<input class="form-check-input" type="checkbox" id="체크박스14" name="체크박스14" value="체크박스14" />
+													</td>
+													<td>
+														<input class="form-check-input" type="checkbox" id="체크박스15" name="체크박스15" value="체크박스15" />
+													</td>
+													<td>
+														<input class="form-check-input" type="checkbox" id="체크박스16" name="체크박스16" value="체크박스16" checked="" />
+													</td>
+													<td>
+														<input class="form-check-input" type="checkbox" id="체크박스17" name="체크박스17" value="체크박스17" />
+													</td>
+													<td>
+														<input class="form-check-input" type="checkbox" id="체크박스18" name="체크박스18" value="체크박스18" />
+													</td>
+												</tr>
+											</tbody>
+										</table>
+									</div><!-- .table-wrap -->
+								</td>
+							</tr>
+						</tbody>
+					</table>
+
+					<div id="calendar" class="edit mt30">
+						<table>
+							<thead>
+								<tr>
+									<th>
+										<span>일</span>
+									</th>
+									<th>
+										<span>월</span>
+									</th>
+									<th>
+										<span>화</span>
+									</th>
+									<th>
+										<span>수</span>
+									</th>
+									<th>
+										<span>목</span>
+									</th>
+									<th>
+										<span>금</span>
+									</th>
+									<th>
+										<span>토</span>
+									</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td class="past">
+										<div class="date">26</div>
+									</td>
+									<td class="past">
+										<div class="date">27</div>
+									</td>
+									<td class="past">
+										<div class="date">28</div>
+									</td>
+									<td class="past">
+										<div class="date">29</div>
+									</td>
+									<td class="past">
+										<div class="date">30</div>
+									</td>
+									<td class="past">
+										<div class="date">31</div>
+									</td>
+									<td>
+										<div class="date">1</div>
+										<ul class="meals-check">
+											<li>
+												<label class="form-check-label" for="체크박스101">조</label>
+												<input class="form-check-input" type="checkbox" id="체크박스101" name="체크박스101" value="체크박스101" checked="" />
+											</li>
+											<li>
+												<label class="form-check-label" for="체크박스102">중</label>
+												<input class="form-check-input" type="checkbox" id="체크박스102" name="체크박스102" value="체크박스102" />
+											</li>
+											<li>
+												<label class="form-check-label" for="체크박스103">석</label>
+												<input class="form-check-input" type="checkbox" id="체크박스103" name="체크박스103" value="체크박스103" />
+											</li>
+										</ul>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<div class="date">2</div>
+										<div class="plan">추석</div>
+										<ul class="meals-check">
+											<li>
+												<label class="form-check-label" for="체크박스104">조</label>
+												<input class="form-check-input" type="checkbox" id="체크박스104" name="체크박스104" value="체크박스104" checked="" />
+											</li>
+											<li>
+												<label class="form-check-label" for="체크박스105">중</label>
+												<input class="form-check-input" type="checkbox" id="체크박스105" name="체크박스105" value="체크박스105" />
+											</li>
+											<li>
+												<label class="form-check-label" for="체크박스106">석</label>
+												<input class="form-check-input" type="checkbox" id="체크박스106" name="체크박스106" value="체크박스106" />
+											</li>
+										</ul>
+									</td>
+									<td>
+										<div class="date">3</div>
+										<div class="plan">추석</div>
+										<ul class="meals-check">
+											<li>
+												<label class="form-check-label" for="체크박스107">조</label>
+												<input class="form-check-input" type="checkbox" id="체크박스107" name="체크박스107" value="체크박스107" checked="" />
+											</li>
+											<li>
+												<label class="form-check-label" for="체크박스108">중</label>
+												<input class="form-check-input" type="checkbox" id="체크박스108" name="체크박스108" value="체크박스108" />
+											</li>
+											<li>
+												<label class="form-check-label" for="체크박스109">석</label>
+												<input class="form-check-input" type="checkbox" id="체크박스109" name="체크박스109" value="체크박스109" />
+											</li>
+										</ul>
+									</td>
+									<td>
+										<div class="date">4</div>
+										<div class="plan">추석</div>
+										<ul class="meals-check">
+											<li>
+												<label class="form-check-label" for="체크박스110">조</label>
+												<input class="form-check-input" type="checkbox" id="체크박스110" name="체크박스110" value="체크박스110" checked="" />
+											</li>
+											<li>
+												<label class="form-check-label" for="체크박스111">중</label>
+												<input class="form-check-input" type="checkbox" id="체크박스111" name="체크박스111" value="체크박스111" />
+											</li>
+											<li>
+												<label class="form-check-label" for="체크박스112">석</label>
+												<input class="form-check-input" type="checkbox" id="체크박스112" name="체크박스112" value="체크박스112" />
+											</li>
+										</ul>
+									</td>
+									<td>
+										<div class="date">5</div>
+										<ul class="meals-check">
+											<li>
+												<label class="form-check-label" for="체크박스113">조</label>
+												<input class="form-check-input" type="checkbox" id="체크박스113" name="체크박스113" value="체크박스113" checked="" />
+											</li>
+											<li>
+												<label class="form-check-label" for="체크박스114">중</label>
+												<input class="form-check-input" type="checkbox" id="체크박스114" name="체크박스114" value="체크박스114" />
+											</li>
+											<li>
+												<label class="form-check-label" for="체크박스115">석</label>
+												<input class="form-check-input" type="checkbox" id="체크박스115" name="체크박스115" value="체크박스115" />
+											</li>
+										</ul>
+									</td>
+									<td>
+										<div class="date">6</div>
+										<ul class="meals-check">
+											<li>
+												<label class="form-check-label" for="체크박스116">조</label>
+												<input class="form-check-input" type="checkbox" id="체크박스116" name="체크박스116" value="체크박스116" checked="" />
+											</li>
+											<li>
+												<label class="form-check-label" for="체크박스117">중</label>
+												<input class="form-check-input" type="checkbox" id="체크박스117" name="체크박스117" value="체크박스117" />
+											</li>
+											<li>
+												<label class="form-check-label" for="체크박스118">석</label>
+												<input class="form-check-input" type="checkbox" id="체크박스118" name="체크박스118" value="체크박스118" />
+											</li>
+										</ul>
+									</td>
+									<td>
+										<div class="date">7</div>
+										<ul class="meals-check">
+											<li>
+												<label class="form-check-label" for="체크박스119">조</label>
+												<input class="form-check-input" type="checkbox" id="체크박스119" name="체크박스119" value="체크박스119" checked="" />
+											</li>
+											<li>
+												<label class="form-check-label" for="체크박스120">중</label>
+												<input class="form-check-input" type="checkbox" id="체크박스120" name="체크박스120" value="체크박스120" />
+											</li>
+											<li>
+												<label class="form-check-label" for="체크박스121">석</label>
+												<input class="form-check-input" type="checkbox" id="체크박스121" name="체크박스121" value="체크박스121" />
+											</li>
+										</ul>
+									</td>
+									<td>
+										<div class="date">8</div>
+										<ul class="meals-check">
+											<li>
+												<label class="form-check-label" for="체크박스122">조</label>
+												<input class="form-check-input" type="checkbox" id="체크박스122" name="체크박스122" value="체크박스122" checked="" />
+											</li>
+											<li>
+												<label class="form-check-label" for="체크박스123">중</label>
+												<input class="form-check-input" type="checkbox" id="체크박스123" name="체크박스123" value="체크박스123" />
+											</li>
+											<li>
+												<label class="form-check-label" for="체크박스124">석</label>
+												<input class="form-check-input" type="checkbox" id="체크박스124" name="체크박스124" value="체크박스124" />
+											</li>
+										</ul>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<div class="date">9</div>
+										<ul class="meals-check">
+											<li>
+												<label class="form-check-label" for="체크박스125">조</label>
+												<input class="form-check-input" type="checkbox" id="체크박스125" name="체크박스125" value="체크박스125" checked="" />
+											</li>
+											<li>
+												<label class="form-check-label" for="체크박스126">중</label>
+												<input class="form-check-input" type="checkbox" id="체크박스126" name="체크박스126" value="체크박스126" />
+											</li>
+											<li>
+												<label class="form-check-label" for="체크박스127">석</label>
+												<input class="form-check-input" type="checkbox" id="체크박스127" name="체크박스127" value="체크박스127" />
+											</li>
+										</ul>
+									</td>
+									<td>
+										<div class="date">10</div>
+										<ul class="meals-check">
+											<li>
+												<label class="form-check-label" for="체크박스128">조</label>
+												<input class="form-check-input" type="checkbox" id="체크박스128" name="체크박스128" value="체크박스128" checked="" />
+											</li>
+											<li>
+												<label class="form-check-label" for="체크박스129">중</label>
+												<input class="form-check-input" type="checkbox" id="체크박스129" name="체크박스129" value="체크박스129" />
+											</li>
+											<li>
+												<label class="form-check-label" for="체크박스130">석</label>
+												<input class="form-check-input" type="checkbox" id="체크박스130" name="체크박스130" value="체크박스130" />
+											</li>
+										</ul>
+									</td>
+									<td>
+										<div class="date">11</div>
+										<ul class="meals-check">
+											<li>
+												<label class="form-check-label" for="체크박스131">조</label>
+												<input class="form-check-input" type="checkbox" id="체크박스131" name="체크박스131" value="체크박스131" checked="" />
+											</li>
+											<li>
+												<label class="form-check-label" for="체크박스132">중</label>
+												<input class="form-check-input" type="checkbox" id="체크박스132" name="체크박스132" value="체크박스132" />
+											</li>
+											<li>
+												<label class="form-check-label" for="체크박스133">석</label>
+												<input class="form-check-input" type="checkbox" id="체크박스133" name="체크박스133" value="체크박스133" />
+											</li>
+										</ul>
+									</td>
+									<td>
+										<div class="date">12</div>
+										<ul class="meals-check">
+											<li>
+												<label class="form-check-label" for="체크박스134">조</label>
+												<input class="form-check-input" type="checkbox" id="체크박스134" name="체크박스134" value="체크박스134" checked="" />
+											</li>
+											<li>
+												<label class="form-check-label" for="체크박스135">중</label>
+												<input class="form-check-input" type="checkbox" id="체크박스135" name="체크박스135" value="체크박스135" />
+											</li>
+											<li>
+												<label class="form-check-label" for="체크박스136">석</label>
+												<input class="form-check-input" type="checkbox" id="체크박스136" name="체크박스136" value="체크박스136" />
+											</li>
+										</ul>
+									</td>
+									<td>
+										<div class="date">13</div>
+										<ul class="meals-check">
+											<li>
+												<label class="form-check-label" for="체크박스137">조</label>
+												<input class="form-check-input" type="checkbox" id="체크박스137" name="체크박스137" value="체크박스137" checked="" />
+											</li>
+											<li>
+												<label class="form-check-label" for="체크박스138">중</label>
+												<input class="form-check-input" type="checkbox" id="체크박스138" name="체크박스138" value="체크박스138" />
+											</li>
+											<li>
+												<label class="form-check-label" for="체크박스139">석</label>
+												<input class="form-check-input" type="checkbox" id="체크박스139" name="체크박스139" value="체크박스139" />
+											</li>
+										</ul>
+									</td>
+									<td>
+										<div class="date">14</div>
+										<ul class="meals-check">
+											<li>
+												<label class="form-check-label" for="체크박스140">조</label>
+												<input class="form-check-input" type="checkbox" id="체크박스140" name="체크박스140" value="체크박스140" checked="" />
+											</li>
+											<li>
+												<label class="form-check-label" for="체크박스141">중</label>
+												<input class="form-check-input" type="checkbox" id="체크박스141" name="체크박스141" value="체크박스141" />
+											</li>
+											<li>
+												<label class="form-check-label" for="체크박스142">석</label>
+												<input class="form-check-input" type="checkbox" id="체크박스142" name="체크박스142" value="체크박스142" />
+											</li>
+										</ul>
+									</td>
+									<td>
+										<div class="date">15</div>
+										<ul class="meals-check">
+											<li>
+												<label class="form-check-label" for="체크박스143">조</label>
+												<input class="form-check-input" type="checkbox" id="체크박스143" name="체크박스143" value="체크박스143" checked="" />
+											</li>
+											<li>
+												<label class="form-check-label" for="체크박스144">중</label>
+												<input class="form-check-input" type="checkbox" id="체크박스144" name="체크박스144" value="체크박스144" />
+											</li>
+											<li>
+												<label class="form-check-label" for="체크박스145">석</label>
+												<input class="form-check-input" type="checkbox" id="체크박스145" name="체크박스145" value="체크박스145" />
+											</li>
+										</ul>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<div class="date">16</div>
+										<ul class="meals-check">
+											<li>
+												<label class="form-check-label" for="체크박스146">조</label>
+												<input class="form-check-input" type="checkbox" id="체크박스146" name="체크박스146" value="체크박스146" checked="" />
+											</li>
+											<li>
+												<label class="form-check-label" for="체크박스147">중</label>
+												<input class="form-check-input" type="checkbox" id="체크박스147" name="체크박스147" value="체크박스147" />
+											</li>
+											<li>
+												<label class="form-check-label" for="체크박스148">석</label>
+												<input class="form-check-input" type="checkbox" id="체크박스148" name="체크박스148" value="체크박스148" />
+											</li>
+										</ul>
+									</td>
+									<td>
+										<div class="date">17</div>
+										<ul class="meals-check">
+											<li>
+												<label class="form-check-label" for="체크박스149">조</label>
+												<input class="form-check-input" type="checkbox" id="체크박스149" name="체크박스149" value="체크박스149" checked="" />
+											</li>
+											<li>
+												<label class="form-check-label" for="체크박스150">중</label>
+												<input class="form-check-input" type="checkbox" id="체크박스150" name="체크박스150" value="체크박스150" />
+											</li>
+											<li>
+												<label class="form-check-label" for="체크박스151">석</label>
+												<input class="form-check-input" type="checkbox" id="체크박스151" name="체크박스151" value="체크박스151" />
+											</li>
+										</ul>
+									</td>
+									<td>
+										<div class="date">18</div>
+										<ul class="meals-check">
+											<li>
+												<label class="form-check-label" for="체크박스152">조</label>
+												<input class="form-check-input" type="checkbox" id="체크박스152" name="체크박스152" value="체크박스152" checked="" />
+											</li>
+											<li>
+												<label class="form-check-label" for="체크박스153">중</label>
+												<input class="form-check-input" type="checkbox" id="체크박스153" name="체크박스153" value="체크박스153" />
+											</li>
+											<li>
+												<label class="form-check-label" for="체크박스154">석</label>
+												<input class="form-check-input" type="checkbox" id="체크박스154" name="체크박스154" value="체크박스154" />
+											</li>
+										</ul>
+									</td>
+									<td>
+										<div class="date">19</div>
+										<ul class="meals-check">
+											<li>
+												<label class="form-check-label" for="체크박스155">조</label>
+												<input class="form-check-input" type="checkbox" id="체크박스155" name="체크박스155" value="체크박스155" checked="" />
+											</li>
+											<li>
+												<label class="form-check-label" for="체크박스156">중</label>
+												<input class="form-check-input" type="checkbox" id="체크박스156" name="체크박스156" value="체크박스156" />
+											</li>
+											<li>
+												<label class="form-check-label" for="체크박스157">석</label>
+												<input class="form-check-input" type="checkbox" id="체크박스157" name="체크박스157" value="체크박스157" />
+											</li>
+										</ul>
+									</td>
+									<td>
+										<div class="date">20</div>
+										<ul class="meals-check">
+											<li>
+												<label class="form-check-label" for="체크박스158">조</label>
+												<input class="form-check-input" type="checkbox" id="체크박스158" name="체크박스158" value="체크박스158" checked="" />
+											</li>
+											<li>
+												<label class="form-check-label" for="체크박스159">중</label>
+												<input class="form-check-input" type="checkbox" id="체크박스159" name="체크박스159" value="체크박스159" />
+											</li>
+											<li>
+												<label class="form-check-label" for="체크박스160">석</label>
+												<input class="form-check-input" type="checkbox" id="체크박스160" name="체크박스160" value="체크박스160" />
+											</li>
+										</ul>
+									</td>
+									<td>
+										<div class="date">21</div>
+										<ul class="meals-check">
+											<li>
+												<label class="form-check-label" for="체크박스161">조</label>
+												<input class="form-check-input" type="checkbox" id="체크박스161" name="체크박스161" value="체크박스161" checked="" />
+											</li>
+											<li>
+												<label class="form-check-label" for="체크박스162">중</label>
+												<input class="form-check-input" type="checkbox" id="체크박스162" name="체크박스162" value="체크박스162" />
+											</li>
+											<li>
+												<label class="form-check-label" for="체크박스163">석</label>
+												<input class="form-check-input" type="checkbox" id="체크박스163" name="체크박스163" value="체크박스163" />
+											</li>
+										</ul>
+									</td>
+									<td>
+										<div class="date">22</div>
+										<ul class="meals-check">
+											<li>
+												<label class="form-check-label" for="체크박스164">조</label>
+												<input class="form-check-input" type="checkbox" id="체크박스164" name="체크박스164" value="체크박스164" checked="" />
+											</li>
+											<li>
+												<label class="form-check-label" for="체크박스165">중</label>
+												<input class="form-check-input" type="checkbox" id="체크박스165" name="체크박스165" value="체크박스165" />
+											</li>
+											<li>
+												<label class="form-check-label" for="체크박스166">석</label>
+												<input class="form-check-input" type="checkbox" id="체크박스166" name="체크박스166" value="체크박스166" />
+											</li>
+										</ul>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<div class="date">23</div>
+										<ul class="meals-check">
+											<li>
+												<label class="form-check-label" for="체크박스167">조</label>
+												<input class="form-check-input" type="checkbox" id="체크박스167" name="체크박스167" value="체크박스167" checked="" />
+											</li>
+											<li>
+												<label class="form-check-label" for="체크박스168">중</label>
+												<input class="form-check-input" type="checkbox" id="체크박스168" name="체크박스168" value="체크박스168" />
+											</li>
+											<li>
+												<label class="form-check-label" for="체크박스169">석</label>
+												<input class="form-check-input" type="checkbox" id="체크박스169" name="체크박스169" value="체크박스169" />
+											</li>
+										</ul>
+									</td>
+									<td>
+										<div class="date">24</div>
+										<ul class="meals-check">
+											<li>
+												<label class="form-check-label" for="체크박스170">조</label>
+												<input class="form-check-input" type="checkbox" id="체크박스170" name="체크박스170" value="체크박스170" checked="" />
+											</li>
+											<li>
+												<label class="form-check-label" for="체크박스171">중</label>
+												<input class="form-check-input" type="checkbox" id="체크박스171" name="체크박스171" value="체크박스171" />
+											</li>
+											<li>
+												<label class="form-check-label" for="체크박스172">석</label>
+												<input class="form-check-input" type="checkbox" id="체크박스172" name="체크박스172" value="체크박스172" />
+											</li>
+										</ul>
+									</td>
+									<td>
+										<div class="date">25</div>
+										<ul class="meals-check">
+											<li>
+												<label class="form-check-label" for="체크박스173">조</label>
+												<input class="form-check-input" type="checkbox" id="체크박스173" name="체크박스173" value="체크박스173" checked="" />
+											</li>
+											<li>
+												<label class="form-check-label" for="체크박스174">중</label>
+												<input class="form-check-input" type="checkbox" id="체크박스174" name="체크박스174" value="체크박스174" />
+											</li>
+											<li>
+												<label class="form-check-label" for="체크박스175">석</label>
+												<input class="form-check-input" type="checkbox" id="체크박스175" name="체크박스175" value="체크박스175" />
+											</li>
+										</ul>
+									</td>
+									<td>
+										<div class="date">26</div>
+										<ul class="meals-check">
+											<li>
+												<label class="form-check-label" for="체크박스176">조</label>
+												<input class="form-check-input" type="checkbox" id="체크박스176" name="체크박스176" value="체크박스176" checked="" />
+											</li>
+											<li>
+												<label class="form-check-label" for="체크박스177">중</label>
+												<input class="form-check-input" type="checkbox" id="체크박스177" name="체크박스177" value="체크박스177" />
+											</li>
+											<li>
+												<label class="form-check-label" for="체크박스178">석</label>
+												<input class="form-check-input" type="checkbox" id="체크박스178" name="체크박스178" value="체크박스178" />
+											</li>
+										</ul>
+									</td>
+									<td>
+										<div class="date">27</div>
+										<ul class="meals-check">
+											<li>
+												<label class="form-check-label" for="체크박스179">조</label>
+												<input class="form-check-input" type="checkbox" id="체크박스179" name="체크박스179" value="체크박스179" checked="" />
+											</li>
+											<li>
+												<label class="form-check-label" for="체크박스180">중</label>
+												<input class="form-check-input" type="checkbox" id="체크박스180" name="체크박스180" value="체크박스180" />
+											</li>
+											<li>
+												<label class="form-check-label" for="체크박스181">석</label>
+												<input class="form-check-input" type="checkbox" id="체크박스181" name="체크박스181" value="체크박스181" />
+											</li>
+										</ul>
+									</td>
+									<td>
+										<div class="date">28</div>
+										<ul class="meals-check">
+											<li>
+												<label class="form-check-label" for="체크박스182">조</label>
+												<input class="form-check-input" type="checkbox" id="체크박스182" name="체크박스182" value="체크박스182" checked="" />
+											</li>
+											<li>
+												<label class="form-check-label" for="체크박스183">중</label>
+												<input class="form-check-input" type="checkbox" id="체크박스183" name="체크박스183" value="체크박스183" />
+											</li>
+											<li>
+												<label class="form-check-label" for="체크박스184">석</label>
+												<input class="form-check-input" type="checkbox" id="체크박스184" name="체크박스184" value="체크박스184" />
+											</li>
+										</ul>
+									</td>
+									<td>
+										<div class="date">29</div>
+										<ul class="meals-check">
+											<li>
+												<label class="form-check-label" for="체크박스185">조</label>
+												<input class="form-check-input" type="checkbox" id="체크박스185" name="체크박스185" value="체크박스185" checked="" />
+											</li>
+											<li>
+												<label class="form-check-label" for="체크박스186">중</label>
+												<input class="form-check-input" type="checkbox" id="체크박스186" name="체크박스186" value="체크박스186" />
+											</li>
+											<li>
+												<label class="form-check-label" for="체크박스187">석</label>
+												<input class="form-check-input" type="checkbox" id="체크박스187" name="체크박스187" value="체크박스187" />
+											</li>
+										</ul>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<div class="date">30</div>
+										<ul class="meals-check">
+											<li>
+												<label class="form-check-label" for="체크박스188">조</label>
+												<input class="form-check-input" type="checkbox" id="체크박스188" name="체크박스188" value="체크박스188" checked="" />
+											</li>
+											<li>
+												<label class="form-check-label" for="체크박스189">중</label>
+												<input class="form-check-input" type="checkbox" id="체크박스189" name="체크박스189" value="체크박스189" />
+											</li>
+											<li>
+												<label class="form-check-label" for="체크박스190">석</label>
+												<input class="form-check-input" type="checkbox" id="체크박스190" name="체크박스190" value="체크박스190" />
+											</li>
+										</ul>
+									</td>
+									<td class="past">
+										<div class="date">1</div>
+									</td>
+									<td class="past">
+										<div class="date">2</div>
+									</td>
+									<td class="past">
+										<div class="date">3</div>
+									</td>
+									<td class="past">
+										<div class="date">4</div>
+									</td>
+									<td class="past">
+										<div class="date">5</div>
+									</td>
+									<td class="past">
+										<div class="date">6</div>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div><!-- .section-body -->
+
+			</div><!-- .layer-body -->
+	
+			<div class="layer-footer">
+				<div class="button-wrap">
+					<button type="button" class="btn btn-line btn_close"><span>취소</span></button>
+					<button type="button" class="btn btn-primary"><span>저장</span></button>
+				</div>
+			</div><!-- .layer-footer -->
+		</div><!-- .layer-contents -->
+	</div><!-- #layerPopup.layerPopup -->
+</body>
+</html>

@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>가맹점 직접결제</title>
+
+<!--v Packages -->
+<script src="../../assets/js/jquery.min.js"></script>
+
+<link href="../../assets/css/jquery-ui.min.css" rel="stylesheet" />
+<script src="../../assets/js/jquery-ui.min.js"></script>
+
+<link href="../../assets/css/select2.min.css" rel="stylesheet" />
+<script src="../../assets/js/select2.min.js"></script>
+
+<!-- rMateGridH5 CSS -->
+<link rel="stylesheet" type="text/css" href="../../assets/js/rMateGrid/rMateGridH5/Assets/rMateH5.css"/>
+<!-- rMateGridH5 라이센스 -->
+<script type="text/javascript" src="../../assets/js/rMateGrid/LicenseKey/rMateGridH5License.js"></script>
+<!-- rMateGridH5 라이브러리 -->
+<script type="text/javascript" src="../../assets/js/rMateGrid/rMateGridH5/JS/rMateGridH5.js"></script>
+<!--^ Packages -->
+
+<link href="../../assets/css/all.css" rel="stylesheet" />
+<script src="../../assets/js/util.js"></script>
+
+<script type="text/javascript">
+// ----------------------- 그리드 설정 시작 -------------------------------------
+
+// rMateGridH5에서 그리드 생성 준비가 완료될 경우 호출할 함수를 지정합니다.
+var jsVars = "rMateOnLoadCallFunction=gridReadyHandler";
+
+// 기본 이미지 경로 조정
+rMateGridH5.setAssetsPath("../../assets/js/rMateGrid/rMateGridH5/Assets/")
+
+// rMateDataGrid 를 생성합니다.
+// 파라메터 (순서대로)
+//  1. 그리드의 id ( 임의로 지정하십시오. )
+//  2. 그리드가 위치할 div 의 id (즉, 그리드의 부모 div 의 id 입니다.)
+//  3. 그리드 생성 시 필요한 환경 변수들의 묶음인 jsVars
+//  4. 그리드의 가로 사이즈 (생략 가능, 생략 시 100%)
+//  5. 그리드의 세로 사이즈 (생략 가능, 생략 시 100%)
+rMateGridH5.create("grid1", "gridHolder", jsVars, "100%", "465px");
+
+// 그리드의 속성인 rMateOnLoadCallFunction 으로 설정된 함수.
+// rMate 그리드의 준비가 완료된 경우 이 함수가 호출됩니다.
+// 이 함수를 통해 그리드에 레이아웃과 데이터를 삽입합니다.
+// 파라메터 : id - rMateGridH5.create() 사용 시 사용자가 지정한 id 입니다.
+function gridReadyHandler(id) {
+	// rMateGrid 관련 객체
+	gridApp = document.getElementById(id);	// 그리드를 포함하는 div 객체
+	gridRoot = gridApp.getRoot();	// 데이터와 그리드를 포함하는 객체
+
+	gridApp.setLayout(layoutStr);
+	gridApp.setData(gridData);
+
+	var dataCompleteHandler = function(event) {
+		dataGrid = gridRoot.getDataGrid();
+
+		// 필수로 넣어야 할 선언
+		dataGrid.setHeaderHeight(32); // header 높이
+		dataGrid.setHeaderWordWrap(true); // header cell에 글자 넘칠 때 자동줄바꿈처리
+		dataGrid.setRowHeight(28); // row 높이
+	}
+
+	gridRoot.addEventListener("dataComplete", dataCompleteHandler);
+}
+
+// rMateGrid 관련 객체
+var gridApp, gridRoot;	// 데이터와 그리드를 포함하는 객체
+var dataGrid;	// 그리드
+
+//----------------------- 그리드 설정 끝 -----------------------
+
+var layoutStr =
+'<rMateGrid>\
+    <DateFormatter id="datefmt" formatString="YYYY.MM.DD"/>\
+	<DateFormatter id="datefmt2" formatString="HH:MM:SS"/>\
+	<DateFormatter id="datefmt3" formatString="YYYY.MM.DD HH:MM:SS"/>\
+	<NumberFormatter id="numfmt" useThousandsSeparator="true"/>\
+	<NumberMaskFormatter  id="numfmt2" formatString="####-####-####-####"/>\
+	<CurrencyFormatter id="currfmt1" alignSymbol="right" currencySymbol="원"/>\
+	<CurrencyFormatter id="currfmt2" alignSymbol="right" currencySymbol="건"/>\
+	<DataGrid id="dg1" styleName="gridStyle" aria-label="atagrid" sortableColumns="true" editable="true" doubleClickEnabled="true" horizontalScrollPolicy="auto" verticalAlign="middle" textAlign="center" paddingTop="0" paddingBottom="0">\
+		<columns>\
+			<DataGridColumn headerText="결제일시" dataField="결제일시" width="151" formatter="{datefmt3}"/>\
+			<DataGridColumn headerText="카드번호" dataField="카드번호" width="150" formatter="{numfmt2}"/>\
+			<DataGridColumn headerText="성명" dataField="성명" width="150"/>\
+			<DataGridColumn headerText="거래금액" dataField="거래금액" width="150" textAlign="right" formatter="{numfmt}"/>\
+			<DataGridColumn headerText="비고" dataField="비고" width="150"/>\
+			<DataGridColumn headerText="취소처리" dataField="취소처리" width="80" itemRenderer="HtmlItem" editable="false"/>\
+			<DataGridColumn headerText="영수증 출력" dataField="영수증 출력" width="80" itemRenderer="HtmlItem" editable="false"/>\
+		</columns>\
+	</DataGrid>\
+	<Style>\n\
+		.gridStyle {\n\
+			color:#333;\n\
+			borderWidth:0;\n\
+			selectionColor:var(--table-thead-bg-color);\n\
+			textSelectedColor:#333;\n\
+			rollOverColor:#f4f4f4;\n\
+			fontSize:12px;\n\
+			verticalAlign:middle;\n\
+			headerStyleName:gridHeaderStyle;\n\
+			headerPaddingTop:0;\n\
+			headerPaddingBottom:0;\n\
+			headerColors:var(--table-thead-bg-color),var(--table-thead-bg-color);\n\
+			headerSeparatorColor:var(--table-thead-border-color);\n\
+			headerBorderTopWidth:0;\n\
+			headerBorderBottomColor:var(--table-thead-border-color);\n\
+		}\n\
+		.gridHeaderStyle {\n\
+			color:#666;\n\
+			fontSize:12px;\n\
+			fontWeight:500;\n\
+			horizontalAlign:center;\n\
+			verticalAlign:middle;\n\
+		}\n\
+		.gridFooterStyle {\n\
+			color:#111;\n\
+			backgroundColor:#f8f8f8;\n\
+			borderColor:var(--primary);\n\
+		}\n\
+	</Style>\
+</rMateGrid>\
+';
+
+var gridData = [
+	{"결제일시" : "20230713161616","카드번호" : "9492111822220000","성명" : "이하나","거래금액" : "-18950","비고" : "","취소처리" : "<button type='button' class='btn btn-sub-line'><span>취소</span></button>","영수증 출력" : "<button type='button' class='btn btn-sub-line'><span>출력</span></button>"},
+	{"결제일시" : "20230713161616","카드번호" : "9492111822220000","성명" : "이하나","거래금액" : "18950","비고" : "","취소처리" : "<button type='button' class='btn btn-sub-line'><span>취소</span></button>","영수증 출력" : "<button type='button' class='btn btn-sub-line'><span>출력</span></button>"},
+	{"결제일시" : "20230713161616","카드번호" : "9492111822220000","성명" : "이하나","거래금액" : "18950","비고" : "","취소처리" : "<button type='button' class='btn btn-sub-line'><span>취소</span></button>","영수증 출력" : "<button type='button' class='btn btn-sub-line'><span>출력</span></button>"},
+	{"결제일시" : "20230713161616","카드번호" : "9492111822220000","성명" : "이하나","거래금액" : "18950","비고" : "","취소처리" : "<button type='button' class='btn btn-sub-line'><span>취소</span></button>","영수증 출력" : "<button type='button' class='btn btn-sub-line'><span>출력</span></button>"},
+];
+	
+</script>
+
+</head>
+
+<body class="sub-page">
+	<div id="util">
+		<div class="inner">
+			<div class="info">
+				<div class="administrator">
+					<i class="icon-smile"></i>
+					<span>시스템 관리자</span>
+				</div>
+				<div class="address">경기도 용인시 OO동</div>
+				<div class="log">마지막 로그인 : 2023.05.04 14:05</div>
+				<button type="button" class="btn btn-sub-line">
+					<span>회원정보수정</span>
+				</button>
+				<a href="#" class="btn btn-txt">
+					<span>로그아웃</span>
+				</a>
+			</div>
+		</div>
+	</div>
+	<header>
+		<div class="inner">
+			<h1 class="logo">
+				<a href="#">
+					<img src="../../assets/img/logo.svg" />
+				</a>
+			</h1>
+			<div id="gnb">
+				<ul class="gnb-list">
+					<li>
+						<a href="#">회원/카드관리</a>
+					</li>
+					<li class="on">
+						<a href="#">거래관리</a>
+					</li>
+					<li>
+						<a href="#">정산현황</a>
+					</li>
+					<li>
+						<a href="#">통계/분석</a>
+					</li>
+					<li>
+						<a href="#">지원정책</a>
+					</li>
+					<li>
+						<a href="#">환경설정</a>
+					</li>
+				</ul>
+				<button type="button" class="btn btn-txt btn-allmenu">
+					<i class="icon-allmenu"></i>
+					<span>전체보기</span>
+				</button>
+			</div>
+		</div>
+	</header>
+
+	<div class="container">
+		<div id="lnb">
+			<div class="group-title menu02">
+				<span>거래관리</span>
+			</div>
+			<div class="menu-wrap">
+				<ul class="menu-list">
+					<li>
+						<a href="#">
+							<span class="menu2-1">거래내역</span>
+							<i class="icon-arrow-down"></i>
+						</a>
+						<ul class="sub-menu">
+							<li>
+								<a href="#">
+									<span>대상자 종합관리</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span>거래요약조회</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span>거래상세조회</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span>충전/소멸/사용 현황</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span>실시간 거래내역조회</span>
+								</a>
+							</li>
+						</ul>
+					</li>
+					<li class="on">
+						<a href="#">
+							<span class="menu2-2">가맹점관리</span>
+							<i class="icon-arrow-down"></i>
+						</a>
+						<ul class="sub-menu">
+							<li>
+								<a href="#">
+									<span>가맹점관리</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span>가맹점별 거래조회</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span>가맹점별 거래현황</span>
+								</a>
+							</li>
+							<li class="on">
+								<a href="#">
+									<span>가맹점 직접결제</span>
+								</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				<div class="inquiry">
+					<div>시스템 문의</div>
+					<a href="mailto:wecard@bizplay.co.kr" class="btn btn-txt">
+						<span>wecard@bizplay.co.kr</span>
+					</a>
+				</div>
+			</div>
+		</div>
+		<!-- #lnb -->
+		<div class="content-wrap">
+			<div class="content-body">
+				<div class="search-form-wrap">
+					<div class="content-header">
+						<div class="title-wrap">
+							<div class="title">가맹점관리</div>
+							<div class="title">가맹점 직접결제</div>
+						</div>
+					</div>
+					<div class="page-memo">
+						<ul class="list">
+							<li>붉은색의 <span class="text-strong">*</span>표시는 필수입력 사항입니다.</li>
+						</ul>
+					</div>
+
+					<form>
+						<div class="search-form-inner">
+							<div class="search-form">
+								<div class="row">
+									<div class="col-3">
+										<label class="form-label required" for="카드번호"><span>카드번호</span></label>
+										<div class="form-container">
+											<div class="input-wrap">
+												<input type="text" id="카드번호" name="카드번호" value="9492-11" placeholder="" maxlength="" />
+											</div><!-- .input-wrap -->
+										</div><!-- .form-container -->
+									</div><!-- .col -->
+									<div class="col-3">
+										<label class="form-label required" for="성명"><span>성명</span></label>
+										<div class="form-container">
+											<div class="input-wrap">
+												<input type="text" id="성명" name="성명" value="" placeholder="" maxlength="" />
+											</div><!-- .input-wrap -->
+										</div><!-- .form-container -->
+									</div><!-- .col -->
+									<div class="col-3">
+										<label class="form-label required" for="결제금액"><span>결제금액</span></label>
+										<div class="form-container">
+											<div class="input-wrap">
+												<input class="number" type="text" id="결제금액" name="결제금액" value="" step="1" placeholder="0" oninput="numberLocaleString(this);" />
+											</div>
+										</div><!-- .form-container -->
+									</div><!-- .col -->
+									<div class="col-3">
+										<label class="form-label" for="비고"><span>비고</span></label>
+										<div class="form-container">
+											<div class="input-wrap">
+												<input type="text" id="비고" name="비고" value="" placeholder="" maxlength="" />
+											</div><!-- .input-wrap -->
+										</div><!-- .form-container -->
+									</div><!-- .col -->
+								</div><!-- .row -->
+							</div><!-- .search-form -->
+
+							<div class="button-wrap">
+								<button type="button" class="btn btn-line-strong">
+									<span>결제</span>
+								</button>
+							</div>
+						</div><!-- .search-form-inner -->
+					</form>
+				</div><!-- .search_form_wrap -->
+
+				<div class="section-body">
+					<div class="section-header">
+						<div class="title-wrap">
+							<div class="title">
+								<span>직접 결제 리스트</span>
+							</div>
+						</div>
+					</div>
+
+					<div class="grid-search">
+						<div class="form-control-wrap">
+							<label class="form-label" for="기간S"><span>검색기간</span></label>
+							<div class="form-container">
+								<div class="input-wrap input_datepicker_wrap">
+									<input class="from" type="text" id="기간S" name="기간S" value="" maxlength="10" placeholder="YYYY.MM.DD" oninput="checkInputPattern(this, '0-9.\-');" />
+								</div>
+								<div class="input-wrap input_datepicker_wrap">
+									<input class="to" type="text" id="기간E" name="기간E" value="" maxlength="10" placeholder="YYYY.MM.DD" oninput="checkInputPattern(this, '0-9.\-');" />
+								</div>
+								<button type="button" class="btn btn-line btn-clear">
+									<span>전체</span>
+								</button>
+							</div><!-- .form-container -->
+						</div>
+						<div class="button-wrap">
+							<button type="button" class="btn btn-primary">
+								<span>검색</span>
+							</button>
+						</div>
+					</div><!-- .grid-search -->
+
+					<div class="grid-wrap">
+						<div id="gridHolder"></div><!-- 그리드 영역 -->
+
+						<div class="tbl-wrap">
+							<table class="tbl-data text-center">
+								<colgroup>
+									<col style="width: 151px;">
+									<col style="width: 150px;">
+									<col style="width: 150px;">
+									<col style="width: 150px;">
+									<col style="width: 150px;">
+									<col>
+								</colgroup>
+								<tfoot>
+									<tr>
+										<td>
+											<span class="text-primary">정상 승인 건수/금액</span>
+										</td>
+										<td>1,000건 / 829,300원</td>
+										<td>
+											<span class="text-primary">취소 승인 건수/금액</span>
+										</td>
+										<td>1건 / -300원</td>
+										<td>
+											<span class="text-primary">순 승인 건수/금액</span>
+										</td>
+										<td>999건 / 829,000원</td>
+									</tr>
+								</tfoot>
+							</table>
+						</div>
+					</div><!-- .grid-wrap -->
+				</div>
+			</div>
+		</div><!-- .content-wrap -->
+	</div><!-- .container -->
+</body>
+</html>

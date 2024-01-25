@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>가맹점 검색/선택</title>
+
+<!--v Packages -->
+<script src="../../assets/js/jquery.min.js"></script>
+
+<link href="../../assets/css/jquery-ui.min.css" rel="stylesheet" />
+<script src="../../assets/js/jquery-ui.min.js"></script>
+
+<link href="../../assets/css/select2.min.css" rel="stylesheet" />
+<script src="../../assets/js/select2.min.js"></script>
+
+<!-- rMateGridH5 CSS -->
+<link rel="stylesheet" type="text/css" href="../../assets/js/rMateGrid/rMateGridH5/Assets/rMateH5.css"/>
+<!-- rMateGridH5 라이센스 -->
+<script type="text/javascript" src="../../assets/js/rMateGrid/LicenseKey/rMateGridH5License.js"></script>
+<!-- rMateGridH5 라이브러리 -->
+<script type="text/javascript" src="../../assets/js/rMateGrid/rMateGridH5/JS/rMateGridH5.js"></script>
+<!--^ Packages -->
+
+<link href="../../assets/css/all.css" rel="stylesheet" />
+<script src="../../assets/js/util.js"></script>
+
+<script type="text/javascript">
+// ----------------------- 그리드 설정 시작 -------------------------------------
+
+// rMateGridH5에서 그리드 생성 준비가 완료될 경우 호출할 함수를 지정합니다.
+var jsVars = "rMateOnLoadCallFunction=gridReadyHandler";
+
+// 기본 이미지 경로 조정
+rMateGridH5.setAssetsPath("../../assets/js/rMateGrid/rMateGridH5/Assets/")
+
+// rMateDataGrid 를 생성합니다.
+// 파라메터 (순서대로)
+//  1. 그리드의 id ( 임의로 지정하십시오. )
+//  2. 그리드가 위치할 div 의 id (즉, 그리드의 부모 div 의 id 입니다.)
+//  3. 그리드 생성 시 필요한 환경 변수들의 묶음인 jsVars
+//  4. 그리드의 가로 사이즈 (생략 가능, 생략 시 100%)
+//  5. 그리드의 세로 사이즈 (생략 가능, 생략 시 100%)
+rMateGridH5.create("grid1", "gridHolder", jsVars, "100%", "426px");
+
+// 그리드의 속성인 rMateOnLoadCallFunction 으로 설정된 함수.
+// rMate 그리드의 준비가 완료된 경우 이 함수가 호출됩니다.
+// 이 함수를 통해 그리드에 레이아웃과 데이터를 삽입합니다.
+// 파라메터 : id - rMateGridH5.create() 사용 시 사용자가 지정한 id 입니다.
+function gridReadyHandler(id) {
+	// rMateGrid 관련 객체
+	gridApp = document.getElementById(id);	// 그리드를 포함하는 div 객체
+	gridRoot = gridApp.getRoot();	// 데이터와 그리드를 포함하는 객체
+
+	gridApp.setLayout(layoutStr);
+	gridApp.setData(gridData);
+
+	var dataCompleteHandler = function(event) {
+		dataGrid = gridRoot.getDataGrid();
+
+		// 필수로 넣어야 할 선언
+		dataGrid.setHeaderHeight(32); // header 높이
+		dataGrid.setHeaderWordWrap(true); // header cell에 글자 넘칠 때 자동줄바꿈처리
+		dataGrid.setRowHeight(28); // row 높이
+	}
+
+	gridRoot.addEventListener("dataComplete", dataCompleteHandler);
+}
+
+// rMateGrid 관련 객체
+var gridApp, gridRoot;	// 데이터와 그리드를 포함하는 객체
+var dataGrid;	// 그리드
+
+//----------------------- 그리드 설정 끝 -----------------------
+
+var layoutStr =
+'<rMateGrid>\
+	<DateFormatter id="datefmt" formatString="YYYY.MM.DD"/>\
+	<DateFormatter id="datefmt2" formatString="HH:MM:SS"/>\
+	<NumberFormatter id="numfmt" useThousandsSeparator="true"/>\
+	<NumberMaskFormatter  id="numfmt2" formatString="####-####-####-####"/>\
+	<CurrencyFormatter id="currfmt1" alignSymbol="right" currencySymbol="원"/>\
+	<CurrencyFormatter id="currfmt2" alignSymbol="right" currencySymbol="건"/>\
+	<DataGrid id="dg1" styleName="gridStyle" aria-label="atagrid" sortableColumns="true" editable="true" doubleClickEnabled="true" horizontalScrollPolicy="auto" verticalAlign="middle" textAlign="center" paddingTop="0" paddingBottom="0">\
+		<columns>\
+			<DataGridColumn headerText="가맹점번호" dataField="가맹점번호" width="110"/>\
+			<DataGridColumn headerText="가맹점명" dataField="가맹점명" width="220"/>\
+			<DataGridColumn headerText="사업자번호" dataField="사업자번호" width="110"/>\
+			<DataGridColumn headerText="대표자명" dataField="대표자명" width="100"/>\
+			<DataGridColumn headerText="해약일자" dataField="해약일자" width="80" formatter="{datefmt}"/>\
+			<DataGridColumn headerText="지자체" dataField="지자체" width="220"/>\
+			<DataGridColumn headerText="주소" dataField="주소" width="250" textAlign="left"/>\
+		</columns>\
+	</DataGrid>\
+	<Style>\n\
+		.gridStyle {\n\
+			color:#333;\n\
+			borderWidth:0;\n\
+			selectionColor:var(--table-thead-bg-color);\n\
+			textSelectedColor:#333;\n\
+			rollOverColor:#f4f4f4;\n\
+			fontSize:12px;\n\
+			verticalAlign:middle;\n\
+			headerStyleName:gridHeaderStyle;\n\
+			headerPaddingTop:0;\n\
+			headerPaddingBottom:0;\n\
+			headerColors:var(--table-thead-bg-color),var(--table-thead-bg-color);\n\
+			headerSeparatorColor:var(--table-thead-border-color);\n\
+			headerBorderTopWidth:0;\n\
+			headerBorderBottomColor:var(--table-thead-border-color);\n\
+		}\n\
+		.gridHeaderStyle {\n\
+			color:#666;\n\
+			fontSize:12px;\n\
+			fontWeight:500;\n\
+			horizontalAlign:center;\n\
+			verticalAlign:middle;\n\
+		}\n\
+		.gridFooterStyle {\n\
+			color:#111;\n\
+			backgroundColor:#f8f8f8;\n\
+			borderColor:var(--primary);\n\
+		}\n\
+	</Style>\
+</rMateGrid>\
+';
+
+var gridData = [
+	{"가맹점번호" : "792844564","가맹점명" : "GS25 OOO점","사업자번호" : "141-06-19855","대표자명" : "홍길동","해약일자" : "20200115","지자체" : "경상북도 안동시 풍산읍","주소" : "경상북도 안동시 풍산읍"},
+	{"가맹점번호" : "792844564","가맹점명" : "GS25 OOO점","사업자번호" : "141-06-19855","대표자명" : "홍길동","해약일자" : "20200115","지자체" : "경상북도 안동시 풍산읍","주소" : "경상북도 안동시 풍산읍"},
+	{"가맹점번호" : "792844564","가맹점명" : "GS25 OOO점","사업자번호" : "141-06-19855","대표자명" : "홍길동","해약일자" : "20200115","지자체" : "경상북도 안동시 풍산읍","주소" : "경상북도 안동시 풍산읍"},
+];
+	
+</script>
+
+</head>
+
+<body class="sub-page">
+	<div id="util">
+		<div class="inner">
+			<div class="info">
+				<div class="administrator">
+					<i class="icon-smile"></i>
+					<span>시스템 관리자</span>
+				</div>
+				<div class="address">경기도 용인시 OO동</div>
+				<div class="log">마지막 로그인 : 2023.05.04 14:05</div>
+				<button type="button" class="btn btn-sub-line">
+					<span>회원정보수정</span>
+				</button>
+				<a href="#" class="btn btn-txt">
+					<span>로그아웃</span>
+				</a>
+			</div>
+		</div>
+	</div>
+	<header>
+		<div class="inner">
+			<h1 class="logo">
+				<a href="#">
+					<img src="../../assets/img/logo.svg" />
+				</a>
+			</h1>
+			<div id="gnb">
+				<ul class="gnb-list">
+					<li class="on">
+						<a href="#">회원/카드관리</a>
+					</li>
+					<li>
+						<a href="#">거래관리</a>
+					</li>
+					<li>
+						<a href="#">정산현황</a>
+					</li>
+					<li>
+						<a href="#">통계/분석</a>
+					</li>
+					<li>
+						<a href="#">지원정책</a>
+					</li>
+					<li>
+						<a href="#">환경설정</a>
+					</li>
+				</ul>
+				<button type="button" class="btn btn-txt btn-allmenu">
+					<i class="icon-allmenu"></i>
+					<span>전체보기</span>
+				</button>
+			</div>
+		</div>
+	</header>
+
+	<div class="container">
+		<div id="lnb">
+			<div class="group-title menu01">
+				<span>회원/카드관리</span>
+			</div>
+			<div class="menu-wrap">
+				<ul class="menu-list">
+					<li>
+						<a href="#">
+							<span class="menu1-1">대상자관리</span>
+							<i class="icon-arrow-down"></i>
+						</a>
+						<ul class="sub-menu">
+							<li>
+								<a href="#">
+									<span>대상자 신규등록</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span>보유회원명단</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span>신청현황관리</span>
+								</a>
+							</li>
+						</ul>
+					</li>
+					<li>
+						<a href="#">
+							<span class="menu1-2">카드관리</span>
+							<i class="icon-arrow-down"></i>
+						</a>
+						<ul class="sub-menu">
+							<li>
+								<a href="#">
+									<span>재료카드 요청</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span>빈 카드 관리</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span>카드삭제(미사용자)</span>
+								</a>
+							</li>
+						</ul>
+					</li>
+					<li class="on">
+						<a href="#">
+							<span class="menu1-3">이용현황</span>
+							<i class="icon-arrow-down"></i>
+						</a>
+						<ul class="sub-menu">
+							<li class="on">
+								<a href="#">
+									<span>회원별 이용현황</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span>일자별 집계 현황</span>
+								</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				<div class="inquiry">
+					<div>시스템 문의</div>
+					<a href="mailto:wecard@bizplay.co.kr" class="btn btn-txt">
+						<span>wecard@bizplay.co.kr</span>
+					</a>
+				</div>
+			</div>
+		</div>
+		<!-- #lnb -->
+		<div class="content-wrap">
+			<div class="content-body"></div>
+		</div><!-- .content-wrap -->
+	</div><!-- .container -->
+
+	<!-- 팝업 위치는 항상 여기에 넣어주세요. -->
+	<div id="storeSearch" class="layerPopup" style="display: block;"><!-- 실제 작업하실 때는 style 선언은 지워주세요. 팝업 활성화 방법은 components/modal.html 파일을 참고해주세요. -->
+		<div class="layer-wrap" style="width: 844px;">
+			<div class="layer-header">
+				<h4 class="layer-title">가맹점 검색/선택</h4>
+				<div class="button-wrap">
+					<button type="button" class="btn btn_close" title="창닫기">
+						<i class="icon-close"></i>
+					</button>
+				</div>
+			</div><!-- .layer-header -->
+	
+			<div class="layer-body">
+
+				<div class="section-header">
+					<div class="title-wrap">
+						<div class="title">가맹점정보</div>
+					</div>
+				</div><!-- .section-header -->
+				
+				<div class="search-form-wrap">
+					<form>
+						<div class="search-form-inner">
+							<div class="search-form">
+
+								<div class="row">
+									<div class="col-12">
+										<label class="form-label" for="지자체"><span>지자체</span></label>
+										<div class="form-container">
+											<select class="form-select select2" id="지자체" name="시/도" data-placeholder="시/도 선택" disabled>
+												<option value=""></option>
+												<option value="경상북도" selected>경상북도</option>
+											</select>
+											<select class="form-select select2" id="시/군/구" name="시/군/구" data-placeholder="시/군/구 선택">
+												<option value=""></option>
+												<option value="옵션1">옵션1</option>
+												<option value="옵션2">옵션2</option>
+												<option value="옵션3">옵션3</option>
+											</select>
+											<select class="form-select select2" id="구" name="구" data-placeholder="구 선택">
+												<option value=""></option>
+												<option value="옵션1">옵션1</option>
+												<option value="옵션2">옵션2</option>
+												<option value="옵션3">옵션3</option>
+											</select>
+											<select class="form-select select2" id="읍/면/동" name="읍/면/동" data-placeholder="읍/면/동 선택">
+												<option value=""></option>
+												<option value="옵션1">옵션1</option>
+												<option value="옵션2">옵션2</option>
+												<option value="옵션3">옵션3</option>
+											</select>
+										</div>
+									</div><!-- .col -->
+								</div><!-- .row -->
+								<div class="row">
+									<div class="col-4">
+										<label class="form-label" for="가맹점명"><span>가맹점명</span></label>
+										<div class="form-container">
+											<div class="input-wrap">
+												<input type="text" id="가맹점명" name="가맹점명" value="" placeholder="" maxlength="" />
+											</div><!-- .input-wrap -->
+										</div><!-- .form-container -->
+									</div><!-- .col -->
+									<div class="col-4">
+										<label class="form-label" for="사업자번호"><span>사업자번호</span></label>
+										<div class="form-container">
+											<div class="input-wrap">
+												<input type="text" id="사업자번호" name="사업자번호" value="" placeholder="" maxlength="" />
+											</div><!-- .input-wrap -->
+										</div><!-- .form-container -->
+									</div><!-- .col -->
+									<div class="col-4">
+										<label class="form-label" for="가맹점번호"><span>가맹점번호</span></label>
+										<div class="form-container">
+											<div class="input-wrap">
+												<input type="text" id="가맹점번호" name="가맹점번호" value="" placeholder="숫자만입력" maxlength="" />
+											</div><!-- .input-wrap -->
+										</div><!-- .form-container -->
+									</div><!-- .col -->
+								</div><!-- .row -->
+
+							</div><!-- .search-form -->
+
+							<div class="button-wrap">
+								<button type="button" class="btn btn-primary">
+									<span>검색</span>
+								</button>
+							</div>
+						</div><!-- .search-form-inner -->
+					</form>
+				</div><!-- .search_form_wrap -->
+
+				<div class="section-header">
+					<div class="title-wrap">
+						<div class="title">검색결과<span class="small text-primary">(99건)</span></div>
+						<div class="sub-title">검색결과 목록에서 가맹점을 클릭하시면 선택된 가맹점 기준으로 검색이 가능합니다.</div>
+					</div>
+				</div><!-- .section-header -->
+
+				<div class="section-body">
+					<div id="gridHolder"></div><!-- 그리드 영역 -->
+				</div><!-- .section-body -->
+			</div><!-- .layer-body -->
+			<div class="layer-footer">
+				<div class="button-wrap">
+					<button type="button" class="btn btn-line btn_close"><span>닫기</span></button>
+				</div>
+			</div><!-- .layer-footer -->
+		</div><!-- .layer-contents -->
+	</div><!-- #layerPopup.layerPopup -->
+</body>
+</html>

@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>바우처정책</title>
+
+<!--v Packages -->
+<script src="../../assets/js/jquery.min.js"></script>
+
+<link href="../../assets/css/jquery-ui.min.css" rel="stylesheet" />
+<script src="../../assets/js/jquery-ui.min.js"></script>
+
+<link href="../../assets/css/select2.min.css" rel="stylesheet" />
+<script src="../../assets/js/select2.min.js"></script>
+
+<!-- rMateGridH5 CSS -->
+<link rel="stylesheet" type="text/css" href="../../assets/js/rMateGrid/rMateGridH5/Assets/rMateH5.css"/>
+<!-- rMateGridH5 라이센스 -->
+<script type="text/javascript" src="../../assets/js/rMateGrid/LicenseKey/rMateGridH5License.js"></script>
+<!-- rMateGridH5 라이브러리 -->
+<script type="text/javascript" src="../../assets/js/rMateGrid/rMateGridH5/JS/rMateGridH5.js"></script>
+<!--^ Packages -->
+
+<link href="../../assets/css/all.css" rel="stylesheet" />
+<script src="../../assets/js/util.js"></script>
+
+<script type="text/javascript">
+// ----------------------- 그리드 설정 시작 -------------------------------------
+
+// rMateGridH5에서 그리드 생성 준비가 완료될 경우 호출할 함수를 지정합니다.
+var jsVars = "rMateOnLoadCallFunction=gridReadyHandler";
+
+// 기본 이미지 경로 조정
+rMateGridH5.setAssetsPath("../../assets/js/rMateGrid/rMateGridH5/Assets/")
+
+// rMateDataGrid 를 생성합니다.
+// 파라메터 (순서대로)
+//  1. 그리드의 id ( 임의로 지정하십시오. )
+//  2. 그리드가 위치할 div 의 id (즉, 그리드의 부모 div 의 id 입니다.)
+//  3. 그리드 생성 시 필요한 환경 변수들의 묶음인 jsVars
+//  4. 그리드의 가로 사이즈 (생략 가능, 생략 시 100%)
+//  5. 그리드의 세로 사이즈 (생략 가능, 생략 시 100%)
+rMateGridH5.create("grid1", "gridHolder", jsVars, "100%", "536px");
+
+// 그리드의 속성인 rMateOnLoadCallFunction 으로 설정된 함수.
+// rMate 그리드의 준비가 완료된 경우 이 함수가 호출됩니다.
+// 이 함수를 통해 그리드에 레이아웃과 데이터를 삽입합니다.
+// 파라메터 : id - rMateGridH5.create() 사용 시 사용자가 지정한 id 입니다.
+function gridReadyHandler(id) {
+	// rMateGrid 관련 객체
+	gridApp = document.getElementById(id);	// 그리드를 포함하는 div 객체
+	gridRoot = gridApp.getRoot();	// 데이터와 그리드를 포함하는 객체
+
+	gridApp.setLayout(layoutStr);
+	gridApp.setData(gridData);
+
+	var itemClickHandler = function(event) {
+		let $button = $(".btn_layer");
+		let $popupName = $("#historyMgmt");
+		$popupName.fadeIn("fast");
+		$("body").addClass("scroll_lock");
+	}
+
+	var dataCompleteHandler = function(event) {
+		dataGrid = gridRoot.getDataGrid();
+
+		// 필수로 넣어야 할 선언
+		dataGrid.setHeaderHeight(32); // header 높이
+		dataGrid.setHeaderWordWrap(true); // header cell에 글자 넘칠 때 자동줄바꿈처리
+		dataGrid.setRowHeight(28); // row 높이
+
+		// 레이어팝업 활성화
+		dataGrid.addEventListener("itemClick", itemClickHandler);
+	}
+
+	gridRoot.addEventListener("dataComplete", dataCompleteHandler);
+}
+
+// rMateGrid 관련 객체
+var gridApp, gridRoot;	// 데이터와 그리드를 포함하는 객체
+var dataGrid;	// 그리드
+
+//----------------------- 그리드 설정 끝 -----------------------
+
+var layoutStr =
+'<rMateGrid>\
+    <DateFormatter id="datefmt" formatString="YYYY.MM.DD"/>\
+    <DateFormatter id="datefmt2" formatString="YYYY.MM.DD H:NN:SS"/>\
+	<NumberFormatter id="numfmt" useThousandsSeparator="true"/>\
+	<CurrencyFormatter id="currfmt2" alignSymbol="right" currencySymbol="건"/>\
+	<DataGrid id="dg1" styleName="gridStyle" aria-label="atagrid" sortableColumns="true" editable="true" doubleClickEnabled="true" horizontalScrollPolicy="auto" verticalAlign="middle" textAlign="center" paddingTop="0" paddingBottom="0">\
+		<columns>\
+			<DataGridColumn headerText="순번" dataField="순번" itemRenderer="IndexNoItem" width="60"/>\
+			<DataGridColumn headerText="카드분류명" dataField="카드분류명" width="300"/>\
+			<DataGridColumn headerText="카드BIN" dataField="카드BIN" width="100" id="dg1col1"/>\
+			<DataGridColumn headerText="카드분류 코드" dataField="카드분류 코드" width="100"/>\
+			<DataGridColumn headerText="지자체" dataField="지자체" />\
+			<DataGridColumn headerText="등록일" dataField="등록일" width="90" formatter="{datefmt}"/>\
+			<DataGridColumn headerText="이력 관리" dataField="이력 관리" width="90" itemRenderer="HtmlItem" editable="false"/>\
+		</columns>\
+		<footers>\
+			<DataGridFooter styleName="gridFooterStyle">\
+				<DataGridFooterColumn styleName="gridFooterLabelStyle" label="합계" colSpan="2" color="var(--primary)" textAlign="center"/>\
+				<DataGridFooterColumn summaryOperation="COUNT" dataColumn="{dg1col1}" formatter="{currfmt2}"/>\
+			</DataGridFooter>\
+		</footers>\
+	</DataGrid>\
+	<Style>\n\
+		.gridStyle {\n\
+			color:#333;\n\
+			borderWidth:0;\n\
+			selectionColor:var(--table-thead-bg-color);\n\
+			textSelectedColor:#333;\n\
+			rollOverColor:#f4f4f4;\n\
+			fontSize:12px;\n\
+			verticalAlign:middle;\n\
+			headerStyleName:gridHeaderStyle;\n\
+			headerPaddingTop:0;\n\
+			headerPaddingBottom:0;\n\
+			headerColors:var(--table-thead-bg-color),var(--table-thead-bg-color);\n\
+			headerSeparatorColor:var(--table-thead-border-color);\n\
+			headerBorderTopWidth:0;\n\
+			headerBorderBottomColor:var(--table-thead-border-color);\n\
+		}\n\
+		.gridHeaderStyle {\n\
+			color:#666;\n\
+			fontSize:12px;\n\
+			fontWeight:500;\n\
+			horizontalAlign:center;\n\
+			verticalAlign:middle;\n\
+		}\n\
+		.gridFooterStyle {\n\
+			color:#111;\n\
+			backgroundColor:#f8f8f8;\n\
+			borderColor:var(--primary);\n\
+		}\n\
+	</Style>\
+</rMateGrid>\
+';
+
+var gridData = [
+	{"카드분류명" : "경상북도 참사랑카드","카드BIN" : "949111","카드분류 코드" : "001","지자체" : "경상북도 김천시 아포읍","등록일" : "20230721","이력 관리" : "<button type='button' class='btn btn-sub-line btn_layer' data-target='#historyMgmt'><span>이력 관리</span></button>"},
+	{"카드분류명" : "경상북도 참사랑카드","카드BIN" : "949111","카드분류 코드" : "001","지자체" : "경상북도 김천시 아포읍","등록일" : "20230721","이력 관리" : "<button type='button' class='btn btn-sub-line btn_layer' data-target='#historyMgmt'><span>이력 관리</span></button>"},
+];
+	
+</script>
+
+</head>
+
+<body class="sub-page">
+	<div id="util">
+		<div class="inner">
+			<div class="info">
+				<div class="administrator">
+					<i class="icon-smile"></i>
+					<span>시스템 관리자</span>
+				</div>
+				<div class="address">경기도 용인시 OO동</div>
+				<div class="log">마지막 로그인 : 2023.05.04 14:05</div>
+				<button type="button" class="btn btn-sub-line">
+					<span>회원정보수정</span>
+				</button>
+				<a href="#" class="btn btn-txt">
+					<span>로그아웃</span>
+				</a>
+			</div>
+		</div>
+	</div>
+	<header>
+		<div class="inner">
+			<h1 class="logo">
+				<a href="#">
+					<img src="../../assets/img/logo.svg" />
+				</a>
+			</h1>
+			<div id="gnb">
+				<ul class="gnb-list">
+					<li>
+						<a href="#">회원/카드관리</a>
+					</li>
+					<li>
+						<a href="#">거래관리</a>
+					</li>
+					<li>
+						<a href="#">정산현황</a>
+					</li>
+					<li>
+						<a href="#">통계/분석</a>
+					</li>
+					<li class="on">
+						<a href="#">지원정책</a>
+					</li>
+					<li>
+						<a href="#">환경설정</a>
+					</li>
+				</ul>
+				<button type="button" class="btn btn-txt btn-allmenu">
+					<i class="icon-allmenu"></i>
+					<span>전체보기</span>
+				</button>
+			</div>
+		</div>
+	</header>
+
+	<div class="container">
+		<div id="lnb">
+			<div class="group-title menu05">
+				<span>지원정책</span>
+			</div>
+			<div class="menu-wrap">
+				<ul class="menu-list">
+					<li class="on">
+						<a href="#">
+							<span class="menu5-1">지원정책</span>
+							<i class="icon-arrow-down"></i>
+						</a>
+						<ul class="sub-menu">
+							<li class="on">
+								<a href="#">
+									<i class="icon-menu-depth"></i>
+									<span>바우처 정책 관리</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<i class="icon-menu-depth"></i>
+									<span>학교 방학 관리</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<i class="icon-menu-depth"></i>
+									<span>급식 템플릿 관리</span>
+								</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				<div class="inquiry">
+					<div>시스템 문의</div>
+					<a href="mailto:wecard@bizplay.co.kr" class="btn btn-txt">
+						<span>wecard@bizplay.co.kr</span>
+					</a>
+				</div>
+			</div>
+		</div>
+		<!-- #lnb -->
+		<div class="content-wrap">
+			<div class="content-body">
+				
+				<div class="search-form-wrap">
+					<div class="content-header">
+						<div class="title-wrap">
+							<div class="title">지원정책</div>
+							<div class="title">바우처 정책 관리</div>
+						</div>
+					</div>
+
+					<form>
+						<div class="search-form-inner">
+							<div class="search-form">
+
+								<div class="row">
+									<div class="col-12">
+										<label class="form-label" for="지자체"><span>지자체</span></label>
+										<div class="form-container">
+											<select class="form-select select2" id="지자체" name="시/도" data-placeholder="시/도 선택" disabled>
+												<option value=""></option>
+												<option value="경상북도" selected>경상북도</option>
+											</select>
+											<select class="form-select select2" id="시/군/구" name="시/군/구" data-placeholder="시/군/구 선택">
+												<option value=""></option>
+												<option value="옵션1">옵션1</option>
+												<option value="옵션2">옵션2</option>
+												<option value="옵션3">옵션3</option>
+											</select>
+											<select class="form-select select2" id="구" name="구" data-placeholder="구 선택">
+												<option value=""></option>
+												<option value="옵션1">옵션1</option>
+												<option value="옵션2">옵션2</option>
+												<option value="옵션3">옵션3</option>
+											</select>
+											<select class="form-select select2" id="읍/면/동" name="읍/면/동" data-placeholder="읍/면/동 선택">
+												<option value=""></option>
+												<option value="옵션1">옵션1</option>
+												<option value="옵션2">옵션2</option>
+												<option value="옵션3">옵션3</option>
+											</select>
+										</div>
+									</div><!-- .col -->
+								</div><!-- .row -->
+								
+								<div class="row">
+									<div class="col-5">
+										<label class="form-label" for="카드분류명"><span>카드분류명</span></label>
+										<div class="form-container">
+											<div class="input-wrap full">
+												<input type="text" id="카드분류명" name="카드분류명" value="" placeholder="" />
+											</div>
+										</div><!-- .form-container -->
+									</div><!-- .col -->
+								</div><!-- .row -->
+
+							</div><!-- .search-form -->
+
+							<div class="button-wrap">
+								<button type="button" class="btn btn-primary">
+									<span>검색</span>
+								</button>
+							</div>
+						</div><!-- .search-form-inner -->
+					</form>
+				</div><!-- .search_form_wrap -->
+
+				<div class="section-body">
+					<div class="section-header">
+						<div class="title-wrap">
+							<div class="title">검색결과<span class="small text-primary">(99건)</span></div>
+						</div>
+						<div class="button-wrap">
+							<button type="button" class="btn btn-line-primary">
+								<i class="icon-plus_s"></i>
+								<span>신규등록</span>
+							</button>
+						</div>
+					</div>
+					<div id="gridHolder"></div><!-- 그리드 영역 -->
+				</div>
+			</div>
+		</div><!-- .content-wrap -->
+	</div><!-- .container -->
+
+	<!-- 팝업 위치는 항상 여기에 넣어주세요. -->
+	<div id="historyMgmt" class="layerPopup">
+		<div class="layer-wrap" style="width: 844px;">
+			<div class="layer-header">
+				<h4 class="layer-title">바우처정책 등록</h4>
+				<div class="button-wrap">
+					<button type="button" class="btn btn_close" title="창닫기">
+						<i class="icon-close"></i>
+					</button>
+				</div>
+			</div><!-- .layer-header -->
+	
+			<div class="layer-body">
+
+				<div class="section-body">
+					<table class="tbl-form">
+						<colgroup>
+							<col style="width:100px;">
+							<col style="width:50%">
+							<col style="width:100px;">
+							<col style="width:50%">
+						</colgroup>
+						<tbody>
+						<tr>
+							<th>
+								<label class="form-label" for="카드분류명">카드분류명</label>
+							</th>
+							<td>
+								<div class="form-container">
+									<div class="input-wrap">
+										<input type="text" id="카드분류명" name="카드분류명" value="" placeholder="" maxlength="" />
+									</div>
+								</div>
+							</td>
+							<th>
+								<label class="form-label" for="카드 지원유형">카드 지원유형</label>
+							</th>
+							<td>
+								<div class="form-container">
+									<select class="form-select select2" id="카드 지원유형" name="카드 지원유형" data-placeholder="카드 지원유형">
+										<option value=""></option>
+										<option value="옵션1">옵션1</option>
+										<option value="옵션2">옵션2</option>
+										<option value="옵션3">옵션3</option>
+									</select>
+								</div><!-- .form-container -->
+							</td>
+						</tr>
+						<tr>
+							<th>
+								<label class="form-label" for="카드분류코드">카드분류코드</label>
+							</th>
+							<td>
+								<div class="form-container col-1">
+									<div class="unit">949111 -</div>
+									<div class="input-wrap">
+										<input type="text" id="카드분류코드" name="카드분류코드" value="" placeholder="" maxlength="3" pattern="[0-9.,]+" oninput="numberLocaleString(this, 2);" />
+									</div>
+								</div>
+							</td>
+							<th>
+								<label class="form-label" for="지역제한 범위">지역제한 범위</label>
+							</th>
+							<td>
+								<div class="form-container">
+									<select class="form-select select2" id="지역제한 범위" name="지역제한 범위" data-placeholder="지역제한 범위 선택" disabled>
+										<option value=""></option>
+										<option value="1" selected>949111(경기도)</option>
+									</select>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								<label class="form-label" for="1식당 지원단가">1식당 지원단가</label>
+							</th>
+							<td>
+								<div class="form-container">
+									<div class="input-wrap">
+										<input class="number" type="text" id="1식당 지원단가" name="1식당 지원단가" value="" step="1" placeholder="0" maxlength="" oninput="numberLocaleString(this);" />
+									</div>
+									<div class="unit">원<span class="guide-info">(1식당 단가를 입력)</span></div>
+								</div><!-- .form-container -->
+							</td>
+							<th>
+								<label class="form-label" for="취소기간 허용범위">취소기간 허용범위</label>
+							</th>
+							<td>
+								<div class="form-container">
+									<select class="form-select select2" id="취소기간 허용범위" name="취소기간 허용범위" data-placeholder="취소기간 허용범위 선택">
+										<option value=""></option>
+										<option value="1" selected>당일취소허용</option>
+									</select>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								<label class="form-label" for="충전방식">충전방식</label>
+							</th>
+							<td>
+								<div class="form-container">
+									<select class="form-select select2" id="충전방식" name="충전방식" data-placeholder="충전방식 선택">
+										<option value=""></option>
+										<option value="1" selected>옵션1</option>
+									</select>
+								</div>
+							</td>
+							<th>
+								<label class="form-label" for="잔액이월 방식">잔액이월 방식</label>
+							</th>
+							<td>
+								<div class="form-container many-select">
+									<select class="form-select select2" id="잔액이월 방식" name="잔액이월 방식" data-placeholder="잔액이월 방식 선택">
+										<option value=""></option>
+										<option value="1">단위금액 이월</option>
+										<option value="2">전액이월</option>
+										<option value="3">정률이월</option>
+										<option value="4">정액미만이월</option>
+										<option value="5">소멸</option>
+									</select>
+									<!-- <select class="form-select select2" id="단위금액 이월" name="단위금액 이월" data-placeholder="단위금액 이월 선택">
+										<option value=""></option>
+										<option value="1">100단위</option>
+										<option value="2">1,000단위</option>
+										<option value="3" selected>10,000단위</option>
+									</select> -->
+									<button type="button" class="btn btn-line">
+										<span>도움말</span>
+									</button>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								<label class="form-label" for="지자체2">지자체</label>
+							</th>
+							<td colspan="3">
+								<div class="form-container">
+									<select class="form-select select2" id="지자체2" name="시/도" data-placeholder="시/도 선택" disabled>
+										<option value=""></option>
+										<option value="경상북도" selected>경상북도</option>
+									</select>
+									<select class="form-select select2" id="시/군/구2" name="시/군/구" data-placeholder="시/군/구 선택">
+										<option value=""></option>
+										<option value="옵션1">옵션1</option>
+										<option value="옵션2">옵션2</option>
+										<option value="옵션3">옵션3</option>
+									</select>
+									<select class="form-select select2" id="구2" name="구" data-placeholder="구 선택">
+										<option value=""></option>
+										<option value="옵션1">옵션1</option>
+										<option value="옵션2">옵션2</option>
+										<option value="옵션3">옵션3</option>
+									</select>
+									<select class="form-select select2" id="읍/면/동2" name="읍/면/동" data-placeholder="읍/면/동 선택">
+										<option value=""></option>
+										<option value="옵션1">옵션1</option>
+										<option value="옵션2">옵션2</option>
+										<option value="옵션3">옵션3</option>
+									</select>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								<label class="form-label" for="라디오1_옵션1">일 발생건수</label>
+							</th>
+							<td>
+								<div class="form-container">
+									<div class="form-check">
+										<input class="form-check-input" type="radio" id="라디오1_옵션1" name="라디오1" value="옵션1">
+										<label class="form-check-label" for="라디오1_옵션1">체크함</label>
+									</div>
+									<div class="form-check">
+										<input class="form-check-input" type="radio" id="라디오1_옵션2" name="라디오1" value="옵션2" checked>
+										<label class="form-check-label" for="라디오1_옵션2">체크하지 않음</label>
+									</div>
+								</div>
+							</td>
+							<th>
+								<label class="form-label" for="일 발생 체크횟수">일 발생 체크횟수</label>
+							</th>
+							<td>
+								<div class="form-container">
+									<div class="input-wrap">
+										<input class="number" type="text" id="일 발생 체크횟수" name="일 발생 체크횟수" value="" step="1" placeholder="0" maxlength="" oninput="numberLocaleString(this);" />
+									</div>
+									<div class="unit">회</div>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								<label class="form-label" for="라디오2_옵션1">월 발생건수</label>
+							</th>
+							<td>
+								<div class="form-container">
+									<div class="form-check">
+										<input class="form-check-input" type="radio" id="라디오2_옵션1" name="라디오2" value="옵션1">
+										<label class="form-check-label" for="라디오2_옵션1">체크함</label>
+									</div>
+									<div class="form-check">
+										<input class="form-check-input" type="radio" id="라디오2_옵션2" name="라디오2" value="옵션2" checked>
+										<label class="form-check-label" for="라디오2_옵션2">체크하지 않음</label>
+									</div>
+								</div>
+							</td>
+							<th>
+								<label class="form-label" for="월 발생 체크횟수">월 발생 체크횟수</label>
+							</th>
+							<td>
+								<div class="form-container">
+									<div class="input-wrap">
+										<input class="number" type="text" id="월 발생 체크횟수" name="월 발생 체크횟수" value="" step="1" placeholder="0" maxlength="" oninput="numberLocaleString(this);" />
+									</div>
+									<div class="unit">회</div>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								<label class="form-label" for="라디오3_옵션1">승인제한 시간</label>
+							</th>
+							<td>
+								<div class="form-container">
+									<div class="form-check">
+										<input class="form-check-input" type="radio" id="라디오3_옵션1" name="라디오3" value="옵션1">
+										<label class="form-check-label" for="라디오3_옵션1">체크함</label>
+									</div>
+									<div class="form-check">
+										<input class="form-check-input" type="radio" id="라디오3_옵션2" name="라디오3" value="옵션2" checked>
+										<label class="form-check-label" for="라디오3_옵션2">체크하지 않음</label>
+									</div>
+								</div>
+							</td>
+							<th>
+								<label class="form-label" for="승인제한체크시간1">승인제한 체크시간</label>
+							</th>
+							<td>
+								<div class="form-container">
+									<div class="input-wrap time">
+										<input type="text" id="승인제한체크시간1" name="승인제한체크시간1" value="" placeholder="00:00" maxlength="5" />
+									</div><!-- .input-wrap -->
+									<div class="unit">~</div>
+									<div class="input-wrap time">
+										<input type="text" id="승인제한체크시간2" name="승인제한체크시간2" value="" placeholder="00:00" maxlength="5" />
+									</div><!-- .input-wrap -->
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								<label class="form-label" for="라디오4_옵션1">건별 상한금액</label>
+							</th>
+							<td>
+								<div class="form-container">
+									<div class="form-check">
+										<input class="form-check-input" type="radio" id="라디오4_옵션1" name="라디오4" value="옵션1">
+										<label class="form-check-label" for="라디오4_옵션1">체크함</label>
+									</div>
+									<div class="form-check">
+										<input class="form-check-input" type="radio" id="라디오4_옵션2" name="라디오4" value="옵션2" checked>
+										<label class="form-check-label" for="라디오4_옵션2">체크하지 않음</label>
+									</div>
+								</div>
+							</td>
+							<th>
+								<label class="form-label" for="건별 체크 상한금액">건별 체크 상한금액</label>
+							</th>
+							<td>
+								<div class="form-container">
+									<div class="input-wrap">
+										<input class="number" type="text" id="건별 체크 상한금액" name="건별 체크 상한금액" value="" step="1" placeholder="" oninput="numberLocaleString(this);" />
+									</div>
+									<div class="unit">원</div>
+								</div><!-- .form-container -->
+							</td>
+						</tr>
+						<tr>
+							<th rowspan="3">
+								<label class="form-label" for="라디오5_옵션1">일별 상한금액</label>
+							</th>
+							<td rowspan="3">
+								<div class="form-container">
+									<div class="form-check">
+										<input class="form-check-input" type="radio" id="라디오5_옵션1" name="라디오5" value="옵션1">
+										<label class="form-check-label" for="라디오5_옵션1">체크함</label>
+									</div>
+									<div class="form-check">
+										<input class="form-check-input" type="radio" id="라디오5_옵션2" name="라디오5" value="옵션2" checked>
+										<label class="form-check-label" for="라디오5_옵션2">체크하지 않음</label>
+									</div>
+								</div>
+							</td>
+							<th>
+								<label class="form-label" for="1식 합산 상한금액">1식 합산 상한금액</label>
+							</th>
+							<td>
+								<div class="form-container">
+									<div class="input-wrap">
+										<input class="number" type="text" id="1식 합산 상한금액" name="1식 합산 상한금액" value="" step="1" placeholder="" oninput="numberLocaleString(this);" />
+									</div>
+									<div class="unit">원</div>
+								</div><!-- .form-container -->
+							</td>
+						</tr>
+						<tr>
+							<th>
+								<label class="form-label" for="2식 합산 상한금액">2식 합산 상한금액</label>
+							</th>
+							<td>
+								<div class="form-container">
+									<div class="input-wrap">
+										<input class="number" type="text" id="2식 합산 상한금액" name="2식 합산 상한금액" value="" step="1" placeholder="" oninput="numberLocaleString(this);" />
+									</div>
+									<div class="unit">원</div>
+								</div><!-- .form-container -->
+							</td>
+						</tr>
+						<tr>
+							<th>
+								<label class="form-label" for="3식 합산 상한금액">3식 합산 상한금액</label>
+							</th>
+							<td>
+								<div class="form-container">
+									<div class="input-wrap">
+										<input class="number" type="text" id="3식 합산 상한금액" name="3식 합산 상한금액" value="" step="1" placeholder="" oninput="numberLocaleString(this);" />
+									</div>
+									<div class="unit">원</div>
+								</div><!-- .form-container -->
+							</td>
+						</tr>
+						<tr>
+							<th>
+								<label class="form-label" for="비고">비고</label>
+							</th>
+							<td colspan="3">
+								<div class="form-container">
+									<div class="input-wrap full">
+										<input type="text" id="비고" name="비고" value="" placeholder="" />
+									</div>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								<label class="form-label" for="최초 등록 일시">최초 등록 일시</label>
+							</th>
+							<td></td>
+							<th>
+								<label class="form-label" for="마지막 수정 일시">마지막 수정 일시</label>
+							</th>
+							<td></td>
+						</tr>
+						</tbody>
+					</table>
+
+					<div class="section-header mt30">
+						<div class="title-wrap">
+							<div class="title">수수료율</div>
+						</div>
+					</div>
+					<table class="tbl-form">
+						<colgroup>
+							<col style="width:100px;">
+							<col style="width:33%">
+							<col style="width:100px;">
+							<col style="width:33%">
+							<col style="width:100px;">
+							<col style="width:33%">
+						</colgroup>
+						<tbody>
+							<tr>
+								<th>
+									<label class="form-label" for="가맹점 거래">가맹점 거래</label>
+								</th>
+								<td>
+									<div class="form-container">
+										<div class="input-wrap">
+											<input class="number" type="number" id="가맹점 거래" name="가맹점 거래" value="" placeholder="" pattern="[0-9.,]+" step="1" min="" max="" onfocusout="numberLocaleString(this, 2);">
+										</div>
+										<div class="unit">%</div>
+									</div>
+								</td>
+								<th>
+									<label class="form-label" for="VAN사 거래">VAN사 거래</label>
+								</th>
+								<td>
+									<div class="form-container">
+										<div class="input-wrap">
+											<input class="number" type="number" id="VAN사 거래" name="VAN사 거래" value="" placeholder="" pattern="[0-9.,]+" step="1" min="" max="" onfocusout="numberLocaleString(this, 2);">
+										</div>
+										<div class="unit">%</div>
+									</div>
+								</td>
+								<th>
+									<label class="form-label" for="추가 징구">추가 징구</label>
+								</th>
+								<td>
+									<div class="form-container">
+										<div class="input-wrap">
+											<input class="number" type="number" id="추가 징구" name="추가 징구" value="" placeholder="" pattern="[0-9.,]+" step="1" min="" max="" onfocusout="numberLocaleString(this, 2);">
+										</div>
+										<div class="unit">%</div>
+									</div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+			</div><!-- .layer-body -->
+	
+			<div class="layer-footer">
+				<div class="button-wrap">
+					<button type="button" class="btn btn-line btn_close">
+						<span>취소</span>
+					</button>
+					<button type="button" class="btn btn-primary">
+						<span>등록</span>
+					</button>
+				</div>
+			</div><!-- .layer-footer -->
+		</div><!-- .layer-contents -->
+	</div><!-- #historyMgmt.layerPopup -->
+</body>
+</html>

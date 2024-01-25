@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title></title>
+    <!-- SBGrid3.0 Import Lib start-->
+    <script src="../../assets/js/SBGrid3/sbgrid3.js" type="text/javascript"></script>
+    <link href="../../assets/js/SBGrid3/css/sbgrid3.css" rel="stylesheet" />
+    <!-- SBGrid3.0 Import Lib end-->
+  </head>
+
+  <script>
+    let datagrid;
+    SBGrid3.$(document).ready(function () {
+      createGrid();
+    });
+
+    let calcData = [
+      {
+        class: "매화반",
+        name: "홍길동",
+        number: "30534",
+        korean: 75,
+        english: 50,
+        math: 88,
+        _key_: "fabc4f8f-44b7-4781-b518-1ddaf52fdde3",
+      },
+      {
+        class: "매화반",
+        name: "김철수",
+        number: "30115",
+        korean: 94,
+        english: 84,
+        math: 79,
+        _key_: "e984f5c7-5cdd-41c5-9d4e-0775444a1bbd",
+      },
+      {
+        class: "매화반",
+        name: "이영희",
+        number: "30311",
+        korean: 65,
+        english: 91,
+        math: 94,
+        _key_: "399d8bc1-e6d9-49dc-9766-914e9a80e25f",
+      },
+      {
+        class: "국화반",
+        name: "최민지",
+        number: "30742",
+        korean: 84,
+        english: 98,
+        math: 62,
+        _key_: "ec8d02e5-35e3-46f0-8660-fb3f95574457",
+      },
+      {
+        class: "국화반",
+        name: "김갑수",
+        number: "31124",
+        korean: 61,
+        english: 64,
+        math: 77,
+        _key_: "5dd6c2f7-2468-439b-a0bf-76c8ad10a9d8",
+      },
+      {
+        class: "국화반",
+        name: "이순신",
+        number: "40534",
+        korean: 95,
+        english: 85,
+        math: 78,
+        _key_: "7a73a92a-f2b7-4d53-9188-32e6437235b2",
+      },
+      {
+        class: "국화반",
+        name: "임꺽정",
+        number: "40115",
+        korean: 91,
+        english: 74,
+        math: 89,
+        _key_: "bd6ae7ab-db57-4f0e-a8df-7968f30b511e",
+      },
+      {
+        class: "국화반",
+        name: "을지문덕",
+        number: "40311",
+        korean: 75,
+        english: 81,
+        math: 91,
+        _key_: "7306fd43-d396-4c77-a4f5-6590a9a996a1",
+      },
+      {
+        class: "국화반",
+        name: "최영",
+        number: "50742",
+        korean: 89,
+        english: 92,
+        math: 52,
+        _key_: "c503fb03-c419-4178-a1cb-0be6eabaa357",
+      },
+      {
+        class: "난초반",
+        name: "신사임당",
+        number: "51124",
+        korean: 81,
+        english: 74,
+        math: 67,
+        _key_: "b1d39ee4-abd5-43a1-b7f0-0fae18768bec",
+      },
+      {
+        class: "난초반",
+        name: "국영수",
+        number: "51125",
+        korean: 80,
+        english: 80,
+        math: 80,
+        _key_: "6aa7f7da-4c91-45d0-84b2-fb9154266658",
+      },
+      {
+        class: "난초반",
+        name: "영수",
+        number: "51126",
+        korean: 70,
+        english: 80,
+        math: 80,
+        _key_: "ae154412-7238-46cd-b9e1-019404a62d9e",
+      },
+    ];
+
+    const dsconfig = {
+      data: calcData,
+      schema:{
+      fields:{
+            korean: {dataType: 'number'}
+        }
+    },
+      groups: [
+        { field: 'class', isOpen: true },
+      ],
+    };
+
+    function createGrid() {
+      let gridConfig = {
+        dataSource: dsconfig,
+        container: "#grid",
+        width: "100%",
+        // groupable: true,
+        resizable: true,
+        groupAutoOpen: true,
+        height: "400px",
+        columns: [
+          { field: "class" , 
+            type: 'number',
+            dataType: 'number',
+            total: {
+              aggregates: [
+                  { func: 'sum', require: 'korean', field: 'korean_name' }
+              ],
+              footer: [
+                  { template: '합계' },
+              ],
+            },
+            groupTitle: {
+                    title: { template: '' }  
+                },
+            groups: [
+                {
+                  header: {template : '{{class}}'},
+                  footer: {template : '소계'}
+                }, 
+            ],
+          },
+          { field: "name" },
+          {
+            field: "korean",
+            groups: [
+              {
+                group: "class",
+                aggregates: [{ func: "sum" }],
+                footer: {suffix:'점'}
+              },
+            ],
+            total: {
+              aggregates: [
+                  { func: 'sum', require: 'korean', field: 'korean_name' }
+              ],
+              footer: [
+                  { template: '{{korean_name}}점' },
+              ],
+            },
+          },
+          { field: "english" ,
+            groups: [
+              {
+                group: "class",
+                aggregates: [{ func: 'sum' }],
+                footer: {suffix:'점'}
+              },
+            ],
+            total: {
+              aggregates: [
+                  { func: 'sum', require: 'english', field: 'english_name' }
+              ],
+              footer: [
+                  { template: '{{english_name}}점' },
+              ],
+            },
+          },
+          { field: "math" ,
+          type: 'number',
+          dataType: 'number',
+            groups: [
+              {
+                group: "class",
+                aggregates: [{ func: "sum"}],
+                footer: {suffix:'점'}
+              },
+            ],
+            total: {
+              aggregates: [
+                  { func: 'sum', require: 'math', field: 'math_name' }
+              ],
+              footer: [
+                  { template: '{{math_name}}점' },
+              ],
+            },
+          },
+        ],
+      };
+      datagrid = SBGrid3.createGrid(gridConfig);
+      datagrid.refresh();
+    }
+  </script>
+  <body>
+    <div id="grid"></div>
+  </body>
+</html>

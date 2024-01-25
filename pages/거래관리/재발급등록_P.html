@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>재발급등록</title>
+
+<!--v Packages -->
+<script src="../../assets/js/jquery.min.js"></script>
+
+<link href="../../assets/css/jquery-ui.min.css" rel="stylesheet" />
+<script src="../../assets/js/jquery-ui.min.js"></script>
+
+<link href="../../assets/css/select2.min.css" rel="stylesheet" />
+<script src="../../assets/js/select2.min.js"></script>
+
+<!-- rMateGridH5 CSS -->
+<link rel="stylesheet" type="text/css" href="../../assets/js/rMateGrid/rMateGridH5/Assets/rMateH5.css"/>
+<!-- rMateGridH5 라이센스 -->
+<script type="text/javascript" src="../../assets/js/rMateGrid/LicenseKey/rMateGridH5License.js"></script>
+<!-- rMateGridH5 라이브러리 -->
+<script type="text/javascript" src="../../assets/js/rMateGrid/rMateGridH5/JS/rMateGridH5.js"></script>
+<!--^ Packages -->
+
+<link href="../../assets/css/all.css" rel="stylesheet" />
+<script src="../../assets/js/util.js"></script>
+</head>
+
+<body class="sub-page">
+	<div id="util">
+		<div class="inner">
+			<div class="info">
+				<div class="administrator">
+					<i class="icon-smile"></i>
+					<span>시스템 관리자</span>
+				</div>
+				<div class="address">경기도 용인시 OO동</div>
+				<div class="log">마지막 로그인 : 2023.05.04 14:05</div>
+				<button type="button" class="btn btn-sub-line">
+					<span>회원정보수정</span>
+				</button>
+				<a href="#" class="btn btn-txt">
+					<span>로그아웃</span>
+				</a>
+			</div>
+		</div>
+	</div>
+	<header>
+		<div class="inner">
+			<h1 class="logo">
+				<a href="#">
+					<img src="../../assets/img/logo.svg" />
+				</a>
+			</h1>
+			<div id="gnb">
+				<ul class="gnb-list">
+					<li>
+						<a href="#">회원/카드관리</a>
+					</li>
+					<li class="on">
+						<a href="#">거래관리</a>
+					</li>
+					<li>
+						<a href="#">정산현황</a>
+					</li>
+					<li>
+						<a href="#">통계/분석</a>
+					</li>
+					<li>
+						<a href="#">지원정책</a>
+					</li>
+					<li>
+						<a href="#">환경설정</a>
+					</li>
+				</ul>
+				<button type="button" class="btn btn-txt btn-allmenu">
+					<i class="icon-allmenu"></i>
+					<span>전체보기</span>
+				</button>
+			</div>
+		</div>
+	</header>
+	<div class="container">
+		<div id="lnb">
+			<div class="group-title menu02">
+				<span>거래관리</span>
+			</div>
+			<div class="menu-wrap">
+				<ul class="menu-list">
+					<li class="on">
+						<a href="#">
+							<span class="menu2-1">거래내역</span>
+							<i class="icon-arrow-down"></i>
+						</a>
+						<ul class="sub-menu">
+							<li class="on">
+								<a href="#">
+									<span>대상자 종합관리</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span>거래요약조회</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span>거래상세조회</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span>충전/소멸/사용 현황</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span>실시간 거래내역조회</span>
+								</a>
+							</li>
+						</ul>
+					</li>
+					<li>
+						<a href="#">
+							<span class="menu2-2">가맹점관리</span>
+							<i class="icon-arrow-down"></i>
+						</a>
+						<ul class="sub-menu">
+							<li>
+								<a href="#">
+									<span>가맹점관리</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span>가맹점별 거래조회</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span>가맹점별 거래현황</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span>가맹점 직접결제</span>
+								</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				<div class="inquiry">
+					<div>시스템 문의</div>
+					<a href="mailto:wecard@bizplay.co.kr" class="btn btn-txt">
+						<span>wecard@bizplay.co.kr</span>
+					</a>
+				</div>
+			</div>
+		</div>
+		<!-- #lnb -->
+	</div><!-- .container -->
+
+	<!-- 팝업 위치는 항상 여기에 넣어주세요. -->
+	<div id="reissuanceRegi" class="layerPopup" style="display: block;"><!-- 실제 작업하실 때는 style 선언은 지워주세요. 팝업 활성화 방법은 components/modal.html 파일을 참고해주세요. -->
+		<div class="layer-wrap" style="width: 844px;">
+			<div class="layer-header">
+				<h4 class="layer-title">재발급 등록</h4>
+				<div class="button-wrap">
+					<button type="button" class="btn btn_close" title="창닫기">
+						<i class="icon-close"></i>
+					</button>
+				</div>
+			</div><!-- .layer-header -->
+	
+			<div class="layer-body">
+
+				<div class="section-header">
+					<div class="title-wrap">
+						<div class="title">고객 기본정보</div>
+					</div>
+				</div><!-- .section-header -->
+
+				<div class="section-body">
+					<table class="tbl-form">
+						<colgroup>
+							<col style="width: 100px;">
+							<col style="width: 45%;">
+							<col style="width: 100px;">
+							<col style="width: 250px;">
+						</colgroup>
+						<tbody>
+							<tr>
+								<th>
+									<label class="form-label" for="카드분류"><span>카드분류</span></label>
+								</th>
+								<td>
+									<div class="form-container">
+										<div class="unit">강원영월광탄소오목매운절구지오목매운절구지 (949500000)</div>
+									</div><!-- .form-container -->
+								</td>
+								<th>
+									<label class="form-label" for="카드번호"><span>카드번호</span></label>
+								</th>
+								<td>
+									<div class="form-container">
+										<div class="input-wrap">
+											<input type="text" id="카드번호" name="카드번호" value="9491-1234-1234-1234" placeholder="" disabled />
+										</div><!-- .input-wrap -->
+									</div><!-- .form-container -->
+								</td>
+							</tr>
+							<tr>
+								<th>
+									<label class="form-label" for="지원구분"><span>지원구분</span></label>
+								</th>
+								<td colspan="3">평(석)  방-평(중)</td>
+							</tr>
+							<tr>
+								<th>
+									<label class="form-label" for="성명"><span>성명</span></label>
+								</th>
+								<td>홍길동</td>
+								<th>
+									<label class="form-label" for="생년월일"><span>생년월일</span></label>
+								</th>
+								<td>010101</td>
+							</tr>
+							<tr>
+								<th>
+									<label class="form-label" for="카드상태"><span>카드상태</span></label>
+								</th>
+								<td>
+									<div class="form-container">
+										<div class="unit">정상</div>
+										<div class="input-wrap">
+											<input type="text" id="종료(예정)일" name="종료(예정)일" value="종료(예정)일 : 2024.06.30" placeholder="" disabled />
+										</div><!-- .input-wrap -->
+									</div><!-- .form-container -->
+								</td>
+								<th>
+									<label class="form-label" for="잔액"><span>잔액</span></label>
+								</th>
+								<td>100,000원</td>
+							</tr>
+						</tbody>
+					</table>
+				</div><!-- .section-body -->
+
+				<div class="section-header">
+					<div class="title-wrap">
+						<div class="title">재발급 등록정보</div>
+					</div>
+				</div><!-- .section-header -->
+
+				<div class="section-body">
+					<table class="tbl-form">
+						<colgroup>
+							<col style="width: 100px;">
+							<col style="width: 45%;">
+							<col style="width: 100px;">
+							<col style="width: 250px;">
+						</colgroup>
+						<tbody>
+							<tr>
+								<th>
+									<label class="form-label required" for="카드분류"><span>카드분류</span></label>
+								</th>
+								<td>
+									<div class="form-container">
+										<select class="form-select select2 w100p" id="카드분류" name="카드분류" data-placeholder="카드분류 선택">
+											<option value=""></option>
+											<option value="옵션1">강원영월광탄소오목매운절구지오목매운절구지 (949500000)</option>
+											<option value="옵션2">옵션2</option>
+											<option value="옵션3">옵션3</option>
+										</select>
+									</div><!-- .form-container -->
+								</td>
+								<th>
+									<label class="form-label required" for="카드번호"><span>카드번호</span></label>
+								</th>
+								<td>
+									<div class="form-container">
+										<select class="form-select select2 w100p" id="카드번호" name="카드번호" data-placeholder="카드번호 선택">
+											<option value=""></option>
+											<option value="옵션1">1324-1234-1234-1234</option>
+											<option value="옵션1">1324-1234-1234-1234</option>
+											<option value="옵션1">1324-1234-1234-1234</option>
+											<option value="옵션1">1324-1234-1234-1234</option>
+											<option value="옵션1">1324-1234-1234-1234</option>
+										</select>
+									</div><!-- .form-container -->
+								</td>
+							</tr>
+							<tr>
+								<th>
+									<label class="form-label required" for="재발급 구분"><span>재발급 구분</span></label>
+								</th>
+								<td>
+									<div class="form-container">
+										<div class="form-check">
+											<input class="form-check-input" type="radio" id="체크박스1" name="재발급 구분" value="" checked="" />
+											<label class="form-check-label" for="체크박스1">분실</label>
+										</div>
+										<div class="form-check">
+											<input class="form-check-input" type="radio" id="체크박스2" name="재발급 구분" value="" />
+											<label class="form-check-label" for="체크박스2">훼손</label>
+										</div>
+										<div class="form-check">
+											<input class="form-check-input" type="radio" id="체크박스3" name="재발급 구분" value="" />
+											<label class="form-check-label" for="체크박스3">기타</label>
+										</div>
+									</div><!-- .form-container -->
+								</td>
+								<th>
+									<label class="form-label" for="등록일자"><span>등록일자</span></label>
+								</th>
+								<td>
+									<div class="form-container">
+										<div class="input-wrap input_datepicker_wrap">
+											<input class="datepicker" type="text" id="등록일자" name="등록일자" value="2022.02.21" maxlength="10" placeholder="YYYY.MM.DD" oninput="checkInputPattern(this, '0-9.\-');">
+										</div>
+									</div><!-- .form-container -->
+								</td>
+							</tr>
+							<tr>
+								<th>
+									<label class="form-label" for="비고"><span>비고</span></label>
+								</th>
+								<td>
+									<div class="form-container">
+										<div class="input-wrap full">
+											<input type="text" id="비고" name="비고" value="" placeholder="" />
+										</div><!-- .input-wrap -->
+									</div><!-- .form-container -->
+								</td>
+								<th>
+									<label class="form-label" for="잔액2"><span>잔액</span></label>
+								</th>
+								<td>100,000원</td>
+							</tr>
+						</tbody>
+					</table>
+				</div><!-- .section-body -->
+
+
+			</div><!-- .layer-body -->
+	
+			<div class="layer-footer">
+				<div class="button-wrap">
+					<button type="button" class="btn btn-line btn_close"><span>취소</span></button>
+					<button type="button" class="btn btn-primary"><span>등록</span></button>
+				</div>
+			</div><!-- .layer-footer -->
+		</div><!-- .layer-contents -->
+	</div><!-- #layerPopup.layerPopup -->
+</body>
+</html>

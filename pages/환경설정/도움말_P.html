@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>도움말</title>
+
+<!--v Packages -->
+<script src="../../assets/js/jquery.min.js"></script>
+
+<link href="../../assets/css/jquery-ui.min.css" rel="stylesheet" />
+<script src="../../assets/js/jquery-ui.min.js"></script>
+
+<link href="../../assets/css/select2.min.css" rel="stylesheet" />
+<script src="../../assets/js/select2.min.js"></script>
+
+<!-- rMateGridH5 CSS -->
+<link rel="stylesheet" type="text/css" href="../../assets/js/rMateGrid/rMateGridH5/Assets/rMateH5.css"/>
+<!-- rMateGridH5 라이센스 -->
+<script type="text/javascript" src="../../assets/js/rMateGrid/LicenseKey/rMateGridH5License.js"></script>
+<!-- rMateGridH5 라이브러리 -->
+<script type="text/javascript" src="../../assets/js/rMateGrid/rMateGridH5/JS/rMateGridH5.js"></script>
+<!--^ Packages -->
+
+<link href="../../assets/css/all.css" rel="stylesheet" />
+<script src="../../assets/js/util.js"></script>
+</head>
+
+<body class="sub-page">
+	<div id="util">
+		<div class="inner">
+			<div class="info">
+				<div class="administrator">
+					<i class="icon-smile"></i>
+					<span>시스템 관리자</span>
+				</div>
+				<div class="address">경기도 용인시 OO동</div>
+				<div class="log">마지막 로그인 : 2023.05.04 14:05</div>
+				<button type="button" class="btn btn-sub-line">
+					<span>회원정보수정</span>
+				</button>
+				<a href="#" class="btn btn-txt">
+					<span>로그아웃</span>
+				</a>
+			</div>
+		</div>
+	</div>
+	<header>
+		<div class="inner">
+			<h1 class="logo">
+				<a href="#">
+					<img src="../../assets/img/logo.svg" />
+				</a>
+			</h1>
+			<div id="gnb">
+				<ul class="gnb-list">
+					<li>
+						<a href="#">회원/카드관리</a>
+					</li>
+					<li>
+						<a href="#">거래관리</a>
+					</li>
+					<li>
+						<a href="#">정산현황</a>
+					</li>
+					<li>
+						<a href="#">통계/분석</a>
+					</li>
+					<li>
+						<a href="#">지원정책</a>
+					</li>
+					<li class="on">
+						<a href="#">환경설정</a>
+					</li>
+				</ul>
+				<button type="button" class="btn btn-txt btn-allmenu">
+					<i class="icon-allmenu"></i>
+					<span>전체보기</span>
+				</button>
+			</div>
+		</div>
+	</header>
+
+	<div class="container">
+		<div id="lnb">
+			<div class="group-title menu06">
+				<span>환경설정</span>
+			</div>
+			<div class="menu-wrap">
+				<ul class="menu-list">
+					<li>
+						<a href="#">
+							<span class="menu6-1">공지관리</span>
+							<i class="icon-arrow-down"></i>
+						</a>
+						<ul class="sub-menu">
+							<li>
+								<a href="#">
+									<i class="icon-menu-depth"></i>
+									<span>공지관리</span>
+								</a>
+							</li>
+						</ul>
+					</li>
+					<li>
+						<a href="#">
+							<span class="menu6-2">계정관리</span>
+							<i class="icon-arrow-down"></i>
+						</a>
+						<ul class="sub-menu">
+							<li>
+								<a href="#">
+									<i class="icon-menu-depth"></i>
+									<span>관리자계정관리</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<i class="icon-menu-depth"></i>
+									<span>관리자권한관리</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<i class="icon-menu-depth"></i>
+									<span>지자체관리</span>
+								</a>
+							</li>
+						</ul>
+					</li>
+					<li>
+						<a href="#">
+							<span class="menu6-3">시스템관리</span>
+							<i class="icon-arrow-down"></i>
+						</a>
+						<ul class="sub-menu">
+							<li>
+								<a href="#">
+									<i class="icon-menu-depth"></i>
+									<span>팝업관리</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<i class="icon-menu-depth"></i>
+									<span>대량등록 양식관리</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<i class="icon-menu-depth"></i>
+									<span>통계업종관리</span>
+								</a>
+							</li>
+						</ul>
+					</li>
+					<li class="on">
+						<a href="#">
+							<span class="menu6-4">문자관리</span>
+							<i class="icon-arrow-down"></i>
+						</a>
+						<ul class="sub-menu">
+							<li class="on">
+								<a href="#">
+									<i class="icon-menu-depth"></i>
+									<span>SMS전송</span>
+								</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				<div class="inquiry">
+					<div>시스템 문의</div>
+					<a href="mailto:wecard@bizplay.co.kr" class="btn btn-txt">
+						<span>wecard@bizplay.co.kr</span>
+					</a>
+				</div>
+			</div>
+		</div>
+		<!-- #lnb -->
+		<div class="content-wrap">
+		</div><!-- .content-wrap -->
+	</div><!-- .container -->
+
+	<!-- 팝업 위치는 항상 여기에 넣어주세요. -->
+	<div id="smsHelp" class="layerPopup" style="display: block;"><!-- 실제 작업하실 때는 style 선언은 지워주세요. 팝업 활성화 방법은 components/modal.html 파일을 참고해주세요. -->
+		<div class="layer-wrap" style="width: 500px;">
+			<div class="layer-header">
+				<h4 class="layer-title">도움말</h4>
+				<div class="button-wrap">
+					<button type="button" class="btn btn_close" title="창닫기">
+						<i class="icon-close"></i>
+					</button>
+				</div>
+			</div><!-- .layer-header -->
+	
+			<div class="layer-body">
+				<div class="popup-memo">
+					<ul class="list">
+						<li>#수식어#는 [직접입력] 에서만 사용가능합니다.</li>
+					</ul>
+				</div>
+
+				<div class="section-header">
+					<div class="title-wrap">
+						<div class="title">수식어 작성 가이드</div>
+					</div>
+				</div><!-- .section-header -->
+
+				<div class="section-body">
+					<table class="tbl-form">
+						<colgroup>
+							<col style="width: 100px;">
+							<col style="width: 100%;">
+						</colgroup>
+						<tbody>
+							<tr>
+								<th>
+									<label class="form-label" for="수식어 사용 방법"><span>수식어 사용 방법</span></label>
+								</th>
+								<td>#수식어#</td>
+							</tr>
+						</tbody>
+					</table>
+				</div><!-- .section-body -->
+
+				<div class="section-header">
+					<div class="title-wrap">
+						<div class="title">사용 가능 수식어</div>
+					</div>
+				</div><!-- .section-header -->
+
+				<div class="section-body">
+					<table class="tbl-form">
+						<colgroup>
+							<col style="width: 100px;">
+							<col style="width: 100%;">
+						</colgroup>
+						<tbody>
+							<tr>
+								<th>
+									<label class="form-label" for="수신자 잔액"><span>수신자 잔액</span></label>
+								</th>
+								<td>#잔액#</td>
+							</tr>
+							<tr>
+								<th>
+									<label class="form-label" for="수신자 한도"><span>수신자 한도</span></label>
+								</th>
+								<td>#한도#</td>
+							</tr>
+							<tr>
+								<th>
+									<label class="form-label" for="수신자 성명"><span>수신자 성명</span></label>
+								</th>
+								<td>#성명#</td>
+							</tr>
+							<tr>
+								<th>
+									<label class="form-label" for="수신자 카드번호"><span>수신자 카드번호</span></label>
+								</th>
+								<td>#카드번호#</td>
+							</tr>
+							<tr>
+								<th>
+									<label class="form-label" for="수신자 카드분류"><span>수신자 카드분류</span></label>
+								</th>
+								<td>#카드분류#</td>
+							</tr>
+						</tbody>
+					</table>
+				</div><!-- .section-body -->
+
+				<div class="section-header">
+					<div class="title-wrap">
+						<div class="title">작성예시</div>
+					</div>
+				</div><!-- .section-header -->
+
+				<div class="section-body">
+					<table class="tbl-form">
+						<colgroup>
+							<col style="width: 50%;">
+							<col style="width: 50%;">
+						</colgroup>
+						<tbody>
+							<tr>
+								<th class="pr8">
+									<label class="form-label text-center" for="입력 내용"><span>입력 내용</span></label>
+								</th>
+								<th class="pl8" style="border-left: 1px solid #eee;">
+									<label class="form-label text-center" for="발송 내용"><span>발송 내용</span></label>
+								</th>
+							</tr>
+							<tr>
+								<td>[#카드분류#] #성명#(#카드번호#)고객님의 잔액은 #잔액#, 한도는 #한도# 입니다.</td>
+								<td style="border-left: 1px solid #eee;">[경북 참사랑 바우처] 홍길동(0000-1111-2222-3333) 고객님의 현재 잔액은 9,999원, 한도는 999,999원 입니다.</td>
+							</tr>
+						</tbody>
+					</table>
+				</div><!-- .section-body -->
+
+			</div><!-- .layer-body -->
+	
+			<div class="layer-footer">
+				<div class="button-wrap">
+					<button type="button" class="btn btn-line btn_close"><span>닫기</span></button>
+				</div>
+			</div><!-- .layer-footer -->
+		</div><!-- .layer-contents -->
+	</div><!-- #smsHelp.layerPopup -->
+</body>
+</html>

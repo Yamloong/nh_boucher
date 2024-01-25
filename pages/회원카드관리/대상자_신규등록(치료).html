@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>대상자 신규등록(치료지원)</title>
+
+<!--v Packages -->
+<script src="../../assets/js/jquery.min.js"></script>
+
+<link href="../../assets/css/jquery-ui.min.css" rel="stylesheet" />
+<script src="../../assets/js/jquery-ui.min.js"></script>
+
+<link href="../../assets/css/select2.min.css" rel="stylesheet" />
+<script src="../../assets/js/select2.min.js"></script>
+
+<!-- rMateGridH5 CSS -->
+<link rel="stylesheet" type="text/css" href="../../assets/js/rMateGrid/rMateGridH5/Assets/rMateH5.css"/>
+<!-- rMateGridH5 라이센스 -->
+<script type="text/javascript" src="../../assets/js/rMateGrid/LicenseKey/rMateGridH5License.js"></script>
+<!-- rMateGridH5 라이브러리 -->
+<script type="text/javascript" src="../../assets/js/rMateGrid/rMateGridH5/JS/rMateGridH5.js"></script>
+<!--^ Packages -->
+
+<link href="../../assets/css/all.css" rel="stylesheet" />
+<script src="../../assets/js/util.js"></script>
+</head>
+
+<body class="sub-page">
+	<div id="util">
+		<div class="inner">
+			<div class="info">
+				<div class="administrator">
+					<i class="icon-smile"></i>
+					<span>시스템 관리자</span>
+				</div>
+				<div class="address">경기도 용인시 OO동</div>
+				<div class="log">마지막 로그인 : 2023.05.04 14:05</div>
+				<button type="button" class="btn btn-sub-line">
+					<span>회원정보수정</span>
+				</button>
+				<a href="#" class="btn btn-txt">
+					<span>로그아웃</span>
+				</a>
+			</div>
+		</div>
+	</div>
+	<header>
+		<div class="inner">
+			<h1 class="logo">
+				<a href="#">
+					<img src="../../assets/img/logo.svg" />
+				</a>
+			</h1>
+			<div id="gnb">
+				<ul class="gnb-list">
+					<li class="on">
+						<a href="#">회원/카드관리</a>
+					</li>
+					<li>
+						<a href="#">거래관리</a>
+					</li>
+					<li>
+						<a href="#">정산현황</a>
+					</li>
+					<li>
+						<a href="#">통계/분석</a>
+					</li>
+					<li>
+						<a href="#">지원정책</a>
+					</li>
+					<li>
+						<a href="#">환경설정</a>
+					</li>
+				</ul>
+				<button type="button" class="btn btn-txt btn-allmenu">
+					<i class="icon-allmenu"></i>
+					<span>전체보기</span>
+				</button>
+			</div>
+		</div>
+	</header>
+
+	<div class="container">
+		<div id="lnb">
+			<div class="group-title menu01">
+				<span>회원/카드관리</span>
+			</div>
+			<div class="menu-wrap">
+				<ul class="menu-list">
+					<li class="on">
+						<a href="#">
+							<span class="menu1-1">대상자관리</span>
+							<i class="icon-arrow-down"></i>
+						</a>
+						<ul class="sub-menu">
+							<li class="on">
+								<a href="#">
+									<span>대상자 신규등록</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span>보유회원명단</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span>신청현황관리</span>
+								</a>
+							</li>
+						</ul>
+					</li>
+					<li>
+						<a href="#">
+							<span class="menu1-2">카드관리</span>
+							<i class="icon-arrow-down"></i>
+						</a>
+						<ul class="sub-menu">
+							<li>
+								<a href="#">
+									<span>재료카드 요청</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span>빈 카드 관리</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span>카드삭제(미사용자)</span>
+								</a>
+							</li>
+						</ul>
+					</li>
+					<li>
+						<a href="#">
+							<span class="menu1-3">이용현황</span>
+							<i class="icon-arrow-down"></i>
+						</a>
+						<ul class="sub-menu">
+							<li>
+								<a href="#">
+									<span>회원별 거래현황</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span>회원별 이용현황</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span>일자별 집계 현황</span>
+								</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				<div class="inquiry">
+					<div>시스템 문의</div>
+					<a href="mailto:wecard@bizplay.co.kr" class="btn btn-txt">
+						<span>wecard@bizplay.co.kr</span>
+					</a>
+				</div>
+			</div>
+		</div>
+		<!-- #lnb -->
+		<div class="content-wrap">
+			<div class="content-body">
+
+				<div class="section-body">
+					<div class="content-header">
+						<div class="title-wrap">
+							<div class="title">대상자관리</div>
+							<div class="title">대상자 신규등록</div>
+						</div>
+						<div class="button-wrap">
+							<button type="button" class="btn btn-line-primary">
+								<i class="icon-plus_s"></i>
+								<span>대상자 대량등록</span>
+							</button>
+						</div>
+					</div>
+					<div class="page-memo">
+						<ul class="list">
+							<li>먼저 발급할 지역(읍/면/동)을 확인한 뒤 카드를 선택하세요.</li>
+							<li>붉은색의 <span class="text-strong">*</span>표시는 필수선택 사항입니다.</li>
+						</ul>
+					</div>
+
+					<table class="tbl-form">
+						<colgroup>
+							<col style="width:100px;">
+							<col style="width:50%">
+							<col style="width:100px;">
+							<col style="width:50%">
+						</colgroup>
+						<tbody>
+						<tr>
+							<th>
+								<label class="form-label required" for="성명">성명</label>
+							</th>
+							<td>
+								<div class="form-container">
+									<div class="input-wrap">
+										<input type="text" id="성명" name="성명" value="" placeholder="" maxlength="" />
+									</div>
+								</div>
+							</td>
+							<th>
+								<label class="form-label required" for="생년월일">생년월일(성별)</label>
+							</th>
+							<td>
+								<div class="form-container">
+									<div class="input-wrap">
+										<input type="text" id="생년월일" name="생년월일" value="" placeholder="YYMMDD" maxlength="6" />
+									</div>
+									<select class="form-select select2 free" id="성별" name="성별" data-placeholder="선택">
+										<option></option>
+										<option value="1" selected="true">남자</option>
+										<option value="2">여자</option>
+									</select>
+									<button type="button" class="btn btn-line">
+										<span>중복확인</span>
+									</button>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								<label class="form-label required" for="카드분류">카드분류</label>
+							</th>
+							<td>
+								<div class="form-container">
+									<select class="form-select select2 w100p" id="카드분류" name="카드분류" data-placeholder="선택">
+										<option></option>
+										<option value="1" selected="true">강원영월(광탄,소오목,매운,절구지,바보)(9495212132134000)</option>
+										<option value="2">옵션2</option>
+										<option value="3">옵션3</option>
+									</select>
+								</div>
+							</td>
+							<th>
+								<label class="form-label required" for="카드번호">카드번호</label>
+							</th>
+							<td>
+								<div class="form-container col-6">
+									<select class="form-select select2 w100p" id="카드번호" name="카드번호" data-placeholder="">
+										<option></option>
+										<option value="1" selected>선택</option>
+										<option value="2">1234-1234-1234-1234</option>
+										<option value="3">1234-1234-1234-1234</option>
+									</select>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								<label class="form-label" for="전화번호">전화번호</label>
+							</td>
+							<td>
+								<div class="form-container">
+									<div class="input-wrap">
+										<input type="text" id="전화번호" name="전화번호" value="" placeholder="숫자만 입력" maxlength="" />
+									</div>
+								</div>
+							</td>
+							<th>
+								<label class="form-label" for="지원내용">지원내용</label>
+							</th>
+							<td colspan="3">170,000원</td>
+						</tr>
+						<tr>
+							<th>
+								<label class="form-label" for="우편번호">주소</label>
+							</th>
+							<td colspan="3">
+								<div class="form-container">
+									<div class="input-wrap address">
+										<input type="text" id="우편번호" name="우편번호" value="" readonly />
+									</div>
+									<button type="button" class="btn btn-line">
+										<span>우편번호 검색</span>
+									</button>
+									<div class="input-wrap address2">
+										<input type="text" id="기본주소 자동입력" name="기본주소 자동입력" value="" placeholder="기본주소 자동입력" readonly />
+									</div>
+									<div class="input-wrap address2">
+										<input type="text" id="상세주소 입력" name="상세주소 입력" value="" placeholder="상세주소 입력" maxlength="" />
+									</div>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								<label class="form-label" for="지자체">지자체</label>
+							</th>
+							<td colspan="3">
+								<div class="form-container">
+									<select class="form-select select2" id="지자체" name="시/도" data-placeholder="시/도 선택" disabled>
+										<option value=""></option>
+										<option value="경상북도" selected>경상북도</option>
+									</select>
+									<select class="form-select select2" id="시/군/구" name="시/군/구" data-placeholder="시/군/구 선택">
+										<option value=""></option>
+										<option value="옵션1">옵션1</option>
+										<option value="옵션2">옵션2</option>
+										<option value="옵션3">옵션3</option>
+									</select>
+									<select class="form-select select2" id="구" name="구" data-placeholder="구 선택">
+										<option value=""></option>
+										<option value="옵션1">옵션1</option>
+										<option value="옵션2">옵션2</option>
+										<option value="옵션3">옵션3</option>
+									</select>
+									<select class="form-select select2" id="읍/면/동" name="읍/면/동" data-placeholder="읍/면/동 선택">
+										<option value=""></option>
+										<option value="옵션1">옵션1</option>
+										<option value="옵션2">옵션2</option>
+										<option value="옵션3">옵션3</option>
+									</select>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								<label class="form-label required" for="사용시작일">사용시작일</label>
+							</th>
+							<td>
+								<div class="form-container">
+									<div class="input-wrap input_datepicker_wrap">
+										<input class="datepicker" type="text" id="사용시작일" name="사용시작일" value="2022.02.21" maxlength="10" placeholder="YYYY.MM.DD" oninput="checkInputPattern(this, '0-9.\-');">
+									</div>
+									<button type="button" class="btn-clear">
+										<i class="icon-close"></i>
+									</button>
+								</div>
+							</td>
+							<th>
+								<label class="form-label required" for="종료(예정)일">종료(예정)일</label>
+							</th>
+							<td>
+								<div class="form-container">
+									<div class="input-wrap input_datepicker_wrap">
+										<input class="datepicker" type="text" id="종료(예정)일" name="종료(예정)일" value="2022.02.21" maxlength="10" placeholder="YYYY.MM.DD" oninput="checkInputPattern(this, '0-9.\-');">
+									</div>
+									<button type="button" class="btn-clear">
+										<i class="icon-close"></i>
+									</button>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								<label class="form-label required" for="학교 구분">학교 구분</label>
+							</th>
+							<td>
+								<div class="form-container">
+									<select class="form-select select2" id="학교 구분" name="학교 구분" data-placeholder="">
+										<option></option>
+										<option value="1" selected>선택</option>
+										<option value="2">옵션1</option>
+										<option value="3">옵션2</option>
+									</select>
+								</div>
+							</td>
+							<th>
+								<label class="form-label required" for="학교명">학교명</label>
+							</th>
+							<td>
+								<div class="form-container">
+									<select class="form-select select2 select2_school" id="학교명" name="학교명" data-placeholder="">
+										<option></option>
+										<option value="1" selected>이화여자대학교 사범대학 부속 이화·금란고등학교</option>
+										<option value="2">옵션1옵션1옵션1옵션1옵션1옵션1옵션1옵션1옵션1옵션1옵션1옵션1옵션1옵션1옵션1옵션1</option>
+										<option value="3">옵션2</option>
+									</select>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								<label class="form-label" for="학년">학년/반</label>
+							</th>
+							<td>
+								<div class="form-container">
+									<div class="input-wrap tiny">
+										<input type="text" id="학년" name="학년" value="" placeholder="숫자만입력" maxlength="" />
+									</div>
+									<div class="unit mr15">학년</div>
+									<div class="input-wrap tiny">
+										<input type="text" id="반" name="반" value="" placeholder="숫자만입력" maxlength="" />
+									</div>
+									<div class="unit">반</div>
+								</div>
+							</td>
+						</tr>
+
+						<tr>
+							<th>
+								<label class="form-label" for="지원구분2">지원구분</label>
+							</th>
+							<td colspan="3">
+								<label class="form-label mt8" for="치료지원(지자체)">치료지원(지자체)</label>
+								<div class="form-container mt8 mb20">
+									<div class="form-check">
+										<input class="form-check-input" type="checkbox" id="체크박스100" name="체크박스100" value="체크박스100" checked="" />
+										<label class="form-check-label" for="체크박스100">물리치료</label>
+									</div>
+									<div class="form-check">
+										<input class="form-check-input" type="checkbox" id="체크박스101" name="체크박스101" value="체크박스101" />
+										<label class="form-check-label" for="체크박스101">작업치료</label>
+									</div>
+									<div class="form-check">
+										<input class="form-check-input" type="checkbox" id="체크박스103" name="체크박스103" value="체크박스103" />
+										<label class="form-check-label" for="체크박스103">언어치료</label>
+									</div>
+									<div class="form-check">
+										<input class="form-check-input" type="checkbox" id="체크박스104" name="체크박스104" value="체크박스104" />
+										<label class="form-check-label" for="체크박스104">청능훈련</label>
+									</div>
+									<div class="form-check">
+										<input class="form-check-input" type="checkbox" id="체크박스105" name="체크박스105" value="체크박스105" />
+										<label class="form-check-label" for="체크박스105">심리, 행동적응훈련</label>
+									</div>
+									<div class="form-check">
+										<input class="form-check-input" type="checkbox" id="체크박스106" name="체크박스106" value="체크박스106" />
+										<label class="form-check-label" for="체크박스106">감각, 운동, 지각훈련</label>
+									</div>
+									<div class="form-check">
+										<input class="form-check-input" type="checkbox" id="체크박스107" name="체크박스107" value="체크박스107" />
+										<label class="form-check-label" for="체크박스107">보행훈련</label>
+									</div>
+									<div class="form-check">
+										<input class="form-check-input" type="checkbox" id="체크박스108" name="체크박스108" value="체크박스108" />
+										<label class="form-check-label" for="체크박스108">기타</label>
+									</div>
+								</div><!-- .form-container -->
+
+								<label class="form-label" for="발달재활서비스 바우처(보건복지부)">발달재활서비스 바우처(보건복지부)</label>
+								<div class="form-container mt8 mb8">
+									<div class="form-check">
+										<input class="form-check-input" type="checkbox" id="체크박스109" name="체크박스109" value="체크박스109" />
+										<label class="form-check-label" for="체크박스109">언어치료</label>
+									</div>
+									<div class="form-check">
+										<input class="form-check-input" type="checkbox" id="체크박스110" name="체크박스110" value="체크박스110" />
+										<label class="form-check-label" for="체크박스110">청능훈련</label>
+									</div>
+									<div class="form-check">
+										<input class="form-check-input" type="checkbox" id="체크박스111" name="체크박스111" value="체크박스111" />
+										<label class="form-check-label" for="체크박스111">미술/음악</label>
+									</div>
+									<div class="form-check">
+										<input class="form-check-input" type="checkbox" id="체크박스112" name="체크박스112" value="체크박스112" />
+										<label class="form-check-label" for="체크박스112">심리, 행동적은훈련</label>
+									</div>
+									<div class="form-check">
+										<input class="form-check-input" type="checkbox" id="체크박스113" name="체크박스113" value="체크박스113" />
+										<label class="form-check-label" for="체크박스113">감각, 운동</label>
+									</div>
+									<div class="form-check">
+										<input class="form-check-input" type="checkbox" id="체크박스114" name="체크박스114" value="체크박스114" />
+										<label class="form-check-label" for="체크박스114">기타</label>
+									</div>
+								</div><!-- .form-container -->
+							</td>
+						</tr>
+						<tr>
+							<th>
+								<label class="form-label" for="바우처기관(지자체)">바우처기관(지자체)</label>
+							</th>
+							<td>
+								<div class="form-container">
+									<div class="input-wrap full">
+										<input type="text" id="바우처기관(지자체)" name="바우처기관(지자체)" value="" placeholder="대상이 이용할 가맹점(기관)명 입력" maxlength="" />
+									</div>
+								</div>
+							</td>
+							<th>
+								<label class="form-label" for="바우처기관(보건복지부)">바우처기관(보건복지부)</label>
+							</th>
+							<td>
+								<div class="form-container">
+									<div class="input-wrap full">
+										<input type="text" id="바우처기관(보건복지부)" name="바우처기관(보건복지부)" value="" placeholder="대상이 이용할 가맹점(기관)명 입력" maxlength="" />
+									</div>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								<label class="form-label" for="보호자 성명">보호자 성명</label>
+							</th>
+							<td>
+								<div class="form-container">
+									<div class="input-wrap">
+										<input type="text" id="보호자 성명" name="보호자 성명" value="" placeholder="" maxlength="" />
+									</div>
+								</div>
+							</td>
+							<th>
+								<label class="form-label" for="보호자 관계">보호자 관계</label>
+							</th>
+							<td>
+								<div class="form-container">
+									<select class="form-select select2" id="보호자 관계" name="보호자 관계" data-placeholder="선택">
+										<option></option>
+										<option value="1" selected="true">옵션1</option>
+										<option value="2">옵션2</option>
+										<option value="3">옵션3</option>
+									</select>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								<label class="form-label" for="보호자 연락처">보호자 연락처</label>
+							</th>
+							<td>
+								<div class="form-container">
+									<div class="input-wrap">
+										<input type="text" id="보호자 연락처" name="보호자 연락처" value="" placeholder="숫자만 입력" maxlength="" />
+									</div>
+								</div>
+							</td>
+							<th>
+								<label class="form-label" for="비고">비고</label>
+							</th>
+							<td>
+								<div class="form-container">
+									<div class="input-wrap full">
+										<input type="text" id="비고" name="비고" value="" placeholder="" maxlength="" />
+									</div>
+								</div>
+							</td>
+						</tr>
+						</tbody>
+					</table>
+
+					<div class="section-foot">
+						<div class="button-wrap">
+							<button type="button" class="btn btn-primary">
+								<span>등록</span>
+							</button>
+						</div>
+					</div><!-- .section-foot -->
+				</div>
+			</div>
+		</div><!-- .content-wrap -->
+	</div><!-- .container -->
+</body>
+</html>

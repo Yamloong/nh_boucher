@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>카드발급 신청내역 확인</title>
+
+<!--v Packages -->
+<script src="../../assets/js/jquery.min.js"></script>
+
+<link href="../../assets/css/jquery-ui.min.css" rel="stylesheet" />
+<script src="../../assets/js/jquery-ui.min.js"></script>
+
+<link href="../../assets/css/select2.min.css" rel="stylesheet" />
+<script src="../../assets/js/select2.min.js"></script>
+
+<!-- rMateGridH5 CSS -->
+<link rel="stylesheet" type="text/css" href="../../assets/js/rMateGrid/rMateGridH5/Assets/rMateH5.css"/>
+<!-- rMateGridH5 라이센스 -->
+<script type="text/javascript" src="../../assets/js/rMateGrid/LicenseKey/rMateGridH5License.js"></script>
+<!-- rMateGridH5 라이브러리 -->
+<script type="text/javascript" src="../../assets/js/rMateGrid/rMateGridH5/JS/rMateGridH5.js"></script>
+<!--^ Packages -->
+
+<link href="../../assets/css/all.css" rel="stylesheet" />
+<script src="../../assets/js/util.js"></script>
+</head>
+
+<body class="sub-page">
+	<div id="util">
+		<div class="inner">
+			<div class="info">
+				<div class="administrator">
+					<i class="icon-smile"></i>
+					<span>시스템 관리자</span>
+				</div>
+				<div class="address">경기도 용인시 OO동</div>
+				<div class="log">마지막 로그인 : 2023.05.04 14:05</div>
+				<button type="button" class="btn btn-sub-line">
+					<span>회원정보수정</span>
+				</button>
+				<a href="#" class="btn btn-txt">
+					<span>로그아웃</span>
+				</a>
+			</div>
+		</div>
+	</div>
+	<header>
+		<div class="inner">
+			<h1 class="logo">
+				<a href="#">
+					<img src="../../assets/img/logo.svg" />
+				</a>
+			</h1>
+			<div id="gnb">
+				<ul class="gnb-list">
+					<li class="on">
+						<a href="#">회원/카드관리</a>
+					</li>
+					<li>
+						<a href="#">거래관리</a>
+					</li>
+					<li>
+						<a href="#">정산현황</a>
+					</li>
+					<li>
+						<a href="#">통계/분석</a>
+					</li>
+					<li>
+						<a href="#">지원정책</a>
+					</li>
+					<li>
+						<a href="#">환경설정</a>
+					</li>
+				</ul>
+				<button type="button" class="btn btn-txt btn-allmenu">
+					<i class="icon-allmenu"></i>
+					<span>전체보기</span>
+				</button>
+			</div>
+		</div>
+	</header>
+
+	<div class="container">
+		<div id="lnb">
+			<div class="group-title menu01">
+				<span>회원/카드관리</span>
+			</div>
+			<div class="menu-wrap">
+				<ul class="menu-list">
+					<li>
+						<a href="#">
+							<span class="menu1-1">대상자관리</span>
+							<i class="icon-arrow-down"></i>
+						</a>
+						<ul class="sub-menu">
+							<li>
+								<a href="#">
+									<span>대상자 신규등록</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span>보유회원명단</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span>신청현황관리</span>
+								</a>
+							</li>
+						</ul>
+					</li>
+					<li class="on">
+						<a href="#">
+							<span class="menu1-2">카드관리</span>
+							<i class="icon-arrow-down"></i>
+						</a>
+						<ul class="sub-menu">
+							<li class="on">
+								<a href="#">
+									<span>재료카드 요청</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span>빈 카드 관리</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span>카드삭제(미사용자)</span>
+								</a>
+							</li>
+						</ul>
+					</li>
+					<li>
+						<a href="#">
+							<span class="menu1-3">이용현황</span>
+							<i class="icon-arrow-down"></i>
+						</a>
+						<ul class="sub-menu">
+							<li>
+								<a href="#">
+									<span>회원별 거래현황</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span>회원별 이용현황</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span>일자별 집계 현황</span>
+								</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				<div class="inquiry">
+					<div>시스템 문의</div>
+					<a href="mailto:wecard@bizplay.co.kr" class="btn btn-txt">
+						<span>wecard@bizplay.co.kr</span>
+					</a>
+				</div>
+			</div>
+		</div>
+		<!-- #lnb -->
+		<div class="content-wrap">
+			<div class="content-body">
+			</div>
+		</div><!-- .content-wrap -->
+	</div><!-- .container -->
+
+	<!-- 팝업 위치는 항상 여기에 넣어주세요. -->
+	<div id="cardIssuanceHistory" class="layerPopup" style="display: block;"><!-- 실제 작업하실 때는 style 선언은 지워주세요. 팝업 활성화 방법은 components/modal.html 파일을 참고해주세요. -->
+		<div class="layer-wrap" style="width: 844px;">
+			<div class="layer-header">
+				<h4 class="layer-title">카드발급 신청내역 확인</h4>
+				<div class="button-wrap">
+					<button type="button" class="btn btn_close" title="창닫기">
+						<i class="icon-close"></i>
+					</button>
+				</div>
+			</div><!-- .layer-header -->
+	
+			<div class="layer-body">
+				<div class="popup-memo">
+					<ul class="list">
+						<li>카드 발급 신청상태를 확인하는 화면입니다.</li>
+					</ul>
+				</div>
+
+				<div class="section-body">
+					<table class="tbl-form">
+						<colgroup>
+							<col style="width: 100px;">
+							<col style="width: 50%;">
+							<col style="width: 100px;">
+							<col style="width: 50%;">
+						</colgroup>
+						<tbody>
+						<tr>
+							<th>
+								<label class="form-label" for="담당자"><span>담당자</span></label>
+							</th>
+							<td>김케어</td>
+							<th>
+								<label class="form-label" for="카드BIN"><span>카드BIN</span></label>
+							</th>
+							<td>949111</td>
+						</tr>
+						<tr>
+							<th>
+								<label class="form-label" for="카드분류"><span>카드분류</span></label>
+							</th>
+							<td colspan="3">01(주식)</td>
+						</tr>
+						<tr>
+							<th>
+								<label class="form-label" for="배송지"><span>배송지</span></label>
+							</th>
+							<td colspan="3">16456  경기도 수원시 팔달구 고화로 10번길 5(매산로3가) 경기도청</td>
+						</tr>
+						<tr>
+							<th>
+								<label class="form-label" for="담당자 유선번호"><span>담당자 유선번호</span></label>
+							</th>
+							<td>031-0000-0000</td>
+							<th>
+								<label class="form-label" for="담당자 휴대폰"><span>담당자 휴대폰</span></label>
+							</th>
+							<td>010-0000-0000</td>
+						</tr>
+						<tr>
+							<th>
+								<label class="form-label" for="발급좌수"><span>발급좌수</span></label>
+							</th>
+							<td colspan="3">50</td>
+						</tr>
+						</tbody>
+					</table>
+				</div><!-- .section-body -->
+
+
+			</div><!-- .layer-body -->
+	
+			<div class="layer-footer">
+				<div class="button-wrap">
+					<button type="button" class="btn btn-line btn_close"><span>신청취소</span></button>
+					<button type="button" class="btn btn-primary"><span>접수승인</span></button>
+					<!-- 상단 "접수승인" 버튼명은 접수승인 후 버튼명 : "발급" / 배송이 완료되면 버튼명 : "수취확인" 으로 변경요망 -->
+					<!-- <button type="button" class="btn btn-primary"><span>접수승인</span></button> -->
+				</div>
+			</div><!-- .layer-footer -->
+		</div><!-- .layer-contents -->
+	</div><!-- #layerPopup.layerPopup -->
+</body>
+</html>

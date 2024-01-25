@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>관리자권한관리</title>
+
+<!--v Packages -->
+<script src="../../assets/js/jquery.min.js"></script>
+
+<link href="../../assets/css/jquery-ui.min.css" rel="stylesheet" />
+<script src="../../assets/js/jquery-ui.min.js"></script>
+
+<link href="../../assets/css/select2.min.css" rel="stylesheet" />
+<script src="../../assets/js/select2.min.js"></script>
+
+<!-- rMateGridH5 CSS -->
+<link rel="stylesheet" type="text/css" href="../../assets/js/rMateGrid/rMateGridH5/Assets/rMateH5.css"/>
+<!-- rMateGridH5 라이센스 -->
+<script type="text/javascript" src="../../assets/js/rMateGrid/LicenseKey/rMateGridH5License.js"></script>
+<!-- rMateGridH5 라이브러리 -->
+<script type="text/javascript" src="../../assets/js/rMateGrid/rMateGridH5/JS/rMateGridH5.js"></script>
+<!--^ Packages -->
+
+<link href="../../assets/css/all.css" rel="stylesheet" />
+<script src="../../assets/js/util.js"></script>
+
+<script type="text/javascript" src="../../assets/js/rMateGridH5.style31.js"></script>
+<script type="text/javascript">
+// ----------------------- 그리드 설정 시작 -------------------------------------
+
+// rMateGridH5에서 그리드 생성 준비가 완료될 경우 호출할 함수를 지정합니다.
+var jsVars = "rMateOnLoadCallFunction=gridReadyHandler";
+
+// 기본 이미지 경로 조정
+rMateGridH5.setAssetsPath("../../assets/js/rMateGrid/rMateGridH5/Assets/")
+
+// rMateDataGrid 를 생성합니다.
+// 파라메터 (순서대로)
+//  1. 그리드의 id ( 임의로 지정하십시오. )
+//  2. 그리드가 위치할 div 의 id (즉, 그리드의 부모 div 의 id 입니다.)
+//  3. 그리드 생성 시 필요한 환경 변수들의 묶음인 jsVars
+//  4. 그리드의 가로 사이즈 (생략 가능, 생략 시 100%)
+//  5. 그리드의 세로 사이즈 (생략 가능, 생략 시 100%)
+rMateGridH5.create("grid1", "gridHolder", jsVars, "100%", "662px");
+rMateGridH5.create("grid2", "gridHolder2", jsVars, "100%", "314px");
+
+// 그리드의 속성인 rMateOnLoadCallFunction 으로 설정된 함수.
+// rMate 그리드의 준비가 완료된 경우 이 함수가 호출됩니다.
+// 이 함수를 통해 그리드에 레이아웃과 데이터를 삽입합니다.
+// 파라메터 : id - rMateGridH5.create() 사용 시 사용자가 지정한 id 입니다.
+function gridReadyHandler(id) {
+	if(id == "grid1"){
+		// rMateGrid 관련 객체
+		gridApp = document.getElementById(id);	// 그리드를 포함하는 div 객체
+		gridRoot = gridApp.getRoot();	// 데이터와 그리드를 포함하는 객체
+
+		gridApp.setLayout(layoutStr1);
+		gridApp.setData(gridData1);
+
+		var dataCompleteHandler = function(event) {
+			dataGrid = gridRoot.getDataGrid();
+
+			// 필수로 넣어야 할 선언
+			dataGrid.setHeaderHeight(32); // header 높이
+			dataGrid.setHeaderWordWrap(true); // header cell에 글자 넘칠 때 자동줄바꿈처리
+			dataGrid.setRowHeight(28); // row 높이
+			
+			// grid 생성이 끝난 이후 tab비활성화 content 가리기
+			// $('.tab-section:not(.on)').css('display', 'none');
+			
+		}
+
+		gridRoot.addEventListener("dataComplete", dataCompleteHandler);
+
+	}else if(id == "grid2"){
+		// rMateGrid 관련 객체
+		gridApp2 = document.getElementById(id);	// 그리드를 포함하는 div 객체
+		gridRoot2 = gridApp2.getRoot();	// 데이터와 그리드를 포함하는 객체
+
+		gridApp2.setLayout(layoutStr2);
+		gridApp2.setData(gridData2);
+
+		var dataCompleteHandler2 = function(event) {
+			dataGrid2 = gridRoot2.getDataGrid();
+
+			// 필수로 넣어야 할 선언
+			dataGrid2.setHeaderHeight(32); // header 높이
+			dataGrid2.setHeaderWordWrap(true); // header cell에 글자 넘칠 때 자동줄바꿈처리
+			dataGrid2.setRowHeight(28); // row 높이
+
+			// grid 생성이 끝난 이후 tab비활성화 content 가리기
+			// $('.tab-section:not(.on)').css('display', 'none');
+		}
+
+		gridRoot2.addEventListener("dataComplete", dataCompleteHandler2);
+		
+
+	}
+}
+
+// rMateGrid 관련 객체
+var gridApp, gridRoot, gridRoot2;	// 데이터와 그리드를 포함하는 객체
+var dataGrid, dataGrid2;	// 그리드
+
+//----------------------- 그리드 설정 끝 -----------------------
+
+var layoutStr1 =
+'<rMateGrid>\
+	<DataGrid id="dg1" styleName="gridStyle" headerDragEnabled="true" displayItemsExpanded="true" horizontalScrollPolicy="off" textAlign="left" verticalAlign="middle" paddingTop="0" paddingBottom="0">\
+        <columns>\
+            <DataGridColumn dataField="메뉴명" width="160" sortable="false"/>\
+        </columns>\
+        <dataProvider>\
+			<HierarchicalData source="{$gridData}"/>\
+        </dataProvider>\
+    </DataGrid>\
+</rMateGrid>\
+';
+
+var gridData1 = [
+	{
+		"메뉴명":"회원/카드관리", 
+		"children" : [
+			{
+				"메뉴명":"대상자관리", 
+				"children" : [
+					{"메뉴명":"대상자 신규등록"},
+					{"메뉴명":"보유회원명단"},
+					{"메뉴명":"신청자관리"},
+				]
+			},
+			{
+				"메뉴명":"카드관리", 
+				"children" : [
+					{"메뉴명":"재료카드 요청"},
+					{"메뉴명":"빈 카드 관리"},
+					{"메뉴명":"카드삭제(미사용자)"},
+				]
+			},
+			{
+				"메뉴명":"이용현황", 
+				"children" : [
+					{"메뉴명":"회원별 이용현황"},
+					{"메뉴명":"일자별 집계 현황"},
+				]
+			},
+		]
+	},
+	{
+		"메뉴명":"거래관리", 
+		"children" : [
+			{
+				"메뉴명":"거래내역", 
+				"children" : [
+					{"메뉴명":"대상자 종합관리"},
+					{"메뉴명":"거래요약조회"},
+					{"메뉴명":"거래상세조회"},
+					{"메뉴명":"충전/소멸/사용 현황"},
+					{"메뉴명":"실시간 거래내역조회"},
+				]
+			},
+			{
+				"메뉴명":"가맹점관리", 
+				"children" : [
+					{"메뉴명":"가맹점관리"},
+					{"메뉴명":"가맹점 거래조회"},
+					{"메뉴명":"가맹점 거래현황"},
+					{"메뉴명":"가맹점 직접결제"},
+				]
+			},
+		]
+	},
+	{
+		"메뉴명":"정산현황", 
+		"children" : [
+			{
+				"메뉴명":"정산관리", 
+				"children" : [
+					{"메뉴명":"정산조회"},
+					{"메뉴명":"가맹점 미정산내역"},
+					{"메뉴명":"가맹점 수수료내역"},
+				]
+			},
+		]
+	},
+	{
+		"메뉴명":"통계/분석", 
+		"children" : [
+			{
+				"메뉴명":"모니터링", 
+				"children" : [
+					{"메뉴명":"이상징후 모니터링"},
+				]
+			},
+			{
+				"메뉴명":"통계현황", 
+				"children" : [
+					{"메뉴명":"급식수통계"},
+					{"메뉴명":"조중석통계"},
+					{"메뉴명":"지원내용별현황"},
+					{"메뉴명":"지원구분별금액"},
+					{"메뉴명":"업종별 가맹점 통계"},
+					{"메뉴명":"업종별 거래금액 통계"},
+				]
+			},
+		]
+	},
+	{
+		"메뉴명":"지원정책", 
+		"children" : [
+			{
+				"메뉴명":"지원정책", 
+				"children" : [
+					{"메뉴명":"바우처 정책 관리"},
+					{"메뉴명":"학교 방학 관리"},
+					{"메뉴명":"급식 템플릿 관리"},
+				]
+			},
+		]
+	},
+	{
+		"메뉴명":"환경설정", 
+		"children" : [
+			{
+				"메뉴명":"공지/질문관리", 
+				"children" : [
+					{"메뉴명":"공지관리"},
+				]
+			},
+			{
+				"메뉴명":"계정관리", 
+				"children" : [
+					{"메뉴명":"관리자 계정관리"},
+					{"메뉴명":"관리자 권한관리"},
+					{"메뉴명":"지자체관리"},
+				]
+			},
+			{
+				"메뉴명":"시스템관리", 
+				"children" : [
+					{"메뉴명":"팝업관리"},
+					{"메뉴명":"대량등록 양식관리"},
+				]
+			},
+			{
+				"메뉴명":"문자관리", 
+				"children" : [
+					{"메뉴명":"SMS전송"},
+				]
+			},
+		]
+	},
+];
+	
+
+var layoutStr2 =
+'<rMateGrid>\
+	<DataGrid id="dg2" styleName="gridStyle" aria-label="atagrid" sortableColumns="true" editable="true" doubleClickEnabled="true" horizontalScrollPolicy="auto" verticalAlign="middle" textAlign="center" paddingTop="0" paddingBottom="0">\
+		<columns>\
+			<DataGridColumn headerText="순번" dataField="순번" itemRenderer="IndexNoItem" width="60"/>\
+			<DataGridColumn headerText="프로그램 명칭" dataField="프로그램 명칭" textAlign="left" />\
+			<DataGridColumn headerText="조회" dataField="조회" width="60" itemRenderer="CheckBoxItem" rendererIsEditor="true" editorDataField="selected"/>\
+			<DataGridColumn headerText="수정" dataField="수정" width="60" itemRenderer="CheckBoxItem" rendererIsEditor="true" editorDataField="selected"/>\
+			<DataGridColumn headerText="등록" dataField="등록" width="60" itemRenderer="CheckBoxItem" rendererIsEditor="true" editorDataField="selected"/>\
+			<DataGridColumn headerText="삭제" dataField="삭제" width="60" itemRenderer="CheckBoxItem" rendererIsEditor="true" editorDataField="selected"/>\
+			<DataGridColumn headerText="엑셀" dataField="엑셀" width="60" itemRenderer="CheckBoxItem" rendererIsEditor="true" editorDataField="selected"/>\
+		</columns>\
+	</DataGrid>\
+	<Style>\n\
+		.gridStyle {\n\
+			color:#333;\n\
+			borderWidth:0;\n\
+			selectionColor:var(--table-thead-bg-color);\n\
+			textSelectedColor:#333;\n\
+			rollOverColor:#f4f4f4;\n\
+			fontSize:12px;\n\
+			verticalAlign:middle;\n\
+			headerStyleName:gridHeaderStyle;\n\
+			headerPaddingTop:0;\n\
+			headerPaddingBottom:0;\n\
+			headerColors:var(--table-thead-bg-color),var(--table-thead-bg-color);\n\
+			headerSeparatorColor:var(--table-thead-border-color);\n\
+			headerBorderTopWidth:0;\n\
+			headerBorderBottomColor:var(--table-thead-border-color);\n\
+		}\n\
+		.gridHeaderStyle {\n\
+			color:#666;\n\
+			fontSize:12px;\n\
+			fontWeight:500;\n\
+			horizontalAlign:center;\n\
+			verticalAlign:middle;\n\
+		}\n\
+		.gridFooterStyle {\n\
+			color:#111;\n\
+			backgroundColor:#f8f8f8;\n\
+			borderColor:var(--primary);\n\
+		}\n\
+	</Style>\
+</rMateGrid>\
+';
+
+var gridData2 = [
+
+	{"프로그램 명칭" : "대상자 신규등록","조회" : "","수정" : "","등록" : "","삭제" : "","엑셀" : ""},
+	{"프로그램 명칭" : "보유회원명단","조회" : "","수정" : "","등록" : "","삭제" : "","엑셀" : ""},
+	{"프로그램 명칭" : "신청자관리","조회" : "","수정" : "","등록" : "","삭제" : "","엑셀" : ""},
+];
+</script>
+
+</head>
+
+<body class="sub-page">
+	<div id="util">
+		<div class="inner">
+			<div class="info">
+				<div class="administrator">
+					<i class="icon-smile"></i>
+					<span>시스템 관리자</span>
+				</div>
+				<div class="address">경기도 용인시 OO동</div>
+				<div class="log">마지막 로그인 : 2023.05.04 14:05</div>
+				<button type="button" class="btn btn-sub-line">
+					<span>회원정보수정</span>
+				</button>
+				<a href="#" class="btn btn-txt">
+					<span>로그아웃</span>
+				</a>
+			</div>
+		</div>
+	</div>
+	<header>
+		<div class="inner">
+			<h1 class="logo">
+				<a href="#">
+					<img src="../../assets/img/logo.svg" />
+				</a>
+			</h1>
+			<div id="gnb">
+				<ul class="gnb-list">
+					<li>
+						<a href="#">회원/카드관리</a>
+					</li>
+					<li>
+						<a href="#">거래관리</a>
+					</li>
+					<li>
+						<a href="#">정산현황</a>
+					</li>
+					<li>
+						<a href="#">통계/분석</a>
+					</li>
+					<li>
+						<a href="#">지원정책</a>
+					</li>
+					<li class="on">
+						<a href="#">환경설정</a>
+					</li>
+				</ul>
+				<button type="button" class="btn btn-txt btn-allmenu">
+					<i class="icon-allmenu"></i>
+					<span>전체보기</span>
+				</button>
+			</div>
+		</div>
+	</header>
+
+	<div class="container">
+		<div id="lnb">
+			<div class="group-title menu06">
+				<span>환경설정</span>
+			</div>
+			<div class="menu-wrap">
+				<ul class="menu-list">
+					<li>
+						<a href="#">
+							<span class="menu6-1">공지관리</span>
+							<i class="icon-arrow-down"></i>
+						</a>
+						<ul class="sub-menu">
+							<li>
+								<a href="#">
+									<i class="icon-menu-depth"></i>
+									<span>공지관리</span>
+								</a>
+							</li>
+						</ul>
+					</li>
+					<li class="on">
+						<a href="#">
+							<span class="menu6-2">계정관리</span>
+							<i class="icon-arrow-down"></i>
+						</a>
+						<ul class="sub-menu">
+							<li>
+								<a href="#">
+									<i class="icon-menu-depth"></i>
+									<span>관리자계정관리</span>
+								</a>
+							</li>
+							<li class="on">
+								<a href="#">
+									<i class="icon-menu-depth"></i>
+									<span>관리자권한관리</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<i class="icon-menu-depth"></i>
+									<span>지자체관리</span>
+								</a>
+							</li>
+						</ul>
+					</li>
+					<li>
+						<a href="#">
+							<span class="menu6-3">시스템관리</span>
+							<i class="icon-arrow-down"></i>
+						</a>
+						<ul class="sub-menu">
+							<li>
+								<a href="#">
+									<i class="icon-menu-depth"></i>
+									<span>팝업관리</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<i class="icon-menu-depth"></i>
+									<span>대량등록 양식관리</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<i class="icon-menu-depth"></i>
+									<span>통계업종관리</span>
+								</a>
+							</li>
+						</ul>
+					</li>
+					<li>
+						<a href="#">
+							<span class="menu6-4">문자관리</span>
+							<i class="icon-arrow-down"></i>
+						</a>
+						<ul class="sub-menu">
+							<li>
+								<a href="#">
+									<i class="icon-menu-depth"></i>
+									<span>SMS전송</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<i class="icon-menu-depth"></i>
+									<span>SMS예약관리</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<i class="icon-menu-depth"></i>
+									<span>SMS결과조회</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<i class="icon-menu-depth"></i>
+									<span>SMS전송내역</span>
+								</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				<div class="inquiry">
+					<div>시스템 문의</div>
+					<a href="mailto:wecard@bizplay.co.kr" class="btn btn-txt">
+						<span>wecard@bizplay.co.kr</span>
+					</a>
+				</div>
+			</div>
+		</div>
+		<!-- #lnb -->
+		<div class="content-wrap">
+			<div class="content-body">
+				<div class="section-body">
+					<div class="content-header">
+						<div class="title-wrap">
+							<div class="title">계정관리</div>
+							<div class="title">관리자권한관리</div>
+						</div>
+					</div>
+					<div class="page-memo">
+						<ul class="list">
+							<li>메뉴권한그룹을 먼저 선택한 뒤 각 메뉴의 권한을 조절하세요.</li>
+						</ul>
+					</div>
+
+					<div class="row" style="gap: 0 12px;">
+						<div class="col-3" style="width: 280px;">
+							<div class="form-control-wrap mb8">
+								<div class="form-container">
+									<div class="unit">분류</div>
+									<select class="form-select select2" id="메뉴권한그룹" name="메뉴권한그룹" data-placeholder="메뉴권한그룹 선택">
+										<option></option>
+										<option value="1">옵션1</option>
+										<option value="2">옵션2</option>
+										<option value="3">옵션3</option>
+									</select>
+								</div><!-- .form-container -->
+							</div><!-- .form-control-wrap -->
+							
+							<div id="gridHolder"></div><!-- 그리드 영역 -->
+						</div>
+						<div class="col-9">
+							<div class="section-header">
+								<div class="form-control-wrap">
+									<label class="form-label" for="조회">
+										<span>프로그램 목록</span>
+									</label>
+									<div class="form-container">
+										<hr class="vertical">
+										<div class="form-check">
+											<input class="form-check-input" type="checkbox" id="조회" name="프로그램 목록" value="조회" checked=""/>
+											<label class="form-check-label" for="조회">조회</label>
+										</div>
+										<div class="form-check">
+											<input class="form-check-input" type="checkbox" id="수정" name="프로그램 목록" value="수정" />
+											<label class="form-check-label" for="수정">수정</label>
+										</div>
+										<div class="form-check">
+											<input class="form-check-input" type="checkbox" id="등록" name="프로그램 목록" value="등록" />
+											<label class="form-check-label" for="등록">등록</label>
+										</div>
+										<div class="form-check">
+											<input class="form-check-input" type="checkbox" id="삭제" name="프로그램 목록" value="삭제" />
+											<label class="form-check-label" for="삭제">삭제</label>
+										</div>
+										<div class="form-check">
+											<input class="form-check-input" type="checkbox" id="엑셀" name="프로그램 목록" value="엑셀" />
+											<label class="form-check-label" for="엑셀">엑셀</label>
+										</div>
+									</div><!-- .form-container -->
+								</div><!-- .form-control-wrap -->
+							</div>
+
+							<div id="gridHolder2"></div><!-- 그리드 영역 -->
+							<!-- <div class="table-wrap">
+								<table class="tbl-data all-center">
+									<colgroup>
+										<col style="width: 50px;">
+										<col>
+										<col style="width: 60px;">
+										<col style="width: 60px;">
+										<col style="width: 60px;">
+										<col style="width: 60px;">
+										<col style="width: 60px;">
+									</colgroup>
+									<thead>
+									<tr>
+										<th>순서</th>
+										<th>프로그램명칭</th>
+										<th>조회</th>
+										<th>수정</th>
+										<th>등록</th>
+										<th>삭제</th>
+										<th>엑셀</th>
+									</tr>
+									</thead>
+									<tbody>
+									<tr>
+										<td>1</td>
+										<td style="text-align: left !important;">종합관리</td>
+										<td>
+											<div class="form-check">
+												<input class="form-check-input" type="checkbox" id="종합관리 조회" name="종합관리" value="종합관리 조회" checked="" />
+											</div>
+										</td>
+										<td>
+											<div class="form-check">
+												<input class="form-check-input" type="checkbox" id="종합관리 수정" name="종합관리" value="종합관리 수정" />
+											</div>
+										</td>
+										<td>
+											<div class="form-check">
+												<input class="form-check-input" type="checkbox" id="종합관리 등록" name="종합관리" value="종합관리 등록" />
+											</div>
+										</td>
+										<td>
+											<div class="form-check">
+												<input class="form-check-input" type="checkbox" id="종합관리 삭제" name="종합관리" value="종합관리 삭제" />
+											</div>
+										</td>
+										<td>
+											<div class="form-check">
+												<input class="form-check-input" type="checkbox" id="종합관리 엑셀" name="종합관리" value="종합관리 엑셀" />
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td>2</td>
+										<td style="text-align: left !important;">급식종합관리</td>
+										<td>
+											<div class="form-check">
+												<input class="form-check-input" type="checkbox" id="급식종합관리 조회" name="급식종합관리" value="급식종합관리 조회" checked="" />
+											</div>
+										</td>
+										<td>
+											<div class="form-check">
+												<input class="form-check-input" type="checkbox" id="급식종합관리 수정" name="급식종합관리" value="급식종합관리 수정" />
+											</div>
+										</td>
+										<td>
+											<div class="form-check">
+												<input class="form-check-input" type="checkbox" id="급식종합관리 등록" name="급식종합관리" value="급식종합관리 등록" />
+											</div>
+										</td>
+										<td>
+											<div class="form-check">
+												<input class="form-check-input" type="checkbox" id="급식종합관리 삭제" name="급식종합관리" value="급식종합관리 삭제" />
+											</div>
+										</td>
+										<td>
+											<div class="form-check">
+												<input class="form-check-input" type="checkbox" id="급식종합관리 엑셀" name="급식종합관리" value="급식종합관리 엑셀" />
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td>3</td>
+										<td style="text-align: left !important;">종합관리2</td>
+										<td>
+											<div class="form-check">
+												<input class="form-check-input" type="checkbox" id="종합관리2 조회" name="종합관리2" value="종합관리2 조회" checked="" />
+											</div>
+										</td>
+										<td>
+											<div class="form-check">
+												<input class="form-check-input" type="checkbox" id="종합관리2 수정" name="종합관리2" value="종합관리2 수정" />
+											</div>
+										</td>
+										<td>
+											<div class="form-check">
+												<input class="form-check-input" type="checkbox" id="종합관리2 등록" name="종합관리2" value="종합관리2 등록" />
+											</div>
+										</td>
+										<td>
+											<div class="form-check">
+												<input class="form-check-input" type="checkbox" id="종합관리2 삭제" name="종합관리2" value="종합관리2 삭제" />
+											</div>
+										</td>
+										<td>
+											<div class="form-check">
+												<input class="form-check-input" type="checkbox" id="종합관리2 엑셀" name="종합관리2" value="종합관리2 엑셀" />
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td>4</td>
+										<td style="text-align: left !important;">급식종합관리</td>
+										<td>
+											<div class="form-check">
+												<input class="form-check-input" type="checkbox" id="급식종합관리2 조회" name="급식종합관리2" value="급식종합관리2 조회" checked="" />
+											</div>
+										</td>
+										<td>
+											<div class="form-check">
+												<input class="form-check-input" type="checkbox" id="급식종합관리2 수정" name="급식종합관리2" value="급식종합관리2 수정" />
+											</div>
+										</td>
+										<td>
+											<div class="form-check">
+												<input class="form-check-input" type="checkbox" id="급식종합관리2 등록" name="급식종합관리2" value="급식종합관리2 등록" />
+											</div>
+										</td>
+										<td>
+											<div class="form-check">
+												<input class="form-check-input" type="checkbox" id="급식종합관리2 삭제" name="급식종합관리2" value="급식종합관리2 삭제" />
+											</div>
+										</td>
+										<td>
+											<div class="form-check">
+												<input class="form-check-input" type="checkbox" id="급식종합관리2 엑셀" name="급식종합관리2" value="급식종합관리2 엑셀" />
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td>5</td>
+										<td style="text-align: left !important;">거래요약상세</td>
+										<td>
+											<div class="form-check">
+												<input class="form-check-input" type="checkbox" id="거래요약상세 조회" name="거래요약상세" value="거래요약상세 조회" checked="" />
+											</div>
+										</td>
+										<td>
+											<div class="form-check">
+												<input class="form-check-input" type="checkbox" id="거래요약상세 수정" name="거래요약상세" value="거래요약상세 수정" />
+											</div>
+										</td>
+										<td>
+											<div class="form-check">
+												<input class="form-check-input" type="checkbox" id="거래요약상세 등록" name="거래요약상세" value="거래요약상세 등록" />
+											</div>
+										</td>
+										<td>
+											<div class="form-check">
+												<input class="form-check-input" type="checkbox" id="거래요약상세 삭제" name="거래요약상세" value="거래요약상세 삭제" />
+											</div>
+										</td>
+										<td>
+											<div class="form-check">
+												<input class="form-check-input" type="checkbox" id="거래요약상세 엑셀" name="거래요약상세" value="거래요약상세 엑셀" />
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td>6</td>
+										<td style="text-align: left !important;">거래상세조회</td>
+										<td>
+											<div class="form-check">
+												<input class="form-check-input" type="checkbox" id="거래상세조회 조회" name="거래상세조회" value="거래상세조회 조회" checked="" />
+											</div>
+										</td>
+										<td>
+											<div class="form-check">
+												<input class="form-check-input" type="checkbox" id="거래상세조회 수정" name="거래상세조회" value="거래상세조회 수정" />
+											</div>
+										</td>
+										<td>
+											<div class="form-check">
+												<input class="form-check-input" type="checkbox" id="거래상세조회 등록" name="거래상세조회" value="거래상세조회 등록" />
+											</div>
+										</td>
+										<td>
+											<div class="form-check">
+												<input class="form-check-input" type="checkbox" id="거래상세조회 삭제" name="거래상세조회" value="거래상세조회 삭제" />
+											</div>
+										</td>
+										<td>
+											<div class="form-check">
+												<input class="form-check-input" type="checkbox" id="거래상세조회 엑셀" name="거래상세조회" value="거래상세조회 엑셀" />
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td>7</td>
+										<td style="text-align: left !important;">사용현황</td>
+										<td>
+											<div class="form-check">
+												<input class="form-check-input" type="checkbox" id="사용현황 조회" name="사용현황" value="사용현황 조회" checked="" />
+											</div>
+										</td>
+										<td>
+											<div class="form-check">
+												<input class="form-check-input" type="checkbox" id="사용현황 수정" name="사용현황" value="사용현황 수정" />
+											</div>
+										</td>
+										<td>
+											<div class="form-check">
+												<input class="form-check-input" type="checkbox" id="사용현황 등록" name="사용현황" value="사용현황 등록" />
+											</div>
+										</td>
+										<td>
+											<div class="form-check">
+												<input class="form-check-input" type="checkbox" id="사용현황 삭제" name="사용현황" value="사용현황 삭제" />
+											</div>
+										</td>
+										<td>
+											<div class="form-check">
+												<input class="form-check-input" type="checkbox" id="사용현황 엑셀" name="사용현황" value="사용현황 엑셀" />
+											</div>
+										</td>
+									</tr>
+									<tr>
+										<td>8</td>
+										<td style="text-align: left !important;">월별통계현황</td>
+										<td>
+											<div class="form-check">
+												<input class="form-check-input" type="checkbox" id="월별통계현황 조회" name="월별통계현황" value="월별통계현황 조회" checked="" />
+											</div>
+										</td>
+										<td>
+											<div class="form-check">
+												<input class="form-check-input" type="checkbox" id="월별통계현황 수정" name="월별통계현황" value="월별통계현황 수정" />
+											</div>
+										</td>
+										<td>
+											<div class="form-check">
+												<input class="form-check-input" type="checkbox" id="월별통계현황 등록" name="월별통계현황" value="월별통계현황 등록" />
+											</div>
+										</td>
+										<td>
+											<div class="form-check">
+												<input class="form-check-input" type="checkbox" id="월별통계현황 삭제" name="월별통계현황" value="월별통계현황 삭제" />
+											</div>
+										</td>
+										<td>
+											<div class="form-check">
+												<input class="form-check-input" type="checkbox" id="월별통계현황 엑셀" name="월별통계현황" value="월별통계현황 엑셀" />
+											</div>
+										</td>
+									</tr>
+									</tbody>
+								</table>
+							</div> -->
+							<div class="section-foot">
+								<div class="button-wrap">
+									<button type="button" class="btn btn-primary">
+										<span>저장</span>
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div><!-- .content-wrap -->
+	</div><!-- .container -->
+</body>
+</html>

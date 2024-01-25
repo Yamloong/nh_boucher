@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>신청자 상세조회</title>
+
+<!--v Packages -->
+<script src="../../assets/js/jquery.min.js"></script>
+
+<link href="../../assets/css/jquery-ui.min.css" rel="stylesheet" />
+<script src="../../assets/js/jquery-ui.min.js"></script>
+
+<link href="../../assets/css/select2.min.css" rel="stylesheet" />
+<script src="../../assets/js/select2.min.js"></script>
+
+<!-- SBGrid -->
+<script src="../../assets/js/SBGrid3/sbgrid3.js" type="text/javascript"></script>
+<link href="../../assets/js/SBGrid3/css/sbgrid3.css" rel="stylesheet" />
+<!--^ Packages -->
+
+<link href="../../assets/css/all.css" rel="stylesheet" />
+<script src="../../assets/js/util.js"></script>
+
+</head>
+
+<body class="sub-page">
+	<div id="util">
+		<div class="inner">
+			<div class="info">
+				<div class="administrator">
+					<i class="icon-smile"></i>
+					<span>시스템 관리자</span>
+				</div>
+				<div class="address">경기도 용인시 OO동</div>
+				<div class="log">마지막 로그인 : 2023.05.04 14:05</div>
+				<button type="button" class="btn btn-sub-line">
+					<span>회원정보수정</span>
+				</button>
+				<a href="#" class="btn btn-txt">
+					<span>로그아웃</span>
+				</a>
+			</div>
+		</div>
+	</div>
+	<header>
+		<div class="inner">
+			<h1 class="logo">
+				<a href="#">
+					<img src="../../assets/img/logo.svg" />
+				</a>
+			</h1>
+			<div id="gnb">
+				<ul class="gnb-list">
+					<li class="on">
+						<a href="#">회원/카드관리</a>
+					</li>
+					<li>
+						<a href="#">거래관리</a>
+					</li>
+					<li>
+						<a href="#">정산현황</a>
+					</li>
+					<li>
+						<a href="#">통계/분석</a>
+					</li>
+					<li>
+						<a href="#">지원정책</a>
+					</li>
+					<li>
+						<a href="#">환경설정</a>
+					</li>
+				</ul>
+				<button type="button" class="btn btn-txt btn-allmenu">
+					<i class="icon-allmenu"></i>
+					<span>전체보기</span>
+				</button>
+			</div>
+		</div>
+	</header>
+
+	<div class="container">
+		<div id="lnb">
+			<div class="group-title menu01">
+				<span>회원/카드관리</span>
+			</div>
+			<div class="menu-wrap">
+				<ul class="menu-list">
+					<li>
+						<a href="#">
+							<span class="menu1-1">대상자관리</span>
+							<i class="icon-arrow-down"></i>
+						</a>
+						<ul class="sub-menu">
+							<li>
+								<a href="#">
+									<span>대상자 신규등록</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span>보유회원명단</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span>신청현황관리</span>
+								</a>
+							</li>
+						</ul>
+					</li>
+					<li>
+						<a href="#">
+							<span class="menu1-2">카드관리</span>
+							<i class="icon-arrow-down"></i>
+						</a>
+						<ul class="sub-menu">
+							<li>
+								<a href="#">
+									<span>재료카드 요청</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span>빈 카드 관리</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span>카드삭제(미사용자)</span>
+								</a>
+							</li>
+						</ul>
+					</li>
+					<li>
+						<a href="#">
+							<span class="menu1-3">이용현황</span>
+							<i class="icon-arrow-down"></i>
+						</a>
+						<ul class="sub-menu">
+							<li>
+								<a href="#">
+									<span>회원별 거래현황</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span>회원별 이용현황</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span>일자별 집계 현황</span>
+								</a>
+							</li>
+						</ul>
+					</li>
+					<li class="on">
+						<a href="#">
+							<span class="menu1-4">모바일 관리</span>
+							<i class="icon-arrow-down"></i>
+						</a>
+						<ul class="sub-menu">
+							<li class="on">
+								<a href="#">
+									<span>모바일신규신청관리</span>
+								</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				<div class="inquiry">
+					<div>시스템 문의</div>
+					<a href="mailto:wecard@bizplay.co.kr" class="btn btn-txt">
+						<span>wecard@bizplay.co.kr</span>
+					</a>
+				</div>
+			</div>
+		</div>
+		<!-- #lnb -->
+	</div><!-- .container -->
+
+	<!-- 팝업 위치는 항상 여기에 넣어주세요. -->
+	<div id="applicantDetail" class="layerPopup" style="display: block;"><!-- 실제 작업하실 때는 style 선언은 지워주세요. 팝업 활성화 방법은 components/modal.html 파일을 참고해주세요. -->
+		<div class="layer-wrap" style="width: 844px;">
+			<div class="layer-header">
+				<h4 class="layer-title">신청자 상세조회</h4>
+				<div class="button-wrap">
+					<button type="button" class="btn btn_close" title="창닫기">
+						<i class="icon-close"></i>
+					</button>
+				</div>
+			</div><!-- .layer-header -->
+	
+			<div class="layer-body">
+
+				<div class="section-body">
+					<table class="tbl-form">
+						<colgroup>
+							<col style="width: 100px;">
+							<col style="width: 50%;">
+							<col style="width: 100px;">
+							<col style="width: 200px;">
+						</colgroup>
+						<tbody>
+							<tr>
+								<th>
+									<label class="form-label" for=""><span>발급형태</span></label>
+								</th>
+								<td>모바일</td>
+								<th>
+									<label class="form-label" for=""><span>신청구분</span></label>
+								</th>
+								<td>대기</td>
+							</tr>
+							<tr>
+								<th>
+									<label class="form-label required" for="카드분류"><span>카드분류</span></label>
+								</th>
+								<td>
+									<div class="form-container" style="max-width: 290px;">
+										<select class="form-select select2 w100p" id="카드분류" name="카드분류" data-placeholder="">
+											<option value=""></option>
+											<option value="옵션1">강원영월광탄소오목매운절구지오목매운절구지 (949500000)</option>
+											<option value="옵션2">옵션2</option>
+											<option value="옵션3">옵션3</option>
+										</select>
+									</div><!-- .form-container -->
+								</td>
+								<th>
+									<label class="form-label" for=""><span>카드번호</span></label>
+								</th>
+								<td>1234-1234-1234-1234</td>
+							</tr>
+							<tr>
+								<th>
+									<label class="form-label" for=""><span>성명</span></label>
+								</th>
+								<td>홍길동</td>
+								<th>
+									<label class="form-label" for="생년월일"><span>생년월일(성별)</span></label>
+								</th>
+								<td>660606 / 남</td>
+							</tr>
+							<tr>
+								<th>
+									<label class="form-label" for=""><span>지자체</span></label>
+								</th>
+								<td>경상북도 구미시 구미읍</td>
+								<th>
+									<label class="form-label" for="연령"><span>연령</span></label>
+								</th>
+								<td>65세</td>
+							</tr>
+							<tr>
+								<th>
+									<label class="form-label" for="우편번호">주소</label>
+								</th>
+								<td colspan="3">
+									<div class="form-container">
+										<div class="input-wrap address">
+											<input type="text" id="우편번호" name="우편번호" value="32142" placeholder="" readonly />
+										</div>
+										<button type="button" class="btn btn-line">
+											<span>우편번호 검색</span>
+										</button>
+										<div class="input-wrap address2">
+											<input type="text" id="기본주소 자동입력" name="기본주소 자동입력" value="" readonly placeholder="기본주소 자동입력" />
+										</div>
+										<div class="input-wrap address2">
+											<input type="text" id="상세주소 입력" name="상세주소 입력" value="리마크빌" placeholder="상세주소 입력" readonly />
+										</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<th>
+									<label class="form-label" for=""><span>신청자 성명/관계</span></label>
+								</th>
+								<td>홍길동 / 본인</td>
+								<th>
+									<label class="form-label" for=""><span>신청자 연락처</span></label>
+								</th>
+								<td>
+									<div class="form-container">
+										<div class="unit">010-1234-1234</div>
+										<div class="form-check">
+											<input class="form-check-input" type="checkbox" id="체크박스1" name="체크박스1" value="체크박스1" checked="" />
+											<label class="form-check-label" for="체크박스1">알림톡 여부</label>
+										</div>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<th>
+									<label class="form-label" for=""><span>신청자 생년월일/성별</span></label>
+								</th>
+								<td>600606 / 남</td>
+								<th rowspan="2">
+									<label class="form-label" for=""><span>가족원수</span></label>
+								</th>
+								<td rowspan="2">
+									<div class="txt">5세 미만 가족원수 : 1 명</div>
+									<div class="txt">18세 미만 가족원수 : 1 명</div>
+									<div class="txt">65세 미만 가족원수 : 1 명</div>
+								</td>
+							</tr>
+							<tr>
+								<th>
+									<label class="form-label required" for="사용시작일"><span>사용시작일</span></label>
+								</th>
+								<td>
+									<div class="form-container">
+										<div class="input-wrap input_datepicker_wrap">
+											<input class="datepicker" type="text" id="사용시작일" name="사용시작일" value="" maxlength="10" placeholder="YYYY.MM.DD" oninput="checkInputPattern(this, '0-9.\-');">
+										</div><!-- .input-wrap -->
+									</div><!-- .form-container -->
+								</td>
+							</tr>
+							<tr>
+								<th>
+									<label class="form-label" for="신청기준"><span>신청기준</span></label>
+								</th>
+								<td colspan="3">
+									<div class="form-container">
+										<div class="form-check">
+											<input class="form-check-input" type="checkbox" id="체크박스1" name="체크박스1" value="체크박스1" checked="" disabled />
+											<label class="form-check-label" for="체크박스1">생계</label>
+										</div>
+										<div class="form-check">
+											<input class="form-check-input" type="checkbox" id="체크박스2" name="체크박스2" value="체크박스2" disabled />
+											<label class="form-check-label" for="체크박스2">의료</label>
+										</div>
+										<div class="form-check">
+											<input class="form-check-input" type="checkbox" id="체크박스3" name="체크박스3" value="체크박스3" disabled />
+											<label class="form-check-label" for="체크박스3">주거</label>
+										</div>
+										<div class="form-check">
+											<input class="form-check-input" type="checkbox" id="체크박스4" name="체크박스4" value="체크박스4" disabled />
+											<label class="form-check-label" for="체크박스4">교육</label>
+										</div>
+										<div class="form-check">
+											<input class="form-check-input" type="checkbox" id="체크박스5" name="체크박스5" value="체크박스5" disabled />
+											<label class="form-check-label" for="체크박스5">차상위, 세대구분 : (
+												<div class="input-wrap">
+													<input type="text" id="특정가맹점" name="특정가맹점" value="사용자가 입력한 값이 들어감" placeholder="" maxlength="" disabled />
+												</div><!-- .input-wrap -->
+												)</label>
+										</div>
+									</div><!-- .form-container -->
+								</td>
+							</tr>
+							<tr>
+								<th>
+									<label class="form-label required" for="반려사유"><span>담당자 의견(반려사유)</span></label>
+								</th>
+								<td colspan="3">
+									<div class="form-container">
+										<div class="input-wrap full">
+											<input type="text" id="반려사유" name="반려사유" value="" placeholder="" />
+										</div><!-- .input-wrap -->
+									</div><!-- .form-container -->
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div><!-- .section-body -->
+
+
+			</div><!-- .layer-body -->
+	
+			<div class="layer-footer">
+				<div class="button-wrap">
+					<button type="button" class="btn btn-line btn_close"><span>취소</span></button>
+					<button type="button" class="btn btn-primary"><span>등록</span></button>
+				</div>
+			</div><!-- .layer-footer -->
+		</div><!-- .layer-contents -->
+	</div><!-- #applicantDetail.layerPopup -->
+</body>
+</html>

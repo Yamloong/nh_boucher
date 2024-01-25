@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>정산조회</title>
+
+<!--v Packages -->
+<script src="../../assets/js/jquery.min.js"></script>
+
+<link href="../../assets/css/jquery-ui.min.css" rel="stylesheet" />
+<script src="../../assets/js/jquery-ui.min.js"></script>
+
+<link href="../../assets/css/select2.min.css" rel="stylesheet" />
+<script src="../../assets/js/select2.min.js"></script>
+
+<!-- rMateGridH5 CSS -->
+<link rel="stylesheet" type="text/css" href="../../assets/js/rMateGrid/rMateGridH5/Assets/rMateH5.css"/>
+<!-- rMateGridH5 라이센스 -->
+<script type="text/javascript" src="../../assets/js/rMateGrid/LicenseKey/rMateGridH5License.js"></script>
+<!-- rMateGridH5 라이브러리 -->
+<script type="text/javascript" src="../../assets/js/rMateGrid/rMateGridH5/JS/rMateGridH5.js"></script>
+<!--^ Packages -->
+
+<link href="../../assets/css/all.css" rel="stylesheet" />
+<script src="../../assets/js/util.js"></script>
+
+<script type="text/javascript">
+// ----------------------- 그리드 설정 시작 -------------------------------------
+
+// rMateGridH5에서 그리드 생성 준비가 완료될 경우 호출할 함수를 지정합니다.
+var jsVars = "rMateOnLoadCallFunction=gridReadyHandler";
+
+// 기본 이미지 경로 조정
+rMateGridH5.setAssetsPath("../../assets/js/rMateGrid/rMateGridH5/Assets/")
+
+// rMateDataGrid 를 생성합니다.
+// 파라메터 (순서대로)
+//  1. 그리드의 id ( 임의로 지정하십시오. )
+//  2. 그리드가 위치할 div 의 id (즉, 그리드의 부모 div 의 id 입니다.)
+//  3. 그리드 생성 시 필요한 환경 변수들의 묶음인 jsVars
+//  4. 그리드의 가로 사이즈 (생략 가능, 생략 시 100%)
+//  5. 그리드의 세로 사이즈 (생략 가능, 생략 시 100%)
+rMateGridH5.create("grid1", "gridHolder", jsVars, "100%", "508px");
+
+// 그리드의 속성인 rMateOnLoadCallFunction 으로 설정된 함수.
+// rMate 그리드의 준비가 완료된 경우 이 함수가 호출됩니다.
+// 이 함수를 통해 그리드에 레이아웃과 데이터를 삽입합니다.
+// 파라메터 : id - rMateGridH5.create() 사용 시 사용자가 지정한 id 입니다.
+function gridReadyHandler(id) {
+	// rMateGrid 관련 객체
+	gridApp = document.getElementById(id);	// 그리드를 포함하는 div 객체
+	gridRoot = gridApp.getRoot();	// 데이터와 그리드를 포함하는 객체
+
+	gridApp.setLayout(layoutStr);
+	gridApp.setData(gridData);
+
+	var dataCompleteHandler = function(event) {
+		dataGrid = gridRoot.getDataGrid();
+
+		// 필수로 넣어야 할 선언
+		dataGrid.setHeaderHeight(32); // header 높이
+		dataGrid.setHeaderWordWrap(true); // header cell에 글자 넘칠 때 자동줄바꿈처리
+		dataGrid.setRowHeight(28); // row 높이
+	}
+
+	gridRoot.addEventListener("dataComplete", dataCompleteHandler);
+}
+
+// rMateGrid 관련 객체
+var gridApp, gridRoot;	// 데이터와 그리드를 포함하는 객체
+var dataGrid;	// 그리드
+
+//----------------------- 그리드 설정 끝 -----------------------
+
+var layoutStr =
+'<rMateGrid>\
+    <DateFormatter id="datefmt" formatString="YYYY.MM.DD"/>\
+	<DateFormatter id="datefmt2" formatString="HH:MM:SS"/>\
+	<DateFormatter id="datefmt4" formatString="YYYY.MM.DD ~ YYYY.MM.DD"/>\
+	<NumberFormatter id="numfmt" useThousandsSeparator="true"/>\
+	<CurrencyFormatter id="currfmt1" alignSymbol="right" currencySymbol="원"/>\
+	<CurrencyFormatter id="currfmt2" alignSymbol="right" currencySymbol="건"/>\
+	<DataGrid id="dg1" styleName="gridStyle" aria-label="atagrid" lockedColumnCount="2" sortableColumns="true" editable="true" doubleClickEnabled="true" horizontalScrollPolicy="auto" verticalAlign="middle" textAlign="center" paddingTop="0" paddingBottom="0">\
+		<columns>\
+			<DataGridColumn headerText="정산일자" dataField="정산일자" width="80" formatter="{datefmt}"/>\
+			<DataGridColumn headerText="정산시간" dataField="정산시간" width="70" formatter="{datefmt2}"/>\
+			<DataGridColumn headerText="가맹점명" dataField="가맹점명" id="dg1col1" width="220"/>\
+			<DataGridColumn headerText="거래기간" dataField="거래기간" width="140" formatter="{datefmt4}"/>\
+			<DataGridColumn headerText="사용금액(A)" dataField="사용금액" id="dg1col2" width="120" formatter="{numfmt}" textAlign="right"/>\
+			<DataGridColumn headerText="수수료(B)" dataField="수수료" id="dg1col3" width="120" formatter="{numfmt}" textAlign="right"/>\
+			<DataGridColumn headerText="이체금액(A)-(B)" dataField="이체금액" id="dg1col4" width="120" formatter="{numfmt}" textAlign="right"/>\
+			<DataGridColumn headerText="예금주" dataField="예금주" width="100"/>\
+			<DataGridColumn headerText="입금은행" dataField="입금은행" width="100"/>\
+			<DataGridColumn headerText="입금계좌" dataField="입금계좌" width="120"/>\
+			<DataGridColumn headerText="출금은행" dataField="출금은행" width="100"/>\
+			<DataGridColumn headerText="출금계좌" dataField="출금계좌" width="120"/>\
+			<DataGridColumn headerText="지자체" dataField="지자체" width="220"/>\
+			<DataGridColumn headerText="비고" dataField="비고" width="330" textAlign="left"/>\
+			<DataGridColumn headerText="정산여부" dataField="정산여부" width="80"/>\
+		</columns>\
+		<footers>\
+			<DataGridFooter styleName="gridFooterStyle">\
+				<DataGridFooterColumn styleName="gridFooterLabelStyle" label="합계" colSpan="2" color="var(--primary)" textAlign="center"/>\
+				<DataGridFooterColumn summaryOperation="COUNT" dataColumn="{dg1col1}" colSpan="2" formatter="{currfmt2}" textAlign="center"/>\
+				<DataGridFooterColumn summaryOperation="SUM" dataColumn="{dg1col2}" formatter="{numfmt}" textAlign="right"/>\
+				<DataGridFooterColumn summaryOperation="SUM" dataColumn="{dg1col3}" formatter="{numfmt}" textAlign="right"/>\
+				<DataGridFooterColumn summaryOperation="SUM" dataColumn="{dg1col4}" formatter="{numfmt}" textAlign="right"/>\
+			</DataGridFooter>\
+		</footers>\
+	</DataGrid>\
+	<Style>\n\
+		.gridStyle {\n\
+			color:#333;\n\
+			borderWidth:0;\n\
+			selectionColor:var(--table-thead-bg-color);\n\
+			textSelectedColor:#333;\n\
+			rollOverColor:#f4f4f4;\n\
+			fontSize:12px;\n\
+			verticalAlign:middle;\n\
+			headerStyleName:gridHeaderStyle;\n\
+			headerPaddingTop:0;\n\
+			headerPaddingBottom:0;\n\
+			headerColors:var(--table-thead-bg-color),var(--table-thead-bg-color);\n\
+			headerSeparatorColor:var(--table-thead-border-color);\n\
+			headerBorderTopWidth:0;\n\
+			headerBorderBottomColor:var(--table-thead-border-color);\n\
+		}\n\
+		.gridHeaderStyle {\n\
+			color:#666;\n\
+			fontSize:12px;\n\
+			fontWeight:500;\n\
+			horizontalAlign:center;\n\
+			verticalAlign:middle;\n\
+		}\n\
+		.gridFooterStyle {\n\
+			color:#111;\n\
+			backgroundColor:#f8f8f8;\n\
+			borderColor:var(--primary);\n\
+		}\n\
+	</Style>\
+</rMateGrid>\
+';
+
+var gridData = [
+	{"정산일자" : "20230808","정산시간" : "20230808091616","가맹점명" : "[BC] 롯데리아 구룡포점","거래기간" : "2023080820230909","사용금액" : "22000000","수수료" : "1000","이체금액" : "999000","예금주" : "비씨카드","입금은행" : "NH농협은행(11)","입금계좌" : "12341234-123-121","출금은행" : "NH농협은행","출금계좌" : "12341234-123-121","지자체" : "경북 포항시 북구","비고" : "2023.06.28(원정산일) / 2023.06.27~2023.06.27 (원거래일)","정산여부" : "미처리"},
+	{"정산일자" : "20230808","정산시간" : "20230808091616","가맹점명" : "[BC] 롯데리아 구룡포점","거래기간" : "2023080820230909","사용금액" : "22000000","수수료" : "1000","이체금액" : "999000","예금주" : "비씨카드","입금은행" : "NH농협은행(11)","입금계좌" : "12341234-123-121","출금은행" : "NH농협은행","출금계좌" : "12341234-123-121","지자체" : "경북 포항시 북구","비고" : "2023.06.28(원정산일) / 2023.06.27~2023.06.27 (원거래일)","정산여부" : "재처리(미처리)"},
+	{"정산일자" : "20230808","정산시간" : "20230808091616","가맹점명" : "[BC] 롯데리아 구룡포점","거래기간" : "2023080820230909","사용금액" : "22000000","수수료" : "1000","이체금액" : "999000","예금주" : "비씨카드","입금은행" : "NH농협은행(11)","입금계좌" : "12341234-123-121","출금은행" : "NH농협은행","출금계좌" : "12341234-123-121","지자체" : "경북 포항시 북구","비고" : "2023.06.28(원정산일) / 2023.06.27~2023.06.27 (원거래일)","정산여부" : "미처리"},
+];
+	
+</script>
+</head>
+
+<body class="sub-page">
+	<div id="util">
+		<div class="inner">
+			<div class="info">
+				<div class="administrator">
+					<i class="icon-smile"></i>
+					<span>시스템 관리자</span>
+				</div>
+				<div class="address">경기도 용인시 OO동</div>
+				<div class="log">마지막 로그인 : 2023.05.04 14:05</div>
+				<button type="button" class="btn btn-sub-line">
+					<span>회원정보수정</span>
+				</button>
+				<a href="#" class="btn btn-txt">
+					<span>로그아웃</span>
+				</a>
+			</div>
+		</div>
+	</div>
+	<header>
+		<div class="inner">
+			<h1 class="logo">
+				<a href="#">
+					<img src="../../assets/img/logo.svg" />
+				</a>
+			</h1>
+			<div id="gnb">
+				<ul class="gnb-list">
+					<li>
+						<a href="#">회원/카드관리</a>
+					</li>
+					<li>
+						<a href="#">거래관리</a>
+					</li>
+					<li class="on">
+						<a href="#">정산현황</a>
+					</li>
+					<li>
+						<a href="#">통계/분석</a>
+					</li>
+					<li>
+						<a href="#">지원정책</a>
+					</li>
+					<li>
+						<a href="#">환경설정</a>
+					</li>
+				</ul>
+				<button type="button" class="btn btn-txt btn-allmenu">
+					<i class="icon-allmenu"></i>
+					<span>전체보기</span>
+				</button>
+			</div>
+		</div>
+	</header>
+
+	<div class="container">
+		<div id="lnb">
+			<div class="group-title menu03">
+				<span>정산현황</span>
+			</div>
+			<div class="menu-wrap">
+				<ul class="menu-list">
+					<li class="on">
+						<a href="#">
+							<span class="menu3-1">정산관리</span>
+							<i class="icon-arrow-down"></i>
+						</a>
+						<ul class="sub-menu">
+							<li class="on">
+								<a href="#">
+									<i class="icon-menu-depth"></i>
+									<span>정산조회</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<i class="icon-menu-depth"></i>
+									<span>가맹점 미정산내역</span>
+								</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				<div class="inquiry">
+					<div>시스템 문의</div>
+					<a href="mailto:wecard@bizplay.co.kr" class="btn btn-txt">
+						<span>wecard@bizplay.co.kr</span>
+					</a>
+				</div>
+			</div>
+		</div>
+		<!-- #lnb -->
+		<div class="content-wrap">
+			<div class="content-body">
+				
+				<div class="search-form-wrap">
+					<div class="content-header">
+						<div class="title-wrap">
+							<div class="title">정산관리</div>
+							<div class="title">정산조회</div>
+						</div>
+					</div>
+					<div class="page-memo">
+						<ul class="list">
+							<li>정산여부 항목에서 ‘오류＇인 항목이 있는 경우 해당항목을 클릭하면 에러메시지를 조회할 수 있습니다.</li>
+							<li>조회기간은 <span class="text-strong">최대 3개월</span>로 조회 가능합니다.</li>
+						</ul>
+					</div>
+
+					<form>
+						<div class="search-form-inner">
+							<div class="search-form">
+
+								<div class="row">
+									<div class="col-8">
+										<label class="form-label" for="지자체"><span>지자체</span></label>
+										<div class="form-container">
+											<select class="form-select select2" id="지자체" name="시/도" data-placeholder="시/도 선택" disabled>
+												<option value=""></option>
+												<option value="경상북도" selected>경상북도</option>
+											</select>
+											<select class="form-select select2" id="시/군/구" name="시/군/구" data-placeholder="시/군/구 선택">
+												<option value=""></option>
+												<option value="옵션1">옵션1</option>
+												<option value="옵션2">옵션2</option>
+												<option value="옵션3">옵션3</option>
+											</select>
+											<select class="form-select select2" id="구" name="구" data-placeholder="구 선택">
+												<option value=""></option>
+												<option value="옵션1">옵션1</option>
+												<option value="옵션2">옵션2</option>
+												<option value="옵션3">옵션3</option>
+											</select>
+										</div>
+									</div><!-- .col -->
+									<div class="col-4">
+										<label class="form-label" for="INPUT"><span>정산여부</span></label>
+										<div class="form-container">
+											<select class="form-select select2" id="정산여부" name="정산여부" data-placeholder="정산여부 선택">
+												<option value=""></option>
+												<option value="전체" selected>전체</option>
+												<option value="정상">정상</option>
+												<option value="미정상">미정상</option>
+											</select>
+										</div><!-- .form-container -->
+									</div><!-- .col -->
+								</div><!-- .row -->
+
+								<div class="row">
+									<div class="col-8">
+										<label class="form-label" for="기간S"><span>정산기간</span></label>
+										<div class="form-container">
+											<div class="input-wrap input_datepicker_wrap">
+												<input class="from" type="text" id="기간S" name="기간S" value="" maxlength="10" placeholder="YYYY.MM.DD" oninput="checkInputPattern(this, '0-9.\-');" />
+											</div>
+											<div class="input-wrap input_datepicker_wrap">
+												<input class="to" type="text" id="기간E" name="기간E" value="" maxlength="10" placeholder="YYYY.MM.DD" oninput="checkInputPattern(this, '0-9.\-');" />
+											</div>
+											<button type="button" class="btn btn-line btn-clear">
+												<span>전체</span>
+											</button>
+										</div><!-- .form-container -->
+									</div><!-- .col -->
+									<div class="col-4">
+										<label class="form-label" for="가맹점명"><span>가맹점명</span></label>
+										<div class="form-container">
+											<div class="input-wrap">
+												<input type="text" id="가맹점명" name="가맹점명" value="" placeholder="" />
+											</div><!-- .input-wrap -->
+											<button type="button" class="btn btn-line">
+												<span>가맹점 검색</span>
+											</button>
+										</div><!-- .form-container -->
+									</div><!-- .col -->
+								</div><!-- .row -->
+							</div><!-- .search-form -->
+
+							<div class="button-wrap">
+								<button type="button" class="btn btn-primary">
+									<span>검색</span>
+								</button>
+							</div>
+						</div><!-- .search-form-inner -->
+					</form>
+				</div><!-- .search_form_wrap -->
+
+				<div class="section-body">
+					<div class="section-header">
+						<div class="title-wrap">
+							<div class="title">검색결과<span class="small text-primary">(99건)</span></div>
+							<div class="sub-title">정산 내역 클릭 시 상세 내역을 볼 수 있는 팝업이 나옵니다.</div>
+						</div>
+						<div class="button-wrap">
+							<button type="button" class="btn btn-line-primary">
+								<i class="icon-download"></i>
+								<span>엑셀</span>
+							</button>
+						</div>
+					</div>
+					<div id="gridHolder"></div><!-- 그리드 영역 -->
+				</div>
+			</div>
+		</div><!-- .content-wrap -->
+	</div><!-- .container -->
+</body>
+</html>

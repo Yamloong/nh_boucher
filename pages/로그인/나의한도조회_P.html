@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>나의 한도 조회</title>
+
+<!--v Packages -->
+<script src="../../assets/js/jquery.min.js"></script>
+
+<link href="../../assets/css/jquery-ui.min.css" rel="stylesheet" />
+<script src="../../assets/js/jquery-ui.min.js"></script>
+
+<link href="../../assets/css/select2.min.css" rel="stylesheet" />
+<script src="../../assets/js/select2.min.js"></script>
+
+<!-- rMateGridH5 CSS -->
+<link rel="stylesheet" type="text/css" href="../../assets/js/rMateGrid/rMateGridH5/Assets/rMateH5.css"/>
+<!-- rMateGridH5 라이센스 -->
+<script type="text/javascript" src="../../assets/js/rMateGrid/LicenseKey/rMateGridH5License.js"></script>
+<!-- rMateGridH5 라이브러리 -->
+<script type="text/javascript" src="../../assets/js/rMateGrid/rMateGridH5/JS/rMateGridH5.js"></script>
+<!--^ Packages -->
+
+<link href="../../assets/css/all.css" rel="stylesheet" />
+<script src="../../assets/js/util.js"></script>
+</head>
+
+<body>
+
+	<div id="windowPopup" class="layerPopup">
+		<div class="layer-wrap">
+			<div class="layer-header">
+				<h4 class="layer-title">나의 한도 조회</h4>
+			</div><!-- .layer-header -->
+	
+			<div class="layer-body">
+
+				<div class="popup-memo">
+					<ul class="list">
+						<li>카드번호 9492-11 뒤 10자리를 정확히 입력해 주십시오.</li>
+					</ul>
+				</div>
+				
+				<div class="search-form-wrap">
+					<form>
+						<div class="search-form-inner">
+							<div class="search-form">
+								<div class="row">
+									<div class="col-12">
+										<label class="form-label" for="카드번호"><span>카드번호</span></label>
+										<div class="form-container">
+											<div class="input-wrap">
+												<input type="text" id="카드번호" name="카드번호" value="9492-11" placeholder="" />
+											</div><!-- .input-wrap -->
+											<button type="button" class="btn btn-primary" style="width: 100px;">
+												<span>조회</span>
+											</button>
+											<div class="guide-info text-strong">*카드 상태가 정상이 아니거나 카드번호가 없습니다.</div>
+										</div><!-- .form-container -->
+									</div><!-- .col -->
+								</div><!-- .row -->
+							</div><!-- .search-form -->
+						</div><!-- .search-form-inner -->
+					</form>
+				</div><!-- .search_form_wrap -->
+
+				<div class="calendar-title">2023년 7월 급식표</div>
+				<div id="calendar">
+					<table>
+						<colgroup>
+							<col style="width: 14.28%" />
+							<col style="width: 14.28%" />
+							<col style="width: 14.28%" />
+							<col style="width: 14.28%" />
+							<col style="width: 14.28%" />
+							<col style="width: 14.28%" />
+							<col style="width: 14.28%" />
+						</colgroup>
+						<thead>
+							<tr>
+								<th>
+									<span>일</span>
+								</th>
+								<th>
+									<span>월</span>
+								</th>
+								<th>
+									<span>화</span>
+								</th>
+								<th>
+									<span>수</span>
+								</th>
+								<th>
+									<span>목</span>
+								</th>
+								<th>
+									<span>금</span>
+								</th>
+								<th>
+									<span>토</span>
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td class="past">
+									<div class="date">26</div>
+								</td>
+								<td class="past">
+									<div class="date">27</div>
+								</td>
+								<td class="past">
+									<div class="date">28</div>
+								</td>
+								<td class="past">
+									<div class="date">29</div>
+								</td>
+								<td class="past">
+									<div class="date">30</div>
+									<ul class="meals">
+										<li><span>조</span></li>
+										<li><span>중</span></li>
+										<li><span>석</span></li>
+									</ul>
+								</td>
+								<td class="past">
+									<div class="date">31</div>
+									<ul class="meals">
+										<li><span>조</span></li>
+										<li></li>
+										<li><span>석</span></li>
+									</ul>
+								</td>
+								<td>
+									<div class="date">1</div>
+								</td>
+							</tr>
+							<tr>
+								<td class="holiday">
+									<div class="date"
+									>2
+										<span class="plan">추석</span>
+								</div>
+								</td>
+								<td class="holiday">
+									<div class="date"
+									>3
+										<span class="plan">추석</span>
+								</div>
+								</td>
+								<td class="holiday">
+									<div class="date"
+									>4
+										<span class="plan">추석</span>
+								</div>
+								</td>
+								<td>
+									<div class="date">5</div>
+									<ul class="meals">
+										<li></li>
+										<li><span>중</span></li>
+										<li></li>
+									</ul>
+								</td>
+								<td>
+									<div class="date">6</div>
+									<ul class="meals">
+										<li></li>
+										<li></li>
+										<li><span>석</span></li>
+									</ul>
+								</td>
+								<td>
+									<div class="date">7</div>
+									<ul class="meals">
+										<li><span>조</span></li>
+										<li></li>
+										<li></li>
+									</ul>
+								</td>
+								<td>
+									<div class="date">8</div>
+									<ul class="meals">
+										<li><span>조</span></li>
+										<li><span>중</span></li>
+										<li><span>석</span></li>
+									</ul>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<div class="date">9</div>
+								</td>
+								<td>
+									<div class="date">10</div>
+									<ul class="meals">
+										<li><span>조</span></li>
+										<li></li>
+										<li><span>석</span></li>
+									</ul>
+								</td>
+								<td><div class="date">11</div></td>
+								<td>
+									<div class="date">12</div>
+								</td>
+								<td class="holiday">
+									<div class="date">
+										13
+										<span class="plan">공휴일</span>
+									</div>
+									<ul class="meals">
+										<li><span>조</span></li>
+										<li><span>중</span></li>
+										<li><span>석</span></li>
+									</ul>
+								</td>
+								<td class="holiday">
+									<div class="date">
+										14
+										<span class="plan">공휴일</span>
+									</div>
+								</td>
+								<td class="holiday">
+									<div class="date">
+										15
+										<span class="plan">공휴일</span>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<div class="date">16</div>
+								</td>
+								<td>
+									<div class="date">17</div>
+								</td>
+								<td>
+									<div class="date">18</div>
+								</td>
+								<td>
+									<div class="date">19</div>
+								</td>
+								<td>
+									<div class="date">20</div>
+								</td>
+								<td>
+									<div class="date">21</div>
+								</td>
+								<td>
+									<div class="date">22</div>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<div class="date">23</div>
+								</td>
+								<td>
+									<div class="date">24</div>
+								</td>
+								<td>
+									<div class="date">25</div>
+								</td>
+								<td>
+									<div class="date">26</div>
+								</td>
+								<td>
+									<div class="date">27</div>
+								</td>
+								<td>
+									<div class="date">28</div>
+								</td>
+								<td>
+									<div class="date">29</div>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<div class="date">30</div>
+								</td>
+								<td>
+									<div class="date"></div>
+								</td>
+								<td>
+									<div class="date"></div>
+								</td>
+								<td>
+									<div class="date"></div>
+								</td>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
+								<td>
+									<div class="date"></div>
+								</td>
+								<td>
+									<div class="date"></div>
+								</td>
+								<td>
+									<div class="date"></div>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+				<table class="tbl-form mt24">
+					<colgroup>
+						<col style="width: 140px">
+						<col style="width: 50%">
+						<col style="width: 140px">
+						<col style="width: 50%">
+					</colgroup>
+					<tbody>
+						<tr>
+							<th>
+								<span>이번달 총 포인트</span>
+							</th>
+							<td>
+								<span>240,030원</span>
+							</td>
+							<th>
+								<span>사용가능 잔여 포인트</span>
+							</th>
+							<td>
+								<span>24,000원</span>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+
+			</div><!-- .layer-body -->
+			<div class="layer-footer">
+				<div class="button-wrap">
+					<button type="button" class="btn btn-line btn_close"><span>닫기</span></button>
+				</div>
+			</div><!-- .layer-footer -->
+		</div><!-- .layer-contents -->
+	</div><!-- #windowPopup.layerPopup -->
+</body>
+
+</html>

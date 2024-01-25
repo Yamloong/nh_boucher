@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>서브샘플</title>
+
+<!--v Packages -->
+<script src="../../assets/js/jquery.min.js"></script>
+
+<link href="../../assets/css/jquery-ui.min.css" rel="stylesheet" />
+<script src="../../assets/js/jquery-ui.min.js"></script>
+
+<link href="../../assets/css/select2.min.css" rel="stylesheet" />
+<script src="../../assets/js/select2.min.js"></script>
+
+<!-- SBGrid -->
+<script src="../../assets/js/SBGrid3/sbgrid3.js" type="text/javascript"></script>
+<link href="../../assets/js/SBGrid3/css/sbgrid3.css" rel="stylesheet" />
+<!--^ Packages -->
+
+<link href="../../assets/css/all.css" rel="stylesheet" />
+<script src="../../assets/js/util.js"></script>
+
+<script>
+let datagrid;
+SBGrid3.$(document).ready(function(){
+	createGrid();
+});
+
+const calcData = [
+    {
+        "text": "매화반",
+        "name": "홍길동",
+        "number": 1123123123,
+        "check": "T",
+        "radio": "T",
+        "multitext": "Never Say NO - 고객의 성공적인 프로젝트를 위해 소프트보울은 NO 보다는 YES를 지향 합니다.",
+        "combo": "asia",
+        "date": "2023-01-01"
+    },
+    {
+        "text": "매화반",
+        "name": "김철수",
+        "number": 2,
+        "check": "T",
+        "radio": "F",
+        "multitext": "Never Say NO \n - 고객의 성공적인 프로젝트를 위해 소프트보울은 NO 보다는 YES를 지향 합니다.",
+        "combo": "asia",
+        "date": "2023-01-01"
+    },
+    {
+        "text": "매화반",
+        "name": "이영희",
+        "number": 3,
+        "check": "",
+        "radio": "S",
+        "multitext": "당장 눈 앞의 이익보다는 미래에 생길 가치를, \n 나무보다는 숲을 보는 안목으로 경영하겠습니다.",
+        "combo": "asia",
+        "date": "2023-01-02"
+    },
+    {
+        "text": "난초반",
+        "name": "국영수",
+        "number": 4,
+        "check": "T",
+        "radio": "F",
+        "multitext": "고객만족을 통해 사회에 기여하는 기업이 되겠다는 초심을 지키며 \n 순간적인 반짝임보다는 꾸준함을 중시하는 기업이 되겠습니다.",
+        "combo": "asia",
+        "date": "2023-01-03"
+    },
+    {
+        "text": "난초반",
+        "name": "영수",
+        "number": 5,
+        "check": "",
+        "radio": "T",
+        "multitext": "배가 가는 방향을 정하는 것은 바람도, 물결도 아닌 방향타를 쥔 선장의 의지입니다.",
+        "combo": "asia",
+        "date": "2023-01-04"
+    },
+    {
+        "text": "난초반",
+        "name": "국영",
+        "number": 6,
+        "check": "",
+        "radio": "S",
+        "multitext": "고객만족을 통해 사회에 기여하는 기업이 되겠다는 초심을 지키며 \n 순간적인 반짝임보다는 꾸준함을 중시하는 기업이 되겠습니다.",
+        "combo": "asia",
+        "date": "2023-01-05"
+    },
+    {
+        "text": "국화반",
+        "name": "최민지",
+        "number": 7,
+        "check": "T",
+        "radio": "T",
+        "multitext": "당장 눈 앞의 이익보다는 미래에 생길 가치를, \n 나무보다는 숲을 보는 안목으로 경영하겠습니다.",
+        "combo": "asia",
+        "date": "2023-01-06"
+    },
+    {
+        "text": "국화반",
+        "name": "김갑수",
+        "number": 8,
+        "check": "T",
+        "radio": "T",
+        "multitext": "배가 가는 방향을 정하는 것은 바람도, \n 물결도 아닌 방향타를 쥔 \n 선장의 의지입니다.",
+        "combo": "asia",
+        "date": "2023-01-07"
+    },
+    {
+        "text": "국화반",
+        "name": "이순신",
+        "number": 9,
+        "check": "T",
+        "radio": "T",
+        "multitext": "고객만족을 통해 사회에 기여하는 기업이 되겠다는 초심을 지키며 \n 순간적인 반짝임보다는 꾸준함을 중시하는 기업이 되겠습니다.",
+        "combo": "asia",
+        "date": "2023-01-08"
+    },
+    {
+        "text": "국화반",
+        "name": "임꺽정",
+        "number": 10,
+        "check": "",
+        "radio": "S",
+        "multitext": "배가 가는 방향을 정하는 것은 바람도, 물결도 아닌 방향타를 쥔 선장의 의지입니다.",
+        "combo": "asia",
+        "date": "2023-01-09"
+    },
+	{
+        "text": "국화반",
+        "name": "임꺽정",
+        "number": 10,
+        "check": "T",
+        "radio": "T",
+        "multitext": "Never Say NO - 고객의 성공적인 프로젝트를 위해 소프트보울은 NO 보다는 YES를 지향 합니다.",
+        "combo": "asia",
+        "date": "2023-01-22"
+    },
+    {
+        "text": "국화반",
+        "name": "을지문덕",
+        "number": 11,
+        "check": "",
+        "radio": "T",
+        "multitext": "Never Say NO - 고객의 성공적인 프로젝트를 위해 소프트보울은 NO 보다는 YES를 지향 합니다.",
+        "combo": "asia",
+        "date": "2023-01-23"
+    },
+    {
+        "text": "국화반",
+        "name": "최영",
+        "number": 12,
+        "check": "",
+        "radio": "T",
+        "multitext": "당장 눈 앞의 이익보다는 미래에 생길 가치를, \n 나무보다는 숲을 보는 안목으로 경영하겠습니다.",
+        "combo": "asia",
+        "date": "2023-01-24"
+    },
+    {
+        "text": "대나무반",
+        "name": "신사임당",
+        "number": 13,
+        "check": "T",
+        "radio": "S",
+        "multitext": "당장 눈 앞의 이익보다는 미래에 생길 가치를, \n 나무보다는 숲을 보는 안목으로 경영하겠습니다.",
+        "combo": "asia",
+        "date": "2023-01-25"
+    },
+    {
+        "text": "매화반",
+        "name": "홍길동",
+        "number": 1,
+        "check": "",
+        "radio": "S",
+        "multitext": "당장 눈 앞의 이익보다는 미래에 생길 가치를, \n 나무보다는 숲을 보는 안목으로 경영하겠습니다.",
+        "combo": "asia",
+        "date": "2023-01-26"
+    },
+    {
+        "text": "매화반",
+        "name": "김철수",
+        "number": 2,
+        "check": "",
+        "radio": "T",
+        "multitext": "당장 눈 앞의 이익보다는 미래에 생길 가치를, \n 나무보다는 숲을 보는 안목으로 경영하겠습니다.",
+        "combo": "asia",
+        "date": "2023-01-27"
+    },
+    {
+        "text": "매화반",
+        "name": "이영희",
+        "number": 3,
+        "check": "",
+        "radio": "F",
+        "multitext": "고객만족을 통해 사회에 기여하는 기업이 되겠다는 초심을 지키며 \n 순간적인 반짝임보다는 꾸준함을 중시하는 기업이 되겠습니다.",
+        "combo": "asia",
+        "date": "2023-01-28"
+    },
+    {
+        "text": "난초반",
+        "name": "국영수",
+        "number": 4,
+        "check": "T",
+        "radio": "F",
+        "multitext": "고객만족을 통해 사회에 기여하는 기업이 되겠다는 초심을 지키며 \n 순간적인 반짝임보다는 꾸준함을 중시하는 기업이 되겠습니다.",
+        "combo": "asia",
+        "date": "2023-01-29"
+    },
+    {
+        "text": "난초반",
+        "name": "국영수",
+        "number": 4,
+        "check": "T",
+        "radio": "F",
+        "multitext": "고객만족을 통해 사회에 기여하는 기업이 되겠다는 초심을 지키며 \n 순간적인 반짝임보다는 꾸준함을 중시하는 기업이 되겠습니다.",
+        "combo": "asia",
+        "date": "2023-01-29"
+    },
+    {
+        "text": "난초반",
+        "name": "국영수",
+        "number": 4,
+        "check": "T",
+        "radio": "F",
+        "multitext": "고객만족을 통해 사회에 기여하는 기업이 되겠다는 초심을 지키며 \n 순간적인 반짝임보다는 꾸준함을 중시하는 기업이 되겠습니다.",
+        "combo": "asia",
+        "date": "2023-01-29"
+    }
+]
+
+// 맨 우측 셀 셀렉트 박스 내용
+const continentData = [
+    {
+        "continentValue": "asia",
+        "continentText": "아시아"
+    },
+    {
+        "continentValue": "europe",
+        "continentText": "유럽"
+    },
+    {
+        "continentValue": "north_america",
+        "continentText": "북아메리카"
+    },
+    {
+        "continentValue": "oceania",
+        "continentText": "오세아니아"
+    }
+]
+
+var emptyData = [];
+var maxNumber = 0;
+
+function createGrid(){
+	let dsConfig = {
+		schema: {},
+		data : calcData,
+	}
+
+	let gridConfig = {
+		dataSource: dsConfig,
+		columns: [
+			{
+				type: 'rowno', part: 'fixed', caption: '순번', width: 50, //순번 (230919추가)
+			},
+			{ field: 'number', type:'number', caption:'숫자', width: 80,
+				format: '#,###',
+				total: {
+					aggregates: [
+						{ func: 'max' },
+						{ func: 'min' },
+						{ func: 'avg' },
+						{ func: 'sum', require:'number'}
+					],
+					footer: [
+						{ template: '<span class="text-primary">합계</span> : {{sum}}' },
+					],
+				},
+            },
+			{ field: 'text', type:'text', caption:'텍스트'},
+			{ field: 'name', type:'text', caption:'이름', filter: true },
+			{ field: 'date', type:'date', calendarType: 'date', caption:'날짜' },
+			{ field: 'check', type:'check', //caption:'체크박스',
+				editable:true, 
+				// viewMode : 'checkLabel', 
+            	captionCheck: true, // 전체 체크 기능 추가여부 (230919추가)
+				captionLayout: { center: ['check'], rightFlex: { flexGrow: 0 } }, // 캡션명은 가운데, 체크박스는 우측에 표시 (230919추가)
+				checkValue:'T', 
+				checkLabel:'참가', 
+				unCheckValue:'F', 
+				unCheckLabel:'불참', 
+				checkMode:'checkbox' ,
+				directApplyEdit : true,
+			},
+			{ field: 'radio', type:'radio',width: 180, caption:'라디오버튼',
+				radioItems: [
+					{ value: 'S', label: '승인' },
+					{ value: 'F', label: '미승인' },
+					{ value: 'T', label: '보류'},
+				],
+				checkMode: 'radio',
+				directApplyEdit : true
+			},
+			{ field: 'multitext', type:'multitext', width: 350, align:"left", caption:'멀티텍스트' },
+			{ field: 'button', type:'button',command : 'edit', caption:'버튼' },
+			{ field: 'combo', type:'combo', caption:'콤보박스',
+					viewMode : 'both',
+					items : continentData,
+					comboLabel : 'continentText',
+					comboValue : 'continentValue',
+					popupPosition : 'auto',
+					directApplyEdit: true,
+					width : 200
+			},
+		],
+		container: '#SBGridArea',
+		width: '100%',
+		height: '348px',
+		fixedRows: true, //행높이 고정
+		captionHeight: 32, //헤더 행높이
+		rowHeight: 28, //행높이
+		footerHeight: 28,
+		hover: 'row',
+		selectable: {
+			selectMode: 'multi',
+			rowSelect: true,
+			columnSelect: true,
+			cellSelect: 'cell',
+		},
+		showSticky: true, //열고정
+		checkable: true, //전체선택
+		filterable: true, //필터
+		sortable: true, //소트
+		multiSort: true, //멀티소트
+		pageable: true, //페이징
+		pagerBar: {
+			center: ['pager']
+		},
+		editable:{
+			mode : 'incell',       
+			eventType : 'dblclick',
+			immediateValidationCheck : false  // 편집 입력중 validation 체크 여부
+		},
+		resizable: {
+			mode: "column",
+			minWidth: 60, 
+			autoFit: ["caption", "data"]
+		}
+	};
+	datagrid = SBGrid3.createGrid(gridConfig);
+	datagrid.refresh();
+	}
+</script>
+</head>
+
+<body class="sub-page">
+	<div id="util">
+		<div class="inner">
+			<div class="info">
+				<div class="administrator">
+					<i class="icon-smile"></i>
+					<span>시스템 관리자</span>
+				</div>
+				<div class="address">경기도 용인시 OO동</div>
+				<div class="log">마지막 로그인 : 2023.05.04 14:05</div>
+				<button type="button" class="btn btn-sub-line">
+					<span>회원정보수정</span>
+				</button>
+				<a href="#" class="btn btn-txt">
+					<span>로그아웃</span>
+				</a>
+			</div>
+		</div>
+	</div>
+	<header>
+		<div class="inner">
+			<h1 class="logo">
+				<a href="#">
+					<img src="../../assets/img/logo.svg" />
+				</a>
+			</h1>
+			<div id="gnb">
+				<ul class="gnb-list">
+					<li>
+						<a href="../회원카드관리/대상자_신규등록.html">회원/카드관리</a>
+						<div class="gnb-sub-menu">
+							<ul class="menu-list">
+								<li>
+									<span>대상자관리</span>
+									<ul class="sub-menu">
+										<li>
+											<a href="../회원카드관리/대상자_신규등록.html">
+												<span>대상자 신규등록</span>
+											</a>
+										</li>
+										<li>
+											<a href="../회원카드관리/보유회원명단.html">
+												<span>보유회원명단</span>
+											</a>
+										</li>
+										<li>
+											<a href="../회원카드관리/신청현황관리.html">
+												<span>신청현황관리</span>
+											</a>
+										</li>
+									</ul>
+								</li>
+								<li>
+									<span>카드관리</span>
+									<ul class="sub-menu">
+										<li>
+											<a href="../회원카드관리/재료카드요청.html">
+												<span>재료카드 요청</span>
+											</a>
+										</li>
+										<li>
+											<a href="../회원카드관리/빈카드관리.html">
+												<span>빈 카드 관리</span>
+											</a>
+										</li>
+										<li>
+											<a href="../회원카드관리/카드삭제(미사용자).html">
+												<span>카드삭제(미사용자)</span>
+											</a>
+										</li>
+									</ul>
+								</li>
+								<li>
+									<span>이용현황</span>
+									<ul class="sub-menu">
+										<li>
+											<a href="../회원카드관리/회원별거래현황.html">
+												<span>회원별 거래현황</span>
+											</a>
+										</li>
+										<li>
+											<a href="../회원카드관리/회원별이용현황.html">
+												<span>회원별 이용현황</span>
+											</a>
+										</li>
+										<li>
+											<a href="../회원카드관리/일자별집계현황.html">
+												<span>일자별 집계현황</span>
+											</a>
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</div>
+					</li>
+					<li class="on">
+						<a href="../거래관리/대상자종합관리.html">거래관리</a>
+						<div class="gnb-sub-menu">
+							<ul class="menu-list">
+								<li>
+									<span>거래내역</span>
+									<ul class="sub-menu">
+										<li>
+											<a href="../거래관리/대상자종합관리.html">
+												<span>대상자종합관리</span>
+											</a>
+										</li>
+										<li>
+											<a href="../거래관리/거래요약조회.html">
+												<span>거래요약조회</span>
+											</a>
+										</li>
+										<li>
+											<a href="../거래관리/거래상세조회.html">
+												<span>거래상세조회</span>
+											</a>
+										</li>
+										<li>
+											<a href="../거래관리/충전소멸사용현황.html">
+												<span>충전/소멸/사용 현황</span>
+											</a>
+										</li>
+										<li>
+											<a href="../거래관리/실시간거래내역조회.html">
+												<span>실시간 거래내역조회</span>
+											</a>
+										</li>
+									</ul>
+								</li>
+								<li>
+									<span>가맹점관리</span>
+									<ul class="sub-menu">
+										<li>
+											<a href="../거래관리/가맹점관리_NH.html">
+												<span>가맹점관리NH</span>
+											</a>
+										</li>
+										<li>
+											<a href="../거래관리/가맹점관리_BC.html">
+												<span>가맹점관리BC</span>
+											</a>
+										</li>
+										<li>
+											<a href="../거래관리/가맹점별_거래조회.html">
+												<span>가맹점별 거래조회</span>
+											</a>
+										</li>
+										<li>
+											<a href="../거래관리/가맹점별_거래현황.html">
+												<span>가맹점별 거래현황</span>
+											</a>
+										</li>
+										<li>
+											<a href="../거래관리/가맹점직접결제2.html">
+												<span>가맹점 직접결제</span>
+											</a>
+										</li>
+									</ul>
+								</li>
+							</ul><!-- .menu-list -->
+						</div>
+					</li>
+					<li>
+						<a href="../정산현황/정산조회.html">정산현황</a>
+						<div class="gnb-sub-menu">
+							<ul class="menu-list">
+								<li>
+									<span>정산관리</span>
+									<ul class="sub-menu">
+										<li>
+											<a href="../정산현황/정산조회.html">
+												<span>정산조회</span>
+											</a>
+										</li>
+										<li>
+											<a href="../정산현황/가맹점_미정산내역.html">
+												<span>가맹점 미정산내역</span>
+											</a>
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</div>
+					</li>
+					<li>
+						<a href="../통계분석/이상징후_모니터링.html">통계/분석</a>
+						<div class="gnb-sub-menu">
+							<ul class="menu-list">
+								<li>
+									<span>모니터링</span>
+									<ul class="sub-menu">
+										<li>
+											<a href="../통계분석/이상징후_모니터링.html">
+												<span>이상징후 모니터링</span>
+											</a>
+										</li>
+									</ul>
+								</li>
+								<li>
+									<span>통계현황</span>
+									<ul class="sub-menu">
+										<li>
+											<a href="../통계분석/급식수통계.html">
+												<span>급식수통계</span>
+											</a>
+										</li>
+										<li>
+											<a href="../통계분석/조중석통계.html">
+												<span>조중석통계</span>
+											</a>
+										</li>
+										<li>
+											<a href="../통계분석/지원내용별현황.html">
+												<span>지원내용별 현황</span>
+											</a>
+										</li>
+										<li>
+											<a href="../통계분석/지원구분별금액.html">
+												<span>지원구분별 금액</span>
+											</a>
+										</li>
+										<li>
+											<a href="../통계분석/업종별가맹점통계.html">
+												<span>업종별 가맹점 통계</span>
+											</a>
+										</li>
+										<li>
+											<a href="../통계분석/업종별거래금액통계.html">
+												<span>업종별 거래금액 통계</span>
+											</a>
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</div>
+					</li>
+					<li>
+						<a href="../지원정책/바우처정책관리.html">지원정책</a>
+						<div class="gnb-sub-menu">
+							<ul class="menu-list">
+								<li>
+									<span>지원정책</span>
+									<ul class="sub-menu">
+										<li>
+											<a href="../지원정책/바우처정책관리.html">
+												<span>바우처정책 관리</span>
+											</a>
+										</li>
+										<li>
+											<a href="../지원정책/학교방학관리.html">
+												<span>학교방학관리</span>
+											</a>
+										</li>
+										<li>
+											<a href="../지원정책/급식템플릿관리.html">
+												<span>급식템플릿관리</span>
+											</a>
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</div>
+					</li>
+					<li>
+						<a href="../환경설정/공지관리.html">환경설정</a>
+						<div class="gnb-sub-menu">
+							<ul class="menu-list">
+								<li>
+									<span>공지관리</span>
+									<ul class="sub-menu">
+										<li>
+											<a href="../환경설정/공지관리.html">
+												<span>공지관리</span>
+											</a>
+										</li>
+									</ul>
+								</li>
+								<li>
+									<span>계정관리</span>
+									<ul class="sub-menu">
+										<li>
+											<a href="../환경설정/관리자계정관리.html">
+												<span>관리자계정관리</span>
+											</a>
+										</li>
+										<li>
+											<a href="../환경설정/관리자권한관리.html">
+												<span>관리자권한관리</span>
+											</a>
+										</li>
+										<li>
+											<a href="../환경설정/지자체관리.html">
+												<span>지자체관리</span>
+											</a>
+										</li>
+									</ul>
+								</li>
+								<li>
+									<span>시스템 관리</span>
+									<ul class="sub-menu">
+										<li>
+											<a href="../환경설정/팝업관리.html">
+												<span>팝업 관리</span>
+											</a>
+										</li>
+										<li>
+											<a href="../환경설정/대량등록양식관리.html">
+												<span>대량등록 양식관리</span>
+											</a>
+										</li>
+										<li>
+											<a href="../환경설정/통계업종관리.html">
+												<span>통계업종관리</span>
+											</a>
+										</li>
+									</ul>
+								</li>
+								<li>
+									<span>문자관리</span>
+									<ul class="sub-menu">
+										<li>
+											<a href="../환경설정/SMS전송.html">
+												<span>SMS전송</span>
+											</a>
+										</li>
+										<li>
+											<a href="../환경설정/SMS결과조회.html">
+												<span>SMS예약관리</span>
+											</a>
+										</li>
+										<li>
+											<a href="../환경설정/SMS결과조회.html">
+												<span>SMS결과조회</span>
+											</a>
+										</li>
+										<li>
+											<a href="../환경설정/SMS전송내역.html">
+												<span>SMS전송내역</span>
+											</a>
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</div>
+					</li>
+				</ul>
+				<button type="button" class="btn btn-txt btn-allmenu">
+					<i class="icon-allmenu"></i>
+					<span>전체보기</span>
+				</button>
+			</div>
+		</div>
+	</header>
+
+	<div class="container">
+		<div id="lnb">
+			<div class="group-title menu02">
+				<span>거래관리</span>
+			</div>
+			<div class="menu-wrap">
+				<ul class="menu-list">
+					<li class="on">
+						<a href="#">
+							<span class="menu2-1">거래내역</span>
+							<i class="icon-arrow-down"></i>
+						</a>
+						<ul class="sub-menu">
+							<li>
+								<a href="#">
+									<span>대상자 종합관리</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span>거래요약조회</span>
+								</a>
+							</li>
+							<li class="on">
+								<a href="#">
+									<span>거래상세조회</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span>충전/소멸/사용 현황</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span>실시간 거래내역조회</span>
+								</a>
+							</li>
+						</ul>
+					</li>
+					<li>
+						<a href="#">
+							<span class="menu2-2">가맹점관리</span>
+							<i class="icon-arrow-down"></i>
+						</a>
+						<ul class="sub-menu">
+							<li>
+								<a href="#">
+									<span>가맹점관리</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span>가맹점별 거래조회</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span>가맹점별 거래현황</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span>가맹점 직접결제</span>
+								</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				<div class="inquiry">
+					<div>시스템 문의</div>
+					<a href="mailto:wecard@bizplay.co.kr" class="btn btn-txt">
+						<span>wecard@bizplay.co.kr</span>
+					</a>
+				</div>
+			</div>
+		</div>
+		<!-- #lnb -->
+		<div class="content-wrap">
+			<div class="content-body">
+				
+				<div class="search-form-wrap">
+					<div class="content-header">
+						<div class="title-wrap">
+							<div class="title">거래내역</div>
+							<div class="title">거래상세조회</div>
+						</div>
+					</div>
+					<div class="page-memo">
+						<ul class="list">
+							<li>메뉴권한그룹을 먼저 선택한 뒤 각 메뉴의 권한을 조절하세요.</li>
+							<li>먼저 발급할 지역(읍/면/동)을 확인한 뒤 카드를 선택하세요.</li>
+							<li>붉은색 글씨의 급식자확인은 필수 사항입니다.</li>
+							<li>붉은색의 <span class="text-strong">*</span>표시는 필수선택 사항입니다.</li>
+						</ul>
+					</div>
+					<form>
+						<div class="search-form-inner">
+							<div class="search-form">
+
+								<div class="row">
+									<div class="col-12">
+										<label class="form-label" for="지자체"><span>지자체</span></label>
+										<div class="form-container">
+											<select class="form-select select2" id="지자체" name="시/도" data-placeholder="시/도 선택" disabled>
+												<option value=""></option>
+												<option value="경상북도" selected>경상북도</option>
+											</select>
+											<select class="form-select select2" id="시/군/구" name="시/군/구" data-placeholder="시/군/구 선택">
+												<option value=""></option>
+												<option value="옵션1">옵션1</option>
+												<option value="옵션2">옵션2</option>
+												<option value="옵션3">옵션3</option>
+											</select>
+											<select class="form-select select2" id="구" name="구" data-placeholder="구 선택">
+												<option value=""></option>
+												<option value="옵션1">옵션1</option>
+												<option value="옵션2">옵션2</option>
+												<option value="옵션3">옵션3</option>
+											</select>
+											<select class="form-select select2" id="읍/면/동" name="읍/면/동" data-placeholder="읍/면/동 선택">
+												<option value=""></option>
+												<option value="옵션1">옵션1</option>
+												<option value="옵션2">옵션2</option>
+												<option value="옵션3">옵션3</option>
+											</select>
+										</div>
+									</div><!-- .col -->
+								</div><!-- .row -->
+
+								<div class="row">
+									<div class="col-3">
+										<label class="form-label" for="급식지원내용"><span>급식지원내용</span></label>
+										<div class="form-container">
+											<select class="form-select select2" id="급식지원내용" name="급식지원내용" data-placeholder="급식지원내용">
+												<option value=""></option>
+												<option value="all" selected>전체</option>
+												<option value="옵션1">옵션1</option>
+												<option value="옵션2">옵션2</option>
+												<option value="옵션3">옵션3</option>
+											</select>
+										</div><!-- .form-container -->
+									</div><!-- .col -->
+									<div class="col-3">
+										<label class="form-label" for="성별"><span>성별</span></label>
+										<div class="form-container">
+											<select class="form-select select2" id="성별" name="성별" data-placeholder="성별">
+												<option value=""></option>
+												<option value="all" selected>전체</option>
+												<option value="옵션1">옵션1</option>
+												<option value="옵션2">옵션2</option>
+												<option value="옵션3">옵션3</option>
+											</select>
+										</div><!-- .form-container -->
+									</div><!-- .col -->
+									<div class="col-3">
+										<label class="form-label" for="카드상태"><span>카드상태</span></label>
+										<div class="form-container">
+											<select class="form-select select2" id="카드상태" name="카드상태" data-placeholder="카드상태">
+												<option value=""></option>
+												<option value="all" selected>전체</option>
+												<option value="옵션1">옵션1</option>
+												<option value="옵션2">옵션2</option>
+												<option value="옵션3">옵션3</option>
+											</select>
+										</div><!-- .form-container -->
+									</div><!-- .col -->
+									<div class="col-3">
+										<label class="form-label" for="카드분류"><span>카드분류</span></label>
+										<div class="form-container">
+											<select class="form-select select2" id="카드분류" name="카드분류" data-placeholder="카드분류">
+												<option value=""></option>
+												<option value="all" selected>전체</option>
+												<option value="옵션1">옵션1</option>
+												<option value="옵션2">옵션2</option>
+												<option value="옵션3">옵션3</option>
+											</select>
+										</div><!-- .form-container -->
+									</div><!-- .col -->
+								</div><!-- .row -->
+
+								<div class="row">
+									<div class="col-6">
+										<label class="form-label" for="기간S"><span>거래기간</span></label>
+										<div class="form-container">
+											<div class="input-wrap input_datepicker_wrap">
+												<input class="from" type="text" id="기간S" name="기간S" value="" maxlength="10" placeholder="YYYY.MM.DD" oninput="checkInputPattern(this, '0-9.\-');" />
+											</div>
+											<div class="input-wrap input_datepicker_wrap">
+												<input class="to" type="text" id="기간E" name="기간E" value="" maxlength="10" placeholder="YYYY.MM.DD" oninput="checkInputPattern(this, '0-9.\-');" />
+											</div>
+											<button type="button" class="btn btn-line btn-clear">
+												<span>전체</span>
+											</button>
+										</div><!-- .form-container -->
+									</div><!-- .col -->
+									<div class="col-6">
+										<label class="form-label" for="time01"><span>거래시간</span></label>
+										<div class="form-container">
+											<div class="input-wrap time">
+												<input type="text" id="time01" name="time01" value="" placeholder="" maxlength="2" />
+											</div><!-- .input-wrap -->
+											<div class="unit">시~</div>
+
+											<div class="input-wrap time">
+												<input type="text" id="time02" name="time02" value="" placeholder="" maxlength="2" />
+											</div><!-- .input-wrap -->
+											<div class="unit">시</div>
+
+											<div class="form-check">
+												<input class="form-check-input" type="radio" id="라디오1_옵션1" name="라디오1" value="옵션1" checked="" />
+												<label class="form-check-label" for="라디오1_옵션1">현재까지</label>
+											</div>
+											<div class="form-check">
+												<input class="form-check-input" type="radio" id="라디오1_옵션2" name="라디오1" value="옵션2" />
+												<label class="form-check-label" for="라디오1_옵션2">현재시간만</label>
+											</div>
+										</div><!-- .form-container -->
+									</div><!-- .col -->
+								</div><!-- .row -->
+
+								<div class="row">
+									<div class="col-6">
+										<label class="form-label" for="특정가맹점"><span>특정가맹점</span></label>
+										<div class="form-container">
+											<div class="input-wrap">
+												<input type="text" id="특정가맹점" name="특정가맹점" value="" placeholder="" maxlength="" />
+											</div><!-- .input-wrap -->
+											<button type="button" class="btn btn-line">
+												<span>가맹점 검색</span>
+											</button>
+											<button type="button" class="btn-icon">
+												<i class="icon-change"></i>
+											</button>
+										</div><!-- .form-container -->
+									</div><!-- .col -->
+									<div class="col-6">
+										<label class="form-label" for="학교명칭검색"><span>학교명칭검색</span></label>
+										<div class="form-container">
+											<select class="select2_school" id="학교명칭검색" name="학교명칭검색" data-placeholder="학교명칭검색">
+												<option value="옵션1">옵션1</option>
+												<option value="옵션2">qweqwe</option>
+												<option value="옵션3">qweqwe</option>
+												<option value="옵션4">qweqwe</option>
+											</select>
+										</div><!-- .form-container -->
+									</div><!-- .col -->
+								</div><!-- .row -->
+
+								<div class="row">
+									<div class="col-6">
+										<label class="form-label" for="금액구간1"><span>금액구간</span></label>
+										<div class="form-container">
+											<div class="input-wrap">
+												<input class="number" type="text" id="금액구간1" name="금액구간1" value="" step="1" placeholder="0" oninput="numberLocaleString(this);" />
+											</div>
+											<div class="input-wrap">
+												<input class="number" type="text" id="금액구간2" name="금액구간2" value="" step="1" placeholder="0" oninput="numberLocaleString(this);" />
+											</div>
+										</div><!-- .form-container -->
+									</div><!-- .col -->
+									<div class="col-6">
+										<label class="form-label" for="체크박스1"><span>체크박스</span></label>
+										<div class="form-container">
+											<div class="form-check">
+												<input class="form-check-input" type="checkbox" id="체크박스1" name="체크박스1" value="체크박스1" checked="" />
+												<label class="form-check-label" for="체크박스1">옵션1</label>
+											</div>
+											<div class="form-check">
+												<input class="form-check-input" type="checkbox" id="체크박스2" name="체크박스2" value="체크박스2" />
+												<label class="form-check-label" for="체크박스2">옵션2</label>
+											</div>
+											<div class="form-check">
+												<input class="form-check-input" type="checkbox" id="체크박스3" name="체크박스3" value="체크박스3" />
+												<label class="form-check-label" for="체크박스3">옵션3</label>
+											</div>
+										</div><!-- .form-container -->
+									</div><!-- .col -->
+								</div><!-- .row -->
+							</div><!-- .search-form -->
+
+							<div class="button-wrap">
+								<button type="button" class="btn btn-primary">
+									<span>검색</span>
+								</button>
+							</div>
+						</div><!-- .search-form-inner -->
+					</form>
+				</div><!-- .search_form_wrap -->
+
+				<div class="section-body">
+					<div class="section-header">
+						<div class="title-wrap">
+							<div class="title">타이틀영역<span class="small text-primary">(00건)</span></div>
+							<div class="sub-title">더블 클릭 시 상세내역 조회 가능합니다.</div>
+						</div>
+						<div class="button-wrap">
+							<div class="title-wrap">
+								<div class="sub-title">서브 텍스트 영역입니다.</div>
+							</div>
+							<button type="button" class="btn btn-line-primary">
+								<span>삭제</span>
+							</button>
+							<button type="button" class="btn btn-line-primary">
+								<span>목록</span>
+							</button>
+							<button type="button" class="btn btn-line-primary">
+								<span>인쇄</span>
+							</button>
+							<button type="button" class="btn btn-line">
+								<span>탈퇴처리</span>
+							</button>
+							<button type="button" class="btn btn-line-primary">
+								<i class="icon-download"></i>
+								<span>엑셀</span>
+							</button>
+							<!-- <button type="button" class="btn btn-primary">
+								<span>저장 또는 승인</span>
+							</button> -->
+						</div>
+					</div><!-- .section-header -->
+
+					<ul class="tab-menu type02" data-target="tab01">
+						<li class="on">
+							<button type="button" class="btn btn-tab">Tab-1</button>
+						</li>
+						<li>
+							<button type="button" class="btn btn-tab">Tab-2</button>
+						</li>
+						<li>
+							<button type="button" class="btn btn-tab">Tab-3</button>
+						</li>
+						<li>
+							<button type="button" class="btn btn-tab">Tab-4</button>
+						</li>
+						<li>
+							<button type="button" class="btn btn-tab">Tab-5</button>
+						</li>
+					</ul>
+
+					<div id="tab01" class="tab-content mt24">
+						<div class="tab-section on">
+
+							<!--s 그리드가 삽입될 DIV -->
+							<div id="SBGridArea"></div>
+							<!--e 그리드가 삽입될 DIV -->
+
+						</div>
+						<div class="tab-section">
+							탭2 Content<br><br>It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum
+							passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+						</div>
+						<div class="tab-section">
+							탭3 Content<br><br>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of
+							letters, as opposed to using 'Content here, content here',
+						</div>
+						<div class="tab-section">탭4 Content<br><br>Contrary to popular belief, Lorem Ipsum is not simply random text.</div>
+						<div class="tab-section">
+							탭5 Content<br><br>The standard chunk of Lorem Ipsum used since the 1500s is reproduced below for those interested. Sections 1.10.32 and 1.10.33 from "de Finibus Bonorum et Malorum" by Cicero are also reproduced in their exact
+							original form, accompanied by English versions from the 1914 translation by H. Rackham.
+						</div>
+					</div>
+				</div><!-- .section-body -->
+			</div>
+		</div><!-- .content-wrap -->
+	</div><!-- .container -->
+
+	<div class="loading-wrap">
+		<div class="loading"></div>
+	</div>
+	<script>
+	$(".loading-wrap").fadeIn();
+	$("body").addClass("scroll_lock");
+
+	setTimeout(function() {
+		$(".loading-wrap").fadeOut();
+		$("body").removeClass("scroll_lock");
+	}, 500);
+
+	refreshBody();
+	$(".select2_school").append("<option>aa</<option>");
+	</script>
+</body>
+</html>

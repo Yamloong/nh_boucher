@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<title>rMateGrid</title>
+
+<!--v Packages -->
+<script src="../../assets/js/jquery.min.js"></script>
+
+<link href="../../assets/css/jquery-ui.min.css" rel="stylesheet" />
+<script src="../../assets/js/jquery-ui.min.js"></script>
+
+<link href="../../assets/css/select2.min.css" rel="stylesheet" />
+<script src="../../assets/js/select2.min.js"></script>
+
+<!-- GUIDE관련 소스 -->
+<link href="../assets/css/only_for_guide.css" rel="stylesheet" />
+<script src="../assets/js/only_for_guide.js"></script>
+
+<!--v codemirror : 소스보기용 -->
+<link href="../assets/js/codemirror/lib/codemirror.css" rel="stylesheet" />
+<link href="../assets/js/codemirror/theme/rubyblue.css" rel="stylesheet" />
+<script src="../assets/js/codemirror/lib/codemirror.js"></script>
+<script src="../assets/js/codemirror/mode/xml/xml.js"></script>
+<script src="../assets/js/codemirror/mode/javascript/javascript.js"></script>
+<script src="../assets/js/codemirror/mode/htmlmixed/htmlmixed.js"></script>
+<script src="../assets/js/codemirror/addon/selection/active-line.js"></script>
+<!--^ codemirror : 소스보기용 -->
+
+<!-- rMateGridH5 CSS -->
+<link rel="stylesheet" type="text/css" href="../../assets/js/rMateGrid/rMateGridH5/Assets/rMateH5.css"/>
+<!-- rMateGridH5 라이센스 -->
+<script type="text/javascript" src="../../assets/js/rMateGrid/LicenseKey/rMateGridH5License.js"></script>
+<!-- rMateGridH5 라이브러리 -->
+<script type="text/javascript" src="../../assets/js/rMateGrid/rMateGridH5/JS/rMateGridH5.js"></script>
+<!--^ Packages -->
+
+<link href="../../assets/css/all.css" rel="stylesheet" />
+<script src="../../assets/js/util.js"></script>
+
+<script type="text/javascript" src="../../assets/js/rMateGridH5.style31.js"></script>
+<script type="text/javascript">
+// ----------------------- 그리드 설정 시작 -------------------------------------
+
+// rMateGridH5에서 그리드 생성 준비가 완료될 경우 호출할 함수를 지정합니다.
+var jsVars = "rMateOnLoadCallFunction=gridReadyHandler&accessibility=true";
+
+// 기본 이미지 경로 조정
+rMateGridH5.setAssetsPath("../../assets/js/rMateGrid/rMateGridH5/Assets/")
+
+// rMateDataGrid 를 생성합니다.
+// 파라메터 (순서대로)
+//  1. 그리드의 id ( 임의로 지정하십시오. )
+//  2. 그리드가 위치할 div 의 id (즉, 그리드의 부모 div 의 id 입니다.)
+//  3. 그리드 생성 시 필요한 환경 변수들의 묶음인 jsVars
+//  4. 그리드의 가로 사이즈 (생략 가능, 생략 시 100%)
+//  5. 그리드의 세로 사이즈 (생략 가능, 생략 시 100%)
+rMateGridH5.create("grid1", "gridHolder", jsVars, "100%", "450px");
+
+// 그리드의 속성인 rMateOnLoadCallFunction 으로 설정된 함수.
+// rMate 그리드의 준비가 완료된 경우 이 함수가 호출됩니다.
+// 이 함수를 통해 그리드에 레이아웃과 데이터를 삽입합니다.
+// 파라메터 : id - rMateGridH5.create() 사용 시 사용자가 지정한 id 입니다.
+function gridReadyHandler(id) {
+	// rMateGrid 관련 객체
+	gridApp = document.getElementById(id);	// 그리드를 포함하는 div 객체
+	gridRoot = gridApp.getRoot();	// 데이터와 그리드를 포함하는 객체
+
+	gridApp.setLayout(layoutStr);
+	// gridApp.setData(gridData);
+
+	gridMovePage(gridCurrentPage);
+
+	var dataCompleteHandler = function(event) {
+		dataGrid = gridRoot.getDataGrid();
+		collection = gridRoot.getCollection();
+
+		// 필수로 넣어야 할 선언
+		dataGrid.setHeaderHeight(32); // header 높이
+		dataGrid.setHeaderWordWrap(true); // header cell에 글자 넘칠 때 자동줄바꿈처리
+		dataGrid.setRowHeight(28); // row 높이
+	}
+
+	gridRoot.addEventListener("dataComplete", dataCompleteHandler);
+}
+
+// rMateGrid 관련 객체
+var gridApp, gridRoot;	// 데이터와 그리드를 포함하는 객체
+var dataGrid;	// 그리드
+var collection;	// 그리드의 데이터 객체
+
+//----------------------- 그리드 설정 끝 -----------------------
+
+var layoutStr =
+'<rMateGrid>\
+	<NumberFormatter id="numfmt" useThousandsSeparator="true"/>\
+	<DataGrid id="dg1" styleName="gridStyle" aria-label="test accessiblity datagrid" editable="true" doubleClickEnabled="true" horizontalScrollPolicy="auto" verticalAlign="middle" textAlign="center" paddingTop="0" paddingBottom="0">\
+		<columns>\
+			<DataGridColumn id="dg1col1" dataField="Selected" width="80" itemEditor="CheckBoxEditor" editorDataField="selected" labelJsFunction="convertYesNo"/>\
+			<DataGridColumn id="dg1col2" dataField="From" width="80" editable="false"/>\
+			<DataGridColumn id="dg1col3" dataField="Subject" width="150" itemEditor="ComboBoxEditor" editorDataField="selectedDataField" itemRendererDataProvider="[{\'label\'\:\'GMC-1 Release1\'},{\'label\'\:\'GMC-1 Release2\'},{\'label\':\'GMC-1 Release3\'},{\'label\'\:\'GMC-1 Release4\'},{\'label\':\'GMC-1 Release5\'},{\'label\'\:\'GMC-1 Release6\'}]"/>\
+			<DataGridColumn id="dg1col4" dataField="ReceiveDate" itemEditor="DateEditor"/>\
+			<DataGridColumn id="dg1col5" dataField="CC"/>\
+			<DataGridColumn id="dg1col6" dataField="Length" textAlign="right" formatter="{numfmt}" editable="false"/>\
+			<DataGridColumn id="dg1col7" dataField="AttachCount" textAlign="right" formatter="{numfmt}" editable="false"/>\
+		</columns>\
+		<footers>\
+			<DataGridFooter styleName="gridFooterStyle">\
+				<DataGridFooterColumn styleName="gridFooterLabelStyle" label="합계" color="var(--primary)" colSpan="2" textAlign="center"/>\
+				<DataGridFooterColumn/>\
+				<DataGridFooterColumn/>\
+				<DataGridFooterColumn/>\
+				<DataGridFooterColumn summaryOperation="SUM" dataColumn="{dg1col6}" formatter="{numfmt}" textAlign="right"/>\
+				<DataGridFooterColumn/>\
+			</DataGridFooter>\
+		</footers>\
+	</DataGrid>\
+</rMateGrid>\
+';
+
+
+// 페이징 관련 자바스크립트
+var gridTotalRowCount = 580;	// 전체 데이터 건수 - html이 서버에서 작성될때 반드시 넣어줘야 하는 변수입니다.
+
+var gridRowsPerPage = 20;	// 1페이지에서 보여줄 행 수
+var gridViewPageCount = 10;		// 페이지 네비게이션에서 보여줄 페이지의 수
+var gridCurrentPage = 1;	// 현재 페이지
+var gridTotalPage = Math.ceil(gridTotalRowCount / gridRowsPerPage);	// 전체 페이지 계산
+
+// 화면에 표시할 맨앞으로 와 맨뒤로, 앞으로, 뒤로 문구 - 이미지를 쓸 경우 img 태그로 대체
+var gridStartTxt = "<img src='../../assets/img/arrow/arrow-first.svg' alt='맨앞으로'>";
+var gridEndTxt = "<img src='../../assets/img/arrow/arrow-last.svg' alt='맨뒤로'>";
+var gridPrevTxt = "<img src='../../assets/img/arrow/arrow-prev.svg' alt='이전으로'>";
+var gridNextTxt = "<img src='../../assets/img/arrow/arrow-next.svg' alt='다음으로'>";
+var gridPageGapTxt = " ";	// 페이지 사이의 구분을 위한 문자 - 사용하지 않을 경우 공백을 넣습니다.
+
+// 주어진 페이지 번호에 따라 페이지 네비게이션 html을 만들고 gridPageNavigationDiv에 innerHTML로 넣어줍니다.
+function drawGridPagingNavigation(goPage) {
+	if (gridTotalPage == 0) {
+		gridPageNavigationDiv.innerHTML = "<span class='gridPagingDisable'>" + gridStartTxt + "</span> <span class='gridPagingDisable'>" + gridPrevTxt + "</span> <span class='gridPagingDisable'>" + gridNextTxt + "</span> <span class='gridPagingDisable'>" + gridEndTxt + "</span>";
+		return;
+	}
+
+	var retStr = "";
+	var prepage = parseInt((goPage - 1)/gridViewPageCount) * gridViewPageCount;
+	var nextpage = ((parseInt((goPage - 1)/gridViewPageCount)) * gridViewPageCount) + gridViewPageCount + 1;
+
+	// 맨앞으로
+	retStr += "<span class=";
+	if (goPage > 1) {
+		retStr += "'gridPagingMove'><a href='javascript:gridMovePage(1)'>" + gridStartTxt + "</a></span> ";
+	} else {
+		retStr += "'gridPagingDisable'>" + gridStartTxt + "</span> ";
+	}
+
+	// 앞으로
+	retStr += "<span class=";
+	if (goPage > gridViewPageCount) {
+		retStr += "'mr8 gridPagingMove'><a href='javascript:gridMovePage(" + prepage + ")'>" + gridPrevTxt + "</a></span>&nbsp; ";
+	} else {
+		retStr += "'mr8 gridPagingDisable'>" + gridPrevTxt + "</span>&nbsp; ";
+	}
+
+	for (var i = (1 + prepage); i < gridViewPageCount + 1 + prepage; i++) {
+		if (goPage == i) {
+			retStr += "<span class='gridPagingCurrent'>";
+			retStr += i;
+			retStr += "</span>";
+		} else {
+			retStr += "<span>";
+			retStr += "<a href='javascript:gridMovePage(" + i + ")'>" + i + "</a>";
+			retStr += "</span>";
+		}
+
+		if (i >= gridTotalPage) {
+			retStr += " ";
+			break;
+		}
+
+		if (i == gridViewPageCount + prepage)
+			retStr += " ";
+		else
+			retStr += gridPageGapTxt;
+	}
+
+	// 뒤로
+	retStr += "&nbsp;<span class=";
+	if (nextpage <= gridTotalPage) {
+		retStr += "'ml8 gridPagingMove'><a href='javascript:gridMovePage(" + nextpage + ")'>" + gridNextTxt + "</a></span> ";
+	} else {
+		retStr += "'ml8 gridPagingDisable'>" + gridNextTxt + "</span> ";
+	}
+
+	// 맨뒤로
+	retStr += "<span class=";
+	if (goPage != gridTotalPage) {
+		retStr += "'gridPagingMove'><a href='javascript:gridMovePage(" + gridTotalPage + ")'>" + gridEndTxt + "</span>";
+	} else {
+		retStr += "'gridPagingDisable'>" + gridEndTxt + "</span>";
+	}
+	gridPageNavigationDiv.innerHTML = retStr;
+}
+
+function gridMovePage(goPage) {
+	gridCurrentPage = goPage <= gridTotalPage ? goPage : gridTotalPage;
+	// 테스트를 위해 리아모어 서버에 예를 넣어 두었습니다. 개발후 실제 url로 변경하시기 바랍니다.
+	gridApp.setDataURLEx("http://demo.riamore.net/bbs/gridPagingData.jsp?page="+gridCurrentPage);
+	drawGridPagingNavigation(gridCurrentPage);
+	var colNo = gridRoot.getObjectById("colNo");
+	if (colNo)
+		colNo.indexStartNo = (gridCurrentPage - 1) * gridRowsPerPage + 1;
+}
+
+</script>
+
+</head>
+
+<body class="guide_page">
+	<header>
+		<div class="inner">
+			<div class="logo">UI/UX GUIDE</div>
+			<ul class="gnb">
+				<li><a href="../index.html">페이지</a></li>
+				<li><a href="../style.html">스타일</a></li>
+				<li class="active"><a href="../components.html">컴포넌트</a></li>
+				<li><a href="../layouts.html">레이아웃</a></li>
+				<li><a href="../about.html">About</a></li>
+			</ul>
+		</div>
+	</header>
+
+	<div class="guide guide_style">
+		<section>
+			<div class="container">
+				<h2 class="page-title">rMateGrid</h2>
+
+				<div class="page-note">
+					<div>rMateGrid를 사용한 데이터 그리드의 예시와 사용방법입니다.</div>
+					<div>Row Height (border 제외) : Header-32px / Data-28px / Footer-28px</div>
+					<div>홈페이지 : <a href="http://demo.riamore.net" class="btn-txt" target="_new">http://demo.riamore.net</a></div>
+				</div>
+
+				<article class="guide">
+					<h3 class="guide-title">예시</h3>
+
+					<div class="contents">
+						<ul class="info">
+							<li style="color: red;">그리드가 삽입될 ID값은 고정으로 #gridHolder를 사용하시되 #gridHolder 안에 그리드를 생성하실 ID(ex. grid1, grid2)는 자유롭게 사용하시면 됩니다.</li>
+							<li>해당 소스는 rMateGrid에 디자인을 적용하기 위한 퍼블용 소스입니다. 개발용 소스는 rMateGrid에 &nbsp; <a href="http://demo.riamore.net/HTML5demo/grid/Docs/api/index.html" class="btn-txt" target="_new">API문서</a> 를 참고해주세요.</li>
+							<li>그리드 cell 안에서 사용할 버튼은 &nbsp; <a href="../components/button.html" class="btn-txt">컴포넌트/button.html</a> &nbsp; 가이드 파일에 명시한 그대로 넣어주시면 됩니다.</li>
+							<!-- <li>본 프로젝트에서는 pagination을 사용하지 않습니다. 필요하신 경우에는 API문서를 참고해주세요.</li> -->
+						</ul>
+
+						<!--s 그리드가 삽입될 DIV -->
+						<div id="gridHolder"></div>
+						<div class="gridPaging" id="gridPageNavigationDiv"></div>
+						<!--e 그리드가 삽입될 DIV -->
+					</div>
+					<!-- .contents -->
+				</article>
+			</div>
+			<!-- .container -->
+		</section>
+	</div>
+	<!-- .guide -->
+
+	<footer>
+		<div class="inner">
+			<div class="copy">Copyright &copy; GRIDA 2023</div>
+			<div class="f-logo"><img src="../assets/img/ci_grida.svg" /></div>
+		</div>
+	</footer>
+</body>
+</html>

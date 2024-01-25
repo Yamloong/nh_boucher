@@ -1,0 +1,244 @@
+@font-face {
+  font-family: 'icomoon';
+  src:
+    url('fonts/icomoon.ttf?2e0egs') format('truetype'),
+    url('fonts/icomoon.woff?2e0egs') format('woff'),
+    url('fonts/icomoon.svg?2e0egs#icomoon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'icomoon' !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-menu1-4:before {
+  content: "\e93a";
+  color: #8ea4b7;
+}
+.icon-menu_a1-1:before {
+  content: "\e931";
+  color: #8ea4b7;
+}
+.icon-menu_a2-1:before {
+  content: "\e932";
+  color: #8ea4b7;
+}
+.icon-menu_a2-2:before {
+  content: "\e933";
+  color: #8ea4b7;
+}
+.icon-menu_a3-1:before {
+  content: "\e934";
+  color: #8ea4b7;
+}
+.icon-menu_a3-2:before {
+  content: "\e935";
+  color: #8ea4b7;
+}
+.icon-menu_a4-1:before {
+  content: "\e936";
+  color: #8ea4b7;
+}
+.icon-menu_a4-2:before {
+  content: "\e937";
+  color: #8ea4b7;
+}
+.icon-menu_a5-1:before {
+  content: "\e938";
+  color: #8ea4b7;
+}
+.icon-menu_a6-1:before {
+  content: "\e939";
+  color: #8ea4b7;
+}
+.icon-info2:before {
+  content: "\e930";
+  color: #046fd9;
+}
+.icon-pencil:before {
+  content: "\e92f";
+}
+.icon-exclam:before {
+  content: "\e92e";
+  color: #bbb;
+}
+.icon-favorite:before {
+  content: "\e92d";
+  color: #bbb;
+}
+.icon-menu6-2:before {
+  content: "\e92a";
+  color: #8ea4b7;
+}
+.icon-menu6-3:before {
+  content: "\e92b";
+  color: #8ea4b7;
+}
+.icon-menu6-4:before {
+  content: "\e92c";
+  color: #8ea4b7;
+}
+.icon-allmenu:before {
+  content: "\e900";
+}
+.icon-arrow-down:before {
+  content: "\e901";
+}
+.icon-arrow-first:before {
+  content: "\e902";
+  color: #666;
+}
+.icon-arrow-last:before {
+  content: "\e903";
+  color: #666;
+}
+.icon-arrow-left:before {
+  content: "\e904";
+}
+.icon-arrow-next:before {
+  content: "\e905";
+  color: #666;
+}
+.icon-arrow-prev:before {
+  content: "\e906";
+  color: #666;
+}
+.icon-arrow-right:before {
+  content: "\e907";
+}
+.icon-arrow-up:before {
+  content: "\e908";
+}
+.icon-calendar:before {
+  content: "\e909";
+}
+.icon-cancel:before {
+  content: "\e90a";
+  color: #bbb;
+}
+.icon-change:before {
+  content: "\e90b";
+}
+.icon-check:before {
+  content: "\e90c";
+  color: #046fd9;
+}
+.icon-close:before {
+  content: "\e90d";
+}
+.icon-delete:before {
+  content: "\e90e";
+}
+.icon-download:before {
+  content: "\e90f";
+}
+.icon-favorite_on:before {
+  content: "\e910";
+  color: #046fd9;
+}
+.icon-file:before {
+  content: "\e911";
+}
+.icon-folder:before {
+  content: "\e912";
+}
+.icon-home:before {
+  content: "\e913";
+}
+.icon-info:before {
+  content: "\e914";
+  color: #aaa;
+}
+.icon-menu1-1:before {
+  content: "\e915";
+  color: #8ea4b7;
+}
+.icon-menu1-2:before {
+  content: "\e916";
+  color: #8ea4b7;
+}
+.icon-menu1-3:before {
+  content: "\e917";
+  color: #8ea4b7;
+}
+.icon-menu2-1:before {
+  content: "\e918";
+  color: #8ea4b7;
+}
+.icon-menu2-2:before {
+  content: "\e919";
+  color: #8ea4b7;
+}
+.icon-menu2-3:before {
+  content: "\e91a";
+  color: #8ea4b7;
+}
+.icon-menu3-1:before {
+  content: "\e91b";
+  color: #8ea4b7;
+}
+.icon-menu4-1:before {
+  content: "\e91c";
+  color: #8ea4b7;
+}
+.icon-menu4-2:before {
+  content: "\e91d";
+  color: #8ea4b7;
+}
+.icon-menu5-1:before {
+  content: "\e91e";
+  color: #8ea4b7;
+}
+.icon-menu5-2:before {
+  content: "\e91f";
+  color: #8ea4b7;
+}
+.icon-menu6-1:before {
+  content: "\e920";
+  color: #8ea4b7;
+}
+.icon-minus:before {
+  content: "\e921";
+  color: #ddd;
+}
+.icon-phone:before {
+  content: "\e922";
+  color: #888;
+}
+.icon-plus:before {
+  content: "\e923";
+  color: #ddd;
+}
+.icon-plus_s:before {
+  content: "\e924";
+}
+.icon-question:before {
+  content: "\e925";
+  color: #aaa;
+}
+.icon-refresh:before {
+  content: "\e926";
+}
+.icon-search:before {
+  content: "\e927";
+}
+.icon-setting:before {
+  content: "\e928";
+}
+.icon-smile:before {
+  content: "\e929";
+  color: #046fd9;
+}

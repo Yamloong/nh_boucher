@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>도움말(잔액이월)</title>
+
+<!--v Packages -->
+<script src="../../assets/js/jquery.min.js"></script>
+
+<link href="../../assets/css/jquery-ui.min.css" rel="stylesheet" />
+<script src="../../assets/js/jquery-ui.min.js"></script>
+
+<link href="../../assets/css/select2.min.css" rel="stylesheet" />
+<script src="../../assets/js/select2.min.js"></script>
+
+<!-- rMateGridH5 CSS -->
+<link rel="stylesheet" type="text/css" href="../../assets/js/rMateGrid/rMateGridH5/Assets/rMateH5.css"/>
+<!-- rMateGridH5 라이센스 -->
+<script type="text/javascript" src="../../assets/js/rMateGrid/LicenseKey/rMateGridH5License.js"></script>
+<!-- rMateGridH5 라이브러리 -->
+<script type="text/javascript" src="../../assets/js/rMateGrid/rMateGridH5/JS/rMateGridH5.js"></script>
+<!--^ Packages -->
+
+<link href="../../assets/css/all.css" rel="stylesheet" />
+<script src="../../assets/js/util.js"></script>
+</head>
+
+<body class="sub-page">
+	<div id="util">
+		<div class="inner">
+			<div class="info">
+				<div class="administrator">
+					<i class="icon-smile"></i>
+					<span>시스템 관리자</span>
+				</div>
+				<div class="address">경기도 용인시 OO동</div>
+				<div class="log">마지막 로그인 : 2023.05.04 14:05</div>
+				<button type="button" class="btn btn-sub-line">
+					<span>회원정보수정</span>
+				</button>
+				<a href="#" class="btn btn-txt">
+					<span>로그아웃</span>
+				</a>
+			</div>
+		</div>
+	</div>
+	<header>
+		<div class="inner">
+			<h1 class="logo">
+				<a href="#">
+					<img src="../../assets/img/logo.svg" />
+				</a>
+			</h1>
+			<div id="gnb">
+				<ul class="gnb-list">
+					<li>
+						<a href="#">회원/카드관리</a>
+					</li>
+					<li>
+						<a href="#">거래관리</a>
+					</li>
+					<li>
+						<a href="#">정산현황</a>
+					</li>
+					<li>
+						<a href="#">통계/분석</a>
+					</li>
+					<li class="on">
+						<a href="#">지원정책</a>
+					</li>
+					<li>
+						<a href="#">환경설정</a>
+					</li>
+				</ul>
+				<button type="button" class="btn btn-txt btn-allmenu">
+					<i class="icon-allmenu"></i>
+					<span>전체보기</span>
+				</button>
+			</div>
+		</div>
+	</header>
+
+	<div class="container">
+		<div id="lnb">
+			<div class="group-title menu05">
+				<span>지원정책</span>
+			</div>
+			<div class="menu-wrap">
+				<ul class="menu-list">
+					<li class="on">
+						<a href="#">
+							<span class="menu5-1">지원정책</span>
+							<i class="icon-arrow-down"></i>
+						</a>
+						<ul class="sub-menu">
+							<li class="on">
+								<a href="#">
+									<i class="icon-menu-depth"></i>
+									<span>바우처 정책 관리</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<i class="icon-menu-depth"></i>
+									<span>학교 방학 관리</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<i class="icon-menu-depth"></i>
+									<span>급식 템플릿 관리</span>
+								</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				<div class="inquiry">
+					<div>시스템 문의</div>
+					<a href="mailto:wecard@bizplay.co.kr" class="btn btn-txt">
+						<span>wecard@bizplay.co.kr</span>
+					</a>
+				</div>
+			</div>
+		</div>
+		<!-- #lnb -->
+		<div class="content-wrap">
+		</div><!-- .content-wrap -->
+	</div><!-- .container -->
+
+	<!-- 팝업 위치는 항상 여기에 넣어주세요. -->
+	<div id="voucherHelp" class="layerPopup" style="display: block;"><!-- 실제 작업하실 때는 style 선언은 지워주세요. 팝업 활성화 방법은 components/modal.html 파일을 참고해주세요. -->
+		<div class="layer-wrap" style="width: 760px;">
+			<div class="layer-header">
+				<h4 class="layer-title">도움말</h4>
+				<div class="button-wrap">
+					<button type="button" class="btn btn_close" title="창닫기">
+						<i class="icon-close"></i>
+					</button>
+				</div>
+			</div><!-- .layer-header -->
+	
+			<div class="layer-body">
+
+				<div class="section-header">
+					<div class="title-wrap">
+						<div class="title">소멸 - 이월 가이드</div>
+					</div>
+				</div><!-- .section-header -->
+
+				<div class="section-body">
+					<div class="table-wrap">
+						<table class="tbl-data">
+							<colgroup>
+								<col style="width: 120px;">
+								<col style="width: 94%;">
+							</colgroup>
+							<thead>
+							<tr>
+								<th>소멸 - 이월 방식</th>
+								<th>설명</th>
+							</tr>
+							</thead>
+							<tbody>
+							<tr>
+								<td class="text-center">소멸</td>
+								<td>월 충전 시 모든 잔액이 소멸됩니다.</td>
+							</tr>
+							<tr>
+								<td class="text-center">전액이월</td>
+								<td>월 충전 시 모든 잔액이 이월됩니다.</td>
+							</tr>
+							<tr>
+								<td class="text-center">단위금액이월</td>
+								<td>월 충전 시 선택된 단위 미만의 잔액만 이월합니다.</td>
+							</tr>
+							<tr>
+								<td class="text-center">정률이월</td>
+								<td>월 충전 시 지정한 비율 만큼의 잔액을 이월합니다.</td>
+							</tr>
+							<tr>
+								<td class="text-center">정액미만이월</td>
+								<td>월 충전 시 0보다 크고 지정한 금액 미만일 경우 잔액을 이월합니다.</td>
+							</tr>
+							</tbody>
+						</table>
+					</div>
+				</div><!-- .section-body -->
+
+				<div class="section-header">
+					<div class="title-wrap">
+						<div class="title">소멸 - 이월 테스트</div>
+					</div>
+				</div><!-- .section-header -->
+
+				<div class="section-body">
+					<table class="tbl-form all-center">
+						<colgroup>
+							<col style="width: 100px;">
+							<col style="width: 45%;">
+							<col style="width: 100px;">
+							<col style="width: 45%;">
+						</colgroup>
+						<tbody>
+						<tr>
+							<th>
+								<label class="form-label" for="이월방식"><span>이월방식</span></label>
+							</th>
+							<td>
+								<div class="form-container">
+									<select class="form-select select2" id="이월방식" name="이월방식" data-placeholder="이월방식">
+										<option value=""></option>
+										<option value="소멸" selected>소멸</option>
+										<option value="옵션2">옵션2</option>
+										<option value="옵션3">옵션3</option>
+									</select>
+								</div>
+							</td>
+							<th>
+								<label class="form-label" for="잔액"><span>잔액</span></label>
+							</th>
+							<td>
+								<div class="form-container">
+									<div class="input-wrap">
+										<input class="number" type="text" id="잔액" name="잔액" step="1" value="" placeholder="" oninput="numberLocaleString(this);" />
+									</div><!-- .input-wrap -->
+									<div class="unit">원</div>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								<label class="form-label" for="이월단위"><span>이월단위(단위금액이월)</span></label>
+							</th>
+							<td>
+								<div class="form-container">
+									<select class="form-select select2" id="이월단위" name="이월단위" data-placeholder="이월단위">
+										<option value=""></option>
+										<option value="1,000단위" selected>1,000단위</option>
+										<option value="옵션2">옵션2</option>
+										<option value="옵션3">옵션3</option>
+									</select>
+								</div>
+							</td>
+							<th>
+								<label class="form-label" for="이월비율"><span>이월비율(정률이월)</span></label>
+							</th>
+							<td>
+								<div class="form-container">
+									<div class="input-wrap">
+										<input class="number" type="number" id="이월비율" name="이월비율" value="" placeholder="" pattern="[0-9.,]+" step="1" min="" max="" onfocusout="numberLocaleString(this, 2);">
+									</div><!-- .input-wrap -->
+									<div class="unit">%</div>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<th>
+								<label class="form-label" for="이월금액"><span>이월금액(정액미만이월)</span></label>
+							</th>
+							<td>
+								<div class="form-container">
+									<div class="input-wrap">
+										<input class="number" type="text" id="잔액" name="잔액" step="1" value="" placeholder="" oninput="numberLocaleString(this);" />
+									</div><!-- .input-wrap -->
+									<div class="unit">원</div>
+								</div>
+							</td>
+							<th></th>
+							<td></td>
+						</tr>
+						</tbody>
+					</table>
+				</div><!-- .section-body -->
+
+				<div class="section-foot mb20">
+					<div class="button-wrap">
+						<button type="button" class="btn btn-primary">
+							<span>소멸테스트</span>
+						</button>
+					</div>
+				</div>
+
+
+				<div class="section-header">
+					<div class="title-wrap">
+						<div class="title">테스트결과</div>
+					</div>
+				</div><!-- .section-header -->
+
+				<div class="section-body">
+					<div class="table-wrap">
+						<table class="tbl-data">
+							<colgroup>
+								<col style="width:100px;">
+								<col style="width:110px">
+								<col style="width:100px;">
+								<col style="width:30%">
+								<col style="width:110px;">
+								<col style="width:110px;">
+							</colgroup>
+							<thead>
+								<tr>
+									<th>소멸 / 이월 방식</th>
+									<th>잔액</th>
+									<th>이월단위</th>
+									<th>소멸금 계산식</th>
+									<th>소멸금액</th>
+									<th>이월금액</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td class="text-center">소멸</td>
+									<td class="text-right">11,500</td>
+									<td class="text-center">-</td>
+									<td class="text-center">11500</td>
+									<td class="text-right">11,500</td>
+									<td class="text-right">0</td>
+								</tr>
+								<tr>
+									<td class="text-center">전액이월</td>
+									<td class="text-right">11,500</td>
+									<td class="text-center">-</td>
+									<td class="text-center">0</td>
+									<td class="text-right">0</td>
+									<td class="text-right">11,500</td>
+								</tr>
+								<tr>
+									<td class="text-center">단위금액 이월</td>
+									<td class="text-right">11,500</td>
+									<td class="text-center">1,000단위</td>
+									<td class="text-center">11500 – (11500 mod 1000)</td>
+									<td class="text-right">11,000</td>
+									<td class="text-right">500</td>
+								</tr>
+								<tr>
+									<td class="text-center">정률이월</td>
+									<td class="text-right">11,500</td>
+									<td class="text-center">10%</td>
+									<td class="text-center">11500 – (11500 *10/ 100)</td>
+									<td class="text-right">10,350</td>
+									<td class="text-right">1,150</td>
+								</tr>
+								<tr>
+									<td class="text-center">정액미만 이월</td>
+									<td class="text-right">11,500</td>
+									<td class="text-center">10,000원</td>
+									<td class="text-center">0 &lt; 11500 &lt; 10000</td>
+									<td class="text-right">11,500</td>
+									<td class="text-right">0</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div><!-- .section-body -->
+
+			</div><!-- .layer-body -->
+	
+			<div class="layer-footer">
+				<div class="button-wrap">
+					<button type="button" class="btn btn-line btn_close"><span>닫기</span></button>
+				</div>
+			</div><!-- .layer-footer -->
+		</div><!-- .layer-contents -->
+	</div><!-- #voucherHelp.layerPopup -->
+</body>
+</html>

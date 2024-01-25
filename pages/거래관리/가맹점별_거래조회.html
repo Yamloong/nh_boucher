@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>가맹점별 거래조회</title>
+
+<!--v Packages -->
+<script src="../../assets/js/jquery.min.js"></script>
+
+<link href="../../assets/css/jquery-ui.min.css" rel="stylesheet" />
+<script src="../../assets/js/jquery-ui.min.js"></script>
+
+<link href="../../assets/css/select2.min.css" rel="stylesheet" />
+<script src="../../assets/js/select2.min.js"></script>
+
+<!-- rMateGridH5 CSS -->
+<link rel="stylesheet" type="text/css" href="../../assets/js/rMateGrid/rMateGridH5/Assets/rMateH5.css"/>
+<!-- rMateGridH5 라이센스 -->
+<script type="text/javascript" src="../../assets/js/rMateGrid/LicenseKey/rMateGridH5License.js"></script>
+<!-- rMateGridH5 라이브러리 -->
+<script type="text/javascript" src="../../assets/js/rMateGrid/rMateGridH5/JS/rMateGridH5.js"></script>
+<!--^ Packages -->
+
+<link href="../../assets/css/all.css" rel="stylesheet" />
+<script src="../../assets/js/util.js"></script>
+
+<script type="text/javascript">
+// ----------------------- 그리드 설정 시작 -------------------------------------
+
+// rMateGridH5에서 그리드 생성 준비가 완료될 경우 호출할 함수를 지정합니다.
+var jsVars = "rMateOnLoadCallFunction=gridReadyHandler";
+
+// 기본 이미지 경로 조정
+rMateGridH5.setAssetsPath("../../assets/js/rMateGrid/rMateGridH5/Assets/")
+
+// rMateDataGrid 를 생성합니다.
+// 파라메터 (순서대로)
+//  1. 그리드의 id ( 임의로 지정하십시오. )
+//  2. 그리드가 위치할 div 의 id (즉, 그리드의 부모 div 의 id 입니다.)
+//  3. 그리드 생성 시 필요한 환경 변수들의 묶음인 jsVars
+//  4. 그리드의 가로 사이즈 (생략 가능, 생략 시 100%)
+//  5. 그리드의 세로 사이즈 (생략 가능, 생략 시 100%)
+rMateGridH5.create("grid1", "gridHolder", jsVars, "100%", "322px");
+
+// 그리드의 속성인 rMateOnLoadCallFunction 으로 설정된 함수.
+// rMate 그리드의 준비가 완료된 경우 이 함수가 호출됩니다.
+// 이 함수를 통해 그리드에 레이아웃과 데이터를 삽입합니다.
+// 파라메터 : id - rMateGridH5.create() 사용 시 사용자가 지정한 id 입니다.
+function gridReadyHandler(id) {
+	// rMateGrid 관련 객체
+	gridApp = document.getElementById(id);	// 그리드를 포함하는 div 객체
+	gridRoot = gridApp.getRoot();	// 데이터와 그리드를 포함하는 객체
+
+	gridApp.setLayout(layoutStr);
+	gridApp.setData(gridData);
+
+	var itemClickHandler = function(event) {
+		let $button = $(".btn_layer");
+		let $popupName = $("#slipOutput");
+		$popupName.fadeIn("fast");
+		$("body").addClass("scroll_lock");
+	}
+
+	var dataCompleteHandler = function(event) {
+		dataGrid = gridRoot.getDataGrid();
+
+		// 필수로 넣어야 할 선언
+		dataGrid.setHeaderHeight(32); // header 높이
+		dataGrid.setHeaderWordWrap(true); // header cell에 글자 넘칠 때 자동줄바꿈처리
+		dataGrid.setRowHeight(28); // row 높이
+
+		// 레이어팝업 활성화
+		dataGrid.addEventListener("itemClick", itemClickHandler);
+	}
+
+	gridRoot.addEventListener("dataComplete", dataCompleteHandler);
+}
+
+// rMateGrid 관련 객체
+var gridApp, gridRoot;	// 데이터와 그리드를 포함하는 객체
+var dataGrid;	// 그리드
+
+//----------------------- 그리드 설정 끝 -----------------------
+
+var layoutStr =
+'<rMateGrid>\
+	<DateFormatter id="datefmt" formatString="YYYY.MM.DD"/>\
+	<DateFormatter id="datefmt2" formatString="H:NN:SS"/>\
+	<DateFormatter id="datefmt3" formatString="YYYY.MM.DD H:NN:SS"/>\
+	<NumberFormatter id="numfmt" useThousandsSeparator="true"/>\
+	<NumberMaskFormatter  id="numfmt2" formatString="####-####-####-####"/>\
+	<CurrencyFormatter id="currfmt1" alignSymbol="right" currencySymbol="원"/>\
+	<CurrencyFormatter id="currfmt2" alignSymbol="right" currencySymbol="건"/>\
+	<DataGrid id="dg1" styleName="gridStyle" aria-label="atagrid" lockedColumnCount="3" sortableColumns="true" editable="true" doubleClickEnabled="true" horizontalScrollPolicy="auto" verticalAlign="middle" textAlign="center" paddingTop="0" paddingBottom="0">\
+		<columns>\
+			<DataGridColumn headerText="거래일자" dataField="거래일자" width="80" formatter="{datefmt}"/>\
+			<DataGridColumn headerText="거래시간" dataField="거래시간" width="80" formatter="{datefmt2}"/>\
+			<DataGridColumn headerText="카드번호" dataField="카드번호" width="130" formatter="{numfmt2}"/>\
+			<DataGridColumn headerText="성명" dataField="성명" id="dg1col1" width="90"/>\
+			<DataGridColumn headerText="거래구분" dataField="거래구분" width="80"/>\
+			<DataGridColumn headerText="거래형태" dataField="거래형태" width="80"/>\
+			<DataGridColumn headerText="거래금액" dataField="거래금액" width="90" textAlign="right" formatter="{numfmt}"/>\
+			<DataGridColumn headerText="수수료" dataField="수수료" width="70" textAlign="right" formatter="{numfmt}"/>\
+			<DataGridColumn headerText="취소" dataField="취소" width="80"/>\
+			<DataGridColumn headerText="VAN사" dataField="VAN사" width="220"/>\
+			<DataGridColumn headerText="승인번호" dataField="승인번호" width="90"/>\
+			<DataGridColumn headerText="원거래일" dataField="원거래일" width="80" formatter="{datefmt}"/>\
+			<DataGridColumn headerText="생성일시" dataField="생성일시" width="120" formatter="{datefmt3}"/>\
+			<DataGridColumn headerText="대사여부" dataField="대사여부" width="70"/>\
+			<DataGridColumn headerText="전표출력" dataField="전표출력" width="80" itemRenderer="HtmlItem" editable="false"/>\
+			<DataGridColumn headerText="승인취소" dataField="승인취소" width="80"/>\
+		</columns>\
+		<footers>\
+			<DataGridFooter styleName="gridFooterStyle">\
+				<DataGridFooterColumn styleName="gridFooterLabelStyle" label="합계" colSpan="3" color="var(--primary)" textAlign="center"/>\
+				<DataGridFooterColumn summaryOperation="COUNT" dataColumn="{dg1col1}" formatter="{currfmt2}" textAlign="right"/>\
+			</DataGridFooter>\
+		</footers>\
+	</DataGrid>\
+	<Style>\n\
+		.gridStyle {\n\
+			color:#333;\n\
+			borderWidth:0;\n\
+			selectionColor:var(--table-thead-bg-color);\n\
+			textSelectedColor:#333;\n\
+			rollOverColor:#f4f4f4;\n\
+			fontSize:12px;\n\
+			verticalAlign:middle;\n\
+			headerStyleName:gridHeaderStyle;\n\
+			headerPaddingTop:0;\n\
+			headerPaddingBottom:0;\n\
+			headerColors:var(--table-thead-bg-color),var(--table-thead-bg-color);\n\
+			headerSeparatorColor:var(--table-thead-border-color);\n\
+			headerBorderTopWidth:0;\n\
+			headerBorderBottomColor:var(--table-thead-border-color);\n\
+		}\n\
+		.gridHeaderStyle {\n\
+			color:#666;\n\
+			fontSize:12px;\n\
+			fontWeight:500;\n\
+			horizontalAlign:center;\n\
+			verticalAlign:middle;\n\
+		}\n\
+		.gridFooterStyle {\n\
+			color:#111;\n\
+			backgroundColor:#f8f8f8;\n\
+			borderColor:var(--primary);\n\
+		}\n\
+	</Style>\
+</rMateGrid>\
+';
+
+var gridData = [
+	{"거래일자" : "20230713","거래시간" : "20230713060606","카드번호" : "9492111822220000","성명" : "이하나","거래구분" : "사용","거래형태" : "지급","거래금액" : "18950","수수료" : "132","취소" : "","VAN사" : "한국정보통신주식회사(KICC)","승인번호" : "76757471","원거래일" : "","생성일시" : "20230813144346","대사여부" : "완료","전표출력" : "","승인취소" : ""},
+	{"거래일자" : "20230713","거래시간" : "20230713060606","카드번호" : "9492111822220000","성명" : "이하나","거래구분" : "사용","거래형태" : "지급","거래금액" : "18950","수수료" : "132","취소" : "","VAN사" : "한국정보통신주식회사(KICC)","승인번호" : "76757471","원거래일" : "","생성일시" : "20230813144346","대사여부" : "완료","전표출력" : "<button type='button' class='btn btn-sub-line btn_layer' data-target='#slipOutput'><span>출력</span></button>","승인취소" : ""},
+];
+	
+</script>
+
+</head>
+
+<body class="sub-page">
+	<div id="util">
+		<div class="inner">
+			<div class="info">
+				<div class="administrator">
+					<i class="icon-smile"></i>
+					<span>시스템 관리자</span>
+				</div>
+				<div class="address">경기도 용인시 OO동</div>
+				<div class="log">마지막 로그인 : 2023.05.04 14:05</div>
+				<button type="button" class="btn btn-sub-line">
+					<span>회원정보수정</span>
+				</button>
+				<a href="#" class="btn btn-txt">
+					<span>로그아웃</span>
+				</a>
+			</div>
+		</div>
+	</div>
+	<header>
+		<div class="inner">
+			<h1 class="logo">
+				<a href="#">
+					<img src="../../assets/img/logo.svg" />
+				</a>
+			</h1>
+			<div id="gnb">
+				<ul class="gnb-list">
+					<li>
+						<a href="#">회원/카드관리</a>
+					</li>
+					<li class="on">
+						<a href="#">거래관리</a>
+					</li>
+					<li>
+						<a href="#">정산현황</a>
+					</li>
+					<li>
+						<a href="#">통계/분석</a>
+					</li>
+					<li>
+						<a href="#">지원정책</a>
+					</li>
+					<li>
+						<a href="#">환경설정</a>
+					</li>
+				</ul>
+				<button type="button" class="btn btn-txt btn-allmenu">
+					<i class="icon-allmenu"></i>
+					<span>전체보기</span>
+				</button>
+			</div>
+		</div>
+	</header>
+
+	<div class="container">
+		<div id="lnb">
+			<div class="group-title menu02">
+				<span>거래관리</span>
+			</div>
+			<div class="menu-wrap">
+				<ul class="menu-list">
+					<li>
+						<a href="#">
+							<span class="menu2-1">거래내역</span>
+							<i class="icon-arrow-down"></i>
+						</a>
+						<ul class="sub-menu">
+							<li>
+								<a href="#">
+									<span>대상자 종합관리</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span>거래요약조회</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span>거래상세조회</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span>충전/소멸/사용 현황</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span>실시간 거래내역조회</span>
+								</a>
+							</li>
+						</ul>
+					</li>
+					<li class="on">
+						<a href="#">
+							<span class="menu2-2">가맹점관리</span>
+							<i class="icon-arrow-down"></i>
+						</a>
+						<ul class="sub-menu">
+							<li>
+								<a href="#">
+									<span>가맹점관리</span>
+								</a>
+							</li>
+							<li class="on">
+								<a href="#">
+									<span>가맹점별 거래조회</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span>가맹점별 거래현황</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span>가맹점 직접결제</span>
+								</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				<div class="inquiry">
+					<div>시스템 문의</div>
+					<a href="mailto:wecard@bizplay.co.kr" class="btn btn-txt">
+						<span>wecard@bizplay.co.kr</span>
+					</a>
+				</div>
+			</div>
+		</div>
+		<!-- #lnb -->
+		<div class="content-wrap">
+			<div class="content-body">
+				<div class="search-form-wrap">
+					<div class="content-header">
+						<div class="title-wrap">
+							<div class="title">가맹점관리</div>
+							<div class="title">가맹점별 거래조회</div>
+						</div>
+					</div>
+					<div class="page-memo">
+						<ul class="list">
+							<li>조회 기간은 <span class="text-strong">최대 1년</span>으로 조회 가능합니다.</li>
+						</ul>
+					</div>
+
+					<form>
+						<div class="search-form-inner">
+							<div class="search-form">
+
+								<div class="row">
+									<div class="col-4">
+										<label class="form-label required" for="가맹점명"><span>가맹점명</span></label>
+										<div class="form-container">
+											<div class="input-wrap">
+												<input type="text" id="가맹점명" name="가맹점명" value="" placeholder="" />
+											</div><!-- .input-wrap -->
+											<button type="button" class="btn btn-line">
+												<span>가맹점 검색</span>
+											</button>
+										</div><!-- .form-container -->
+									</div><!-- .col -->
+									<div class="col-6">
+										<label class="form-label" for="기간S"><span>거래기간</span></label>
+										<div class="form-container">
+											<div class="input-wrap input_datepicker_wrap">
+												<input class="from" type="text" id="기간S" name="기간S" value="" maxlength="10" placeholder="YYYY.MM.DD" oninput="checkInputPattern(this, '0-9.\-');" />
+											</div>
+											<div class="input-wrap input_datepicker_wrap">
+												<input class="to" type="text" id="기간E" name="기간E" value="" maxlength="10" placeholder="YYYY.MM.DD" oninput="checkInputPattern(this, '0-9.\-');" />
+											</div>
+										</div><!-- .form-container -->
+									</div><!-- .col -->
+								</div><!-- .row -->
+
+								<div class="row">
+									<div class="col-4">
+										<label class="form-label" for="체크박스1"><span>거래구분</span></label>
+										<div class="form-container">
+											<div class="form-check ml8">
+												<input class="form-check-input" type="checkbox" id="체크박스1" name="체크박스1" value="체크박스1" checked="" />
+												<label class="form-check-label" for="체크박스1">사용</label>
+											</div>
+											<div class="form-check">
+												<input class="form-check-input" type="checkbox" id="체크박스2" name="체크박스2" value="체크박스2" />
+												<label class="form-check-label" for="체크박스2">사용취소</label>
+											</div>
+										</div><!-- .form-container -->
+									</div><!-- .col -->
+									<div class="col-3">
+										<label class="form-label" for="라디오1_옵션1"><span>취소원거래</span></label>
+										<div class="form-container">
+											<div class="form-check ml8">
+												<input class="form-check-input" type="radio" id="라디오1_옵션1" name="라디오1" value="옵션1" />
+												<label class="form-check-label" for="라디오1_옵션1">포함</label>
+											</div>
+											<div class="form-check">
+												<input class="form-check-input" type="radio" id="라디오1_옵션2" name="라디오1" value="옵션2" checked="" />
+												<label class="form-check-label" for="라디오1_옵션2">미포함</label>
+											</div>
+										</div><!-- .form-container -->
+									</div><!-- .col -->
+									<div class="col-5">
+										<label class="form-label" for="라디오2_옵션1"><span>조회기준</span></label>
+										<div class="form-container">
+											<div class="form-check">
+												<input class="form-check-input" type="radio" id="라디오2_옵션1" name="라디오1" value="옵션1" />
+												<label class="form-check-label" for="라디오2_옵션1">사업자번호로 조회</label>
+											</div>
+											<div class="form-check">
+												<input class="form-check-input" type="radio" id="라디오2_옵션2" name="라디오1" value="옵션2" checked="" />
+												<label class="form-check-label" for="라디오2_옵션2">가맹점번호로 조회</label>
+											</div>
+										</div><!-- .form-container -->
+									</div><!-- .col -->
+								</div><!-- .row -->
+
+							</div><!-- .search-form -->
+
+							<div class="button-wrap">
+								<button type="button" class="btn btn-primary">
+									<span>검색</span>
+								</button>
+							</div>
+						</div><!-- .search-form-inner -->
+					</form>
+				</div><!-- .search_form_wrap -->
+
+				<div class="section-body">
+					<div class="section-header">
+						<div class="title-wrap">
+							<div class="title">가맹점 정보</div>
+						</div>
+					</div>
+					<table class="tbl-form">
+						<colgroup>
+							<col style="width: 100px;">
+							<col style="width: 40%;">
+							<col style="width: 100px;">
+							<col style="width: 40%;">
+						</colgroup>
+						<tbody>
+						<tr>
+							<th>
+								<label class="form-label" for="" >가맹점명</label>
+							</th>
+							<td>0000 빵집</td>
+							<th>
+								<label class="form-label" for="" >사업자번호</label>
+							</th>
+							<td>000-00-00000 (정상)</td>
+						</tr>
+						<tr>
+							<th>
+								<label class="form-label" for="" >주소</label>
+							</th>
+							<td colspan="3">00000 경기 김포시 김포한강00로 00, 1층 101(00동, 000빌딩)</td>
+						</tr>
+						<tr>
+							<th>
+								<label class="form-label" for="" >휴대폰</label>
+							</th>
+							<td>010-0000-0000</td>
+							<th>
+								<label class="form-label" for="" >전화번호</label>
+							</th>
+							<td>031-000-0000</td>
+						</tr>
+						<tr>
+							<th>
+								<label class="form-label" for="" >가입일</label>
+							</th>
+							<td>yyyy.mm.dd</td>
+							<th>
+								<label class="form-label" for="" >해약일</label>
+							</th>
+							<td>yyyy.mm.dd</td>
+						</tr>
+						<tr>
+							<th>
+								<label class="form-label" for="" >가맹점분류</label>
+							</th>
+							<td>일반휴게음식 / 서양음식</td>
+							<th>
+								<label class="form-label" for="" >읍/면/동</label>
+							</th>
+							<td>경기도</td>
+						</tr>
+						<!--v 치료지원 -->
+						<tr>
+							<th>
+								<label class="form-label" for="바우처구분" >바우처구분</label>
+							</th>
+							<td colspan="3">
+								<div class="form-container">
+									<select class="form-select select2" id="바우처구분" name="바우처구분" data-placeholder="바우처구분" disabled>
+										<option value=""></option>
+										<option value="옵션1">옵션1</option>
+										<option value="옵션2">옵션2</option>
+										<option value="옵션3">옵션3</option>
+									</select>
+								</div><!-- .form-container -->
+							</td>
+						</tr>
+						<!--^ 치료지원 -->
+						</tbody>
+					</table>
+				</div>
+
+				<div class="section-body">
+					<div class="section-header">
+						<div class="title-wrap">
+							<div class="title">검색결과<span class="small text-primary">(99건)</span></div>
+						</div>
+						<div class="button-wrap">
+							<button type="button" class="btn btn-line-primary">
+								<i class="icon-download"></i>
+								<span>엑셀</span>
+							</button>
+						</div>
+					</div>
+					<div id="gridHolder"></div><!-- 그리드 영역 -->
+				</div>
+			</div>
+		</div><!-- .content-wrap -->
+	</div><!-- .container -->
+	
+	<!-- 팝업 위치는 항상 여기에 넣어주세요. -->
+	<div id="slipOutput" class="layerPopup">
+		<div class="layer-wrap" style="width: 610px;">
+			<div class="layer-header">
+				<h4 class="layer-title">전표출력</h4>
+				<div class="button-wrap">
+					<button type="button" class="btn btn_close" title="창닫기">
+						<i class="icon-close"></i>
+					</button>
+				</div>
+			</div><!-- .layer-header -->
+	
+			<div class="layer-body">
+				<div class="section-header">
+					<div class="title-wrap">
+						<div class="sub-title">출력일시 : YYYY.MM.DD HH:MM:SS</div>
+					</div>
+				</div><!-- .section-header -->
+
+				<div class="section-body">
+					<table class="tbl-form">
+						<colgroup>
+							<col style="width: 100px;">
+							<col style="width: 90%;">
+						</colgroup>
+						<tbody>
+							<tr>
+								<th>
+									<label class="form-label" for="">카드번호</label>
+								</td>
+								<td>9491-1122-5555-0000</td>
+							</tr>
+							<tr>
+								<th>
+									<label class="form-label" for="">거래일자</label>
+								</th>
+								<td>YYYY.MM.DD</td>
+							</tr>
+							<tr>
+								<th>
+									<label class="form-label" for="">거래시간</label>
+								</th>
+								<td>HH:MM:SS</td>
+							</tr>
+							<tr>
+								<th>
+									<label class="form-label" for="">거래상태</label>
+								</th>
+								<td>정상</td>
+							</tr>
+							<tr>
+								<th>
+									<label class="form-label" for="">합계</label>
+								</th>
+								<td>6,500원</td>
+							</tr>
+							<tr>
+								<th>
+									<label class="form-label" for="">승인번호</label>
+								</th>
+								<td>0000000000</td>
+							</tr>
+							<tr>
+								<th>
+									<label class="form-label" for="">가맹점명</label>
+								</th>
+								<td>농협경기도청출장소</td>
+							</tr>
+							<tr>
+								<th>
+									<label class="form-label" for="">가맹점 사업자번호</label>
+								</th>
+								<td>000000000</td>
+							</tr>
+							<tr>
+								<th>
+									<label class="form-label" for="">대표자명</label>
+								</th>
+								<td>김*토토로</td>
+							</tr>
+						</tbody>
+					</table>
+				</div><!-- .section-body -->
+
+
+			</div><!-- .layer-body -->
+	
+			<div class="layer-footer">
+				<div class="button-wrap">
+					<button type="button" class="btn btn-line">
+						<span>인쇄</span>
+					</button>
+				</div>
+			</div><!-- .layer-footer -->
+		</div><!-- .layer-contents -->
+	</div><!-- #slipOutput.layerPopup -->
+</body>
+</html>

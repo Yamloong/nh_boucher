@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>고유가맹점번호 수정</title>
+
+<!--v Packages -->
+<script src="../../assets/js/jquery.min.js"></script>
+
+<link href="../../assets/css/jquery-ui.min.css" rel="stylesheet" />
+<script src="../../assets/js/jquery-ui.min.js"></script>
+
+<link href="../../assets/css/select2.min.css" rel="stylesheet" />
+<script src="../../assets/js/select2.min.js"></script>
+
+<!-- rMateGridH5 CSS -->
+<link rel="stylesheet" type="text/css" href="../../assets/js/rMateGrid/rMateGridH5/Assets/rMateH5.css"/>
+<!-- rMateGridH5 라이센스 -->
+<script type="text/javascript" src="../../assets/js/rMateGrid/LicenseKey/rMateGridH5License.js"></script>
+<!-- rMateGridH5 라이브러리 -->
+<script type="text/javascript" src="../../assets/js/rMateGrid/rMateGridH5/JS/rMateGridH5.js"></script>
+<!--^ Packages -->
+
+<link href="../../assets/css/all.css" rel="stylesheet" />
+<script src="../../assets/js/util.js"></script>
+</head>
+
+<body class="sub-page">
+	<div id="util">
+		<div class="inner">
+			<div class="info">
+				<div class="administrator">
+					<i class="icon-smile"></i>
+					<span>시스템 관리자</span>
+				</div>
+				<div class="address">경기도 용인시 OO동</div>
+				<div class="log">마지막 로그인 : 2023.05.04 14:05</div>
+				<button type="button" class="btn btn-sub-line">
+					<span>회원정보수정</span>
+				</button>
+				<a href="#" class="btn btn-txt">
+					<span>로그아웃</span>
+				</a>
+			</div>
+		</div>
+	</div>
+	<header>
+		<div class="inner">
+			<h1 class="logo">
+				<a href="#">
+					<img src="../../assets/img/logo.svg" />
+				</a>
+			</h1>
+			<div id="gnb">
+				<ul class="gnb-list">
+					<li>
+						<a href="../통합어드민/시스템목록.html">시스템 로그인</a>
+						<div class="gnb-sub-menu">
+							<ul class="menu-list">
+								<li>
+									<span>바우처 로그인</span>
+									<ul class="sub-menu">
+										<li>
+											<a href="../통합어드민/시스템목록.html">
+												<span>시스템 목록</span>
+											</a>
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</div>
+					</li>
+					<li class="on">
+						<a href="../통합어드민/고유가맹점번호관리.html">시스템 관리</a>
+						<div class="gnb-sub-menu">
+							<ul class="menu-list">
+								<li>
+									<span>공통 시스템관리</span>
+									<ul class="sub-menu">
+										<li>
+											<a href="../통합어드민/고유가맹점번호관리.html">
+												<span>고유가맹점번호 관리</span>
+											</a>
+										</li>
+										<li>
+											<a href="../통합어드민/메뉴관리.html">
+												<span>메뉴관리</span>
+											</a>
+										</li>
+										<li>
+											<a href="../통합어드민/공통코드관리.html">
+												<span>공통코드관리</span>
+											</a>
+										</li>
+										<li>
+											<a href="../통합어드민/가맹점분류코드.html">
+												<span>가맹점분류코드</span>
+											</a>
+										</li>
+										<li>
+											<a href="../통합어드민/공휴일관리.html">
+												<span>공휴일 관리</span>
+											</a>
+										</li>
+									</ul>
+								</li>
+								<li>
+									<span>바우처별 시스템관리</span>
+									<ul class="sub-menu">
+										<li>
+											<a href="../통합어드민/학교등록수정.html">
+												<span>학교등록/수정</span>
+											</a>
+										</li>
+										<li>
+											<a href="../통합어드민/지자체코드관리.html">
+												<span>지자체코드관리</span>
+											</a>
+										</li>
+										<li>
+											<a href="../통합어드민/모집사코드관리.html">
+												<span>모집사코드관리</span>
+											</a>
+										</li>
+									</ul>
+								</li>
+							</ul><!-- .menu-list -->
+						</div>
+					</li>
+					<li>
+						<a href="../통합어드민/BC카드모니터링.html">모니터링/정산</a>
+						<div class="gnb-sub-menu">
+							<ul class="menu-list">
+								<li>
+									<span>모니터링</span>
+									<ul class="sub-menu">
+										<li>
+											<a href="../통합어드민/BC카드모니터링.html">
+												<span>BC카드모니터링</span>
+											</a>
+										</li>
+										<li>
+											<a href="../통합어드민/정산배치모니터링.html">
+												<span>정산배치모니터링</span>
+											</a>
+										</li>
+										<li>
+											<a href="../통합어드민/대사모니터링.html">
+												<span>대사모니터링</span>
+											</a>
+										</li>
+									</ul>
+								</li>
+								<li>
+									<span>정산</span>
+									<ul class="sub-menu">
+										<li>
+											<a href="../통합어드민/지자체미정산내역.html">
+												<span>지자체미정산내역</span>
+											</a>
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</div>
+					</li>
+					<li>
+						<a href="../통합어드민/월별사용내역.html">통계/분석</a>
+						<div class="gnb-sub-menu">
+							<ul class="menu-list">
+								<li>
+									<span>거래내역</span>
+									<ul class="sub-menu">
+										<li>
+											<a href="../통합어드민/월별사용내역.html">
+												<span>월별사용내역</span>
+											</a>
+										</li>
+										<li>
+											<a href="../통합어드민/일별사용내역.html">
+												<span>일별사용내역</span>
+											</a>
+										</li>
+										<li>
+											<a href="../통합어드민/프랜차이즈상세조회.html">
+												<span>프랜차이즈 상세조회</span>
+											</a>
+										</li>
+									</ul>
+								</li>
+								<li>
+									<span>수수료내역</span>
+									<ul class="sub-menu">
+										<li>
+											<a href="../통합어드민/영업점별수수료현황.html">
+												<span>영업점별 수수료 현황</span>
+											</a>
+										</li>
+										<li>
+											<a href="../통합어드민/VAN사수수료월별.html">
+												<span>VAN사 수수료 월별 현황</span>
+											</a>
+										</li>
+										<li>
+											<a href="../통합어드민/VAN사수수료일별.html">
+												<span>VAN사 수수료 일별 현황</span>
+											</a>
+										</li>
+										<li>
+											<a href="../통합어드민/BC카드수수료현황.html">
+												<span>BC카드 수수료 현황</span>
+											</a>
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</div>
+					</li>
+					<li>
+						<a href="../통합어드민/알림톡월별현황.html">알림톡/문자</a>
+						<div class="gnb-sub-menu">
+							<ul class="menu-list">
+								<li>
+									<span>알림톡/문자</span>
+									<ul class="sub-menu">
+										<li>
+											<a href="../통합어드민/알림톡월별현황.html">
+												<span>알림톡/문자 월별 현황</span>
+											</a>
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</div>
+					</li>
+					<li>
+						<a href="../통합어드민/재료카드요청.html">재료카드</a>
+						<div class="gnb-sub-menu">
+							<ul class="menu-list">
+								<li>
+									<span>재료카드관리</span>
+									<ul class="sub-menu">
+										<li>
+											<a href="../통합어드민/재료카드요청.html">
+												<span>재료카드 요청</span>
+											</a>
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</div>
+					</li>
+				</ul>
+				<button type="button" class="btn btn-txt btn-allmenu">
+					<i class="icon-allmenu"></i>
+					<span>전체보기</span>
+				</button>
+			</div>
+		</div>
+	</header>
+
+	<div class="container">
+		<div id="lnb">
+			<div class="group-title menu02">
+				<span>시스템 관리</span>
+			</div>
+			<div class="menu-wrap">
+				<ul class="menu-list">
+					<li class="on">
+						<a href="#">
+							<span class="menu1-1">공통 시스템관리</span>
+							<i class="icon-arrow-down"></i>
+						</a>
+						<ul class="sub-menu">
+							<li class="on">
+								<a href="#">
+									<span>고유가맹점번호 관리</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span>메뉴관리</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span>공통코드관리</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span>가맹점분류코드</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span>공휴일관리</span>
+								</a>
+							</li>
+						</ul>
+					</li>
+					<li>
+						<a href="#">
+							<span class="menu1-1">바우처별 시스템 관리</span>
+							<i class="icon-arrow-down"></i>
+						</a>
+						<ul class="sub-menu">
+							<li>
+								<a href="#">
+									<span>학교관리</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span>지자체관리</span>
+								</a>
+							</li>
+							<li>
+								<a href="#">
+									<span>모집사코드관리</span>
+								</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+				<div class="inquiry">
+					<div>시스템 문의</div>
+					<a href="mailto:wecard@bizplay.co.kr" class="btn btn-txt">
+						<span>wecard@bizplay.co.kr</span>
+					</a>
+				</div>
+			</div>
+		</div>
+		<!-- #lnb -->
+		<div class="content-wrap"></div>
+	</div><!-- .container -->
+
+	<!-- 팝업 위치는 항상 여기에 넣어주세요. -->
+	<div id="registerBusiness" class="layerPopup" style="display: block;"><!-- 실제 작업하실 때는 style 선언은 지워주세요. 팝업 활성화 방법은 components/modal.html 파일을 참고해주세요. -->
+		<div class="layer-wrap" style="width: 500px;">
+			<div class="layer-header">
+				<h4 class="layer-title">종목 정보</h4>
+				<div class="button-wrap">
+					<button type="button" class="btn btn_close" title="창닫기">
+						<i class="icon-close"></i>
+					</button>
+				</div>
+			</div><!-- .layer-header -->
+	
+			<div class="layer-body">
+				<div class="section-body">
+					<table class="tbl-form">
+						<colgroup>
+							<col style="width: 100px;">
+							<col style="width: 90%;">
+						</colgroup>
+						<tbody>
+							<tr>
+								<th>
+									<label class="form-label" for="종목코드"><span>종목코드</span></label>
+								</th>
+								<td>
+									<div class="input-wrap">
+										<input type="text" id="종목코드" name="종목코드" value="22" placeholder="" disabled />
+									</div><!-- .input-wrap -->
+								</td>
+							</tr>
+							<tr>
+								<th>
+									<label class="form-label" for="종목명"><span>종목명</span></label>
+								</th>
+								<td>
+									<div class="input-wrap">
+										<input type="text" id="종목명" name="종목명" value="[BC]문화취미" placeholder="" disabled />
+									</div><!-- .input-wrap -->
+								</td>
+							</tr>
+							<tr>
+								<th>
+									<label class="form-label" for="카드구분"><span>카드구분</span></label>
+								</th>
+								<td>
+									<div class="input-wrap">
+										<input type="text" id="카드구분" name="카드구분" value="BC" placeholder="" disabled />
+									</div><!-- .input-wrap -->
+								</td>
+							</tr>
+							<tr>
+								<th>
+									<label class="form-label" for="종목코드2"><span>종목코드</span></label>
+								</th>
+								<td>
+									<div class="input-wrap">
+										<input type="text" id="종목코드2" name="종목코드2" value="" placeholder="" />
+									</div><!-- .input-wrap -->
+								</td>
+							</tr>
+							<tr>
+								<th>
+									<label class="form-label" for="종목명칭"><span>종목명칭</span></label>
+								</th>
+								<td>
+									<div class="input-wrap">
+										<input type="text" id="종목명칭" name="종목명칭" value="" placeholder="" />
+									</div><!-- .input-wrap -->
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div><!-- .section-body -->
+
+			</div><!-- .layer-body -->
+	
+			<div class="layer-footer">
+				<div class="button-wrap">
+					<button type="button" class="btn btn-line btn_close">
+						<span>취소</span>
+					</button>
+					<button type="button" class="btn btn-line-strong">
+						<span>삭제</span>
+					</button>
+					<button type="button" class="btn btn-primary">
+						<span>저장</span>
+					</button>
+				</div>
+			</div><!-- .layer-footer -->
+		</div><!-- .layer-contents -->
+	</div><!-- #registerBusiness.layerPopup -->
+</body>
+</html>

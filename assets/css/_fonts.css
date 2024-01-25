@@ -1,0 +1,20 @@
+@charset "UTF-8";
+
+/* 나눔스퀘어 */
+@font-face{
+	font-family: "NotoSansKR";
+	font-weight: 400;
+	src:url("../fonts/NotoSansKR/NotoSansKR-Regular.woff2");
+}
+	
+@font-face{
+	font-family: "NotoSansKR";
+	font-weight: 500;
+	src:url("../fonts/NotoSansKR/NotoSansKR-Medium.woff2");
+}
+	
+@font-face{
+	font-family: "NotoSansKR";
+	font-weight: 700;
+	src:url("../fonts/NotoSansKR/NotoSansKR-Bold.woff2");
+}

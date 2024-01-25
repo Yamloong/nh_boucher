@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>대시보드</title>
+
+<!--v Packages -->
+<script src="../../assets/js/jquery.min.js"></script>
+
+<link href="../../assets/css/jquery-ui.min.css" rel="stylesheet" />
+<script src="../../assets/js/jquery-ui.min.js"></script>
+
+<link href="../../assets/css/select2.min.css" rel="stylesheet" />
+<script src="../../assets/js/select2.min.js"></script>
+
+<!-- rMateGridH5 CSS -->
+<link rel="stylesheet" type="text/css" href="../../assets/js/rMateGrid/rMateGridH5/Assets/rMateH5.css"/>
+<!-- rMateGridH5 라이센스 -->
+<script type="text/javascript" src="../../assets/js/rMateGrid/LicenseKey/rMateGridH5License.js"></script>
+<!-- rMateGridH5 라이브러리 -->
+<script type="text/javascript" src="../../assets/js/rMateGrid/rMateGridH5/JS/rMateGridH5.js"></script>
+<!--^ Packages -->
+
+<link href="../../assets/css/all.css" rel="stylesheet" />
+<script src="../../assets/js/util.js"></script>
+</head>
+
+<body class="sub-page">
+	<div id="util">
+		<div class="inner">
+			<div class="info">
+				<div class="administrator">
+					<i class="icon-smile"></i>
+					<span>시스템 관리자</span>
+				</div>
+				<div class="address">경기도 용인시 OO동</div>
+				<div class="log">마지막 로그인 : 2023.05.04 14:05</div>
+				<button type="button" class="btn btn-sub-line">
+					<span>회원정보수정</span>
+				</button>
+				<a href="#" class="btn btn-txt">
+					<span>로그아웃</span>
+				</a>
+			</div>
+		</div>
+	</div>
+	<header>
+		<div class="inner">
+			<h1 class="logo">
+				<a href="#">
+					<img src="../../assets/img/logo.svg" />
+				</a>
+			</h1>
+			<div id="gnb">
+				<ul class="gnb-list">
+					<li>
+						<a href="#">회원/카드관리</a>
+					</li>
+					<li>
+						<a href="#">거래관리</a>
+					</li>
+					<li>
+						<a href="#">정산현황</a>
+					</li>
+					<li>
+						<a href="#">통계/분석</a>
+					</li>
+					<li>
+						<a href="#">지원정책</a>
+					</li>
+					<li>
+						<a href="#">환경설정</a>
+					</li>
+				</ul>
+				<button type="button" class="btn btn-txt btn-allmenu">
+					<i class="icon-allmenu"></i>
+					<span>전체보기</span>
+				</button>
+			</div>
+		</div>
+	</header>
+
+	<div class="container" style="padding-left: 22px;">
+
+		<div class="mypage-wrap">
+
+			<!-- 왼쪽 -->
+			<div class="mypage-box">
+					
+				<!--v 카드정보 바로 검색 -->
+				<div class="section-body">
+					<div class="section-header mb20">
+						<div class="title-wrap">
+							<div class="title">카드정보 바로 검색</div>
+							<div class="sub-title">검색 시 대상자의 종합관리 페이지로 이동합니다.</div>
+						</div>
+					</div><!-- .section-header -->
+					<div class="card-search">
+						<div class="form-control-wrap">
+							<label for="카드번호" class="form-label"><span>카드번호</span></label>
+							<div class="form-container">
+								<div class="input-wrap">
+									<input type="text" id="카드번호" name="카드번호" value="9492-11" placeholder="" maxlength="16" />
+								</div><!-- .input-wrap -->
+								<button type="button" class="btn btn-primary btn-big">
+									<i class="icon-search"></i>
+									<span>검색</span>
+								</button>
+							</div>
+						</div>
+					</div>
+				</div><!-- .section-body -->
+				<!-- 카드정보 바로 검색 -->
+
+				<!--v 나의 즐겨찾기 -->
+				<div class="section-body">
+					<div class="section-header mb20">
+						<div class="title-wrap">
+							<div class="title">나의 즐겨찾기</div>
+						</div>
+						<div class="button-wrap">
+							<button type="button" class="btn btn-line-primary">
+								<i class="icon-plus_s"></i>
+								<span>즐겨찾기 등록</span>
+							</button>
+						</div>
+					</div><!-- .section-header -->
+					<div class="favorite-list">
+						<ul class="list">
+							<li>
+								<a href="../거래관리/충전소멸사용현황.html" class="btn btn-sub-line">
+									<i class="icon-favorite_on"></i>
+									<span>충전소멸사용현황</span>
+								</a>
+							</li>
+							<li>
+								<a href="../회원카드관리/재료카드요청.html" class="btn btn-sub-line">
+									<i class="icon-favorite_on"></i>
+									<span>재료카드 요청</span>
+								</a>
+							</li>
+							<li>
+								<a href="../회원카드관리/대상자_신규등록.html" class="btn btn-sub-line">
+									<i class="icon-favorite_on"></i>
+									<span>대상자 신규등록</span>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div><!-- .section-body -->
+				<!-- 나의 즐겨찾기 -->
+					
+				<div class="row">
+					<div class="col-6">
+						<!--v 경북일반(001) 바우처 카드 정책 조회 -->
+						<div class="section-body">
+							<div class="section-header">
+								<div class="title-wrap">
+									<div class="title">경북일반(001) 바우처 카드 정책 조회</div>
+								</div>
+							</div><!-- .section-header -->
+							<ul class="payment-list">
+								<li>
+									<select class="form-select select2 w100p" id="바우처카드" name="바우처카드" data-placeholder="바우처카드 선택">
+										<option value=""></option>
+										<option value="옵션1">옵션1</option>
+										<option value="옵션2">옵션2</option>
+										<option value="옵션3">옵션3</option>
+									</select>
+								</li>
+								<li>
+									<span>월 충전금액</span>
+									<span>8,000원</span>
+								</li>
+								<li>
+									<span>승인제한시간</span>
+									<span>00:00 ~ 05:00</span>
+								</li>
+								<li>
+									<span>일 한도금액</span>
+									<span>48,000원</span>
+								</li>
+								<li>
+									<span>일 한도금액</span>
+									<span>48,000원</span>
+								</li>
+								<li>
+									<span>일 한도금액</span>
+									<span>48,000원</span>
+								</li>
+							</ul>
+						</div><!-- .section-body -->
+						<!-- 경북일반(001) 바우처 카드 정책 조회 -->
+					</div>
+					<div class="col-6">
+						<!--v 카드분실 신고 내역 목록 -->
+						<div class="section-body">
+							<div class="section-header">
+								<div class="title-wrap">
+									<div class="title">
+										<a href="#">
+											카드분실 신고 내역 목록
+											<i class="icon-arrow-right"></i>
+										</a>
+									</div>
+								</div>
+							</div><!-- .section-header -->
+							<ul class="board-list">
+								<li>
+									<a href="#" class="subject">[외부] ★필독★ 대상자의 배달신청이 완료되었습니다.</a>
+									<div class="date">2022.09.30</div>
+								</li>
+								<li>
+									<a href="#" class="subject">[외부]  플랫폼 매뉴얼 전달</a>
+									<div class="date">2022.09.30</div>
+								</li>
+								<li>
+									<a href="#" class="subject">[외부] 배달료 지원 방법 안내</a>
+									<div class="date">2022.09.30</div>
+								</li>
+								<li>
+									<a href="#" class="subject">[외부] 배달료 지원 방법 안내</a>
+									<div class="date">2022.09.30</div>
+								</li>
+								<li>
+									<a href="#" class="subject">[외부] ★필독★ 대상자의 배달...</a>
+									<div class="date">2022.09.30</div>
+								</li>
+							</ul>
+						</div><!-- .section-body -->
+						<!-- 카드분실 신고 내역 목록 -->
+					</div>
+				</div>
+			</div><!-- .mypage-box-->
+
+			<!-- 오른쪽 -->
+			<div class="mypage-box status-area">
+					
+				<div class="row">
+					<div class="col-6">
+						<!--v 06월 12일 미정산 가맹점 -->
+						<div class="section-body box01">
+							<div class="section-header">
+								<div class="title-wrap">
+									<div class="title">정상카드 사용자 수</div>
+								</div>
+							</div><!-- .section-header -->
+							<div class="count-area">
+								<span class="number">1,200</span>
+								<span class="unit">명</span>
+							</div>
+						</div><!-- .section-body -->
+						<!-- 정상카드 사용자 수 -->
+					</div>
+
+					<div class="col-6">
+						<!--v 이상징후 검출 건 수 -->
+						<div class="section-body">
+							<div class="section-header">
+								<div class="title-wrap">
+									<div class="title">이상징후 검출 건 수</div>
+								</div>
+							</div><!-- .section-header -->
+							<!-- <ul class="abnormal-list">
+								<li>
+									<span>옵션1. 시간</span>
+									<span>8,000건</span>
+								</li>
+								<li>
+									<span>옵션2. 거리</span>
+									<span>8,000건</span>
+								</li>
+								<li>
+									<span>옵션3. 연속결식일</span>
+									<span>8,000명</span>
+								</li>
+								<li>
+									<span>옵션4. 가맹점 일매출액</span>
+									<span>48,000개</span>
+								</li>
+								<li>
+									<span>옵션5. 가맹점 월매출액</span>
+									<span>48,000개</span>
+								</li>
+							</ul> -->
+							
+							<ul class="abnormal-list">
+								<li>
+									<span>옵션1. 가맹점 매출액 TOP3</span>
+									<ul class="sub-list">
+										<li>
+											<span>1위 바른심리운동센터</span>
+											<span>300,000,000원</span>
+										</li>
+										<li>
+											<span>2위 제일언어심리센터</span>
+											<span>300,000,000원</span>
+										</li>
+										<li>
+											<span>3위 사랑아동발달센터</span>
+											<span>300,000,000원</span>
+										</li>
+									</ul>
+								</li>
+								<li>
+									<span>옵션2. 전월 미사용자</span>
+									<span>8,000명</span>
+								</li>
+							</ul>
+						</div><!-- .section-body -->
+						<!-- 이상징후 검출 건 수 -->
+					</div>
+				</div><!-- .row -->
+					
+				<div class="row">
+					<div class="col-6">
+						<!--v 06월 12일 미정산 가맹점 -->
+						<div class="section-body box03">
+							<div class="section-header">
+								<div class="title-wrap">
+									<div class="title">06월 12일 미정산 가맹점</div>
+								</div>
+							</div><!-- .section-header -->
+							<div class="count-area">
+								<span class="number">324</span>
+								<span class="unit">명</span>
+							</div>
+						</div><!-- .section-body -->
+						<!-- 06월 12일 미정산 가맹점 -->
+					</div>
+
+					<div class="col-6">
+						<!--v 06월 12일 결제건 수 -->
+						<div class="section-body box04">
+							<div class="section-header">
+								<div class="title-wrap">
+									<div class="title">06월 12일 결제건 수</div>
+								</div>
+							</div><!-- .section-header -->
+							<div class="count-area">
+								<span class="number">385</span>
+								<span class="unit">건</span>
+							</div>
+						</div><!-- .section-body -->
+						<!-- 06월 12일 결제건 수 -->
+					</div>
+				</div><!-- .row -->
+					
+				<div class="row">
+					<div class="col-6">
+						<!--v 전입 내역 확인 -->
+						<div class="section-body">
+							<div class="section-header">
+								<div class="title-wrap">
+									<div class="title">
+										<a href="#">
+											전입 내역 확인
+											<i class="icon-arrow-right"></i>
+										</a>
+									</div>
+								</div>
+							</div><!-- .section-header -->
+							<ul class="board-list">
+								<li>
+									<a href="#" class="subject">[외부] ★필독★ 대상자의 배달신청이 완료되었습니다.</a>
+									<div class="date">2022.09.30</div>
+								</li>
+								<li>
+									<a href="#" class="subject">[외부]  플랫폼 매뉴얼 전달</a>
+									<div class="date">2022.09.30</div>
+								</li>
+								<li>
+									<a href="#" class="subject">[외부] 배달료 지원 방법 안내</a>
+									<div class="date">2022.09.30</div>
+								</li>
+								<li>
+									<a href="#" class="subject">[외부] 배달료 지원 방법 안내</a>
+									<div class="date">2022.09.30</div>
+								</li>
+								<li>
+									<a href="#" class="subject">[외부] ★필독★ 대상자의 배달...</a>
+									<div class="date">2022.09.30</div>
+								</li>
+							</ul>
+						</div><!-- .section-body -->
+						<!-- 전입 내역 확인 -->
+					</div>
+					<div class="col-6">
+						<!--v 카드분실 신고 내역 목록 -->
+						<div class="section-body">
+							<div class="section-header">
+								<div class="title-wrap">
+									<div class="title">
+										<a href="#">
+											카드분실 신고 내역 목록
+											<i class="icon-arrow-right"></i>
+										</a>
+									</div>
+								</div>
+							</div><!-- .section-header -->
+							<ul class="board-list">
+								<li>
+									<a href="#" class="subject">[외부] ★필독★ 대상자의 배달신청이 완료되었습니다.</a>
+									<div class="date">2022.09.30</div>
+								</li>
+								<li>
+									<a href="#" class="subject">[외부]  플랫폼 매뉴얼 전달</a>
+									<div class="date">2022.09.30</div>
+								</li>
+								<li>
+									<a href="#" class="subject">[외부] 배달료 지원 방법 안내</a>
+									<div class="date">2022.09.30</div>
+								</li>
+								<li>
+									<a href="#" class="subject">[외부] 배달료 지원 방법 안내</a>
+									<div class="date">2022.09.30</div>
+								</li>
+								<li>
+									<a href="#" class="subject">[외부] ★필독★ 대상자의 배달...</a>
+									<div class="date">2022.09.30</div>
+								</li>
+							</ul>
+						</div><!-- .section-body -->
+						<!-- 카드분실 신고 내역 목록 -->
+					</div>
+				</div>
+
+			</div><!-- .mypage-box-->
+
+		</div><!-- .mypage-wrap -->
+		
+	</div><!-- .container -->
+</body>
+</html>
